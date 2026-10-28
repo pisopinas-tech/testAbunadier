@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" class="dark scroll-smooth">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Abunadier Da'wah-TV PH - Online Madrasa System</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -12,23 +12,22 @@
             theme: {
                 extend: {
                     colors: {
-                        ios: {
-                            bg: '#030a08',
-                            surface: 'rgba(6, 30, 22, 0.65)',
-                            card: 'rgba(8, 40, 30, 0.5)',
-                            border: 'rgba(251, 191, 36, 0.15)',
-                            glass: 'rgba(4, 18, 13, 0.75)',
+                        aesthetic: {
+                            bg: '#fcfbfa',
+                            surface: 'rgba(255, 255, 255, 0.75)',
+                            card: 'rgba(255, 255, 255, 0.6)',
+                            border: 'rgba(180, 155, 130, 0.2)',
+                            brownDark: '#4a3b32',
+                            brownLight: '#8c7365',
+                            accent: '#b8977e',
                         },
-                        emerald: {
-                            800: '#065f46',
-                            900: '#064e3b',
-                            950: '#022c22',
-                        },
-                        gold: {
-                            300: '#fde047',
-                            400: '#fbbf24',
-                            500: '#f59e0b',
-                            600: '#d97706',
+                        darkAesthetic: {
+                            bg: '#0f0e0d',
+                            surface: 'rgba(30, 27, 25, 0.75)',
+                            card: 'rgba(40, 36, 33, 0.6)',
+                            border: 'rgba(180, 155, 130, 0.15)',
+                            text: '#f5f2ed',
+                            muted: '#b0a499',
                         }
                     },
                     fontFamily: {
@@ -36,9 +35,8 @@
                         arabic: ['Amiri', 'Traditional Arabic', 'serif']
                     },
                     boxShadow: {
-                        'ios-glow': '0 0 25px -5px rgba(245, 158, 11, 0.15)',
-                        'ios-card': '0 10px 30px -10px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05)',
-                        'ios-modal': '0 25px 50px -12px rgba(0, 0, 0, 0.7)',
+                        'aesthetic': '0 10px 30px -10px rgba(139, 115, 101, 0.08), 0 0 0 1px rgba(180, 155, 130, 0.15)',
+                        'aesthetic-modal': '0 25px 50px -12px rgba(74, 59, 50, 0.25)',
                     }
                 }
             }
@@ -49,81 +47,107 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* Apple SF Pro Style Glassmorphism & Micro-Interactions */
-        .ios-glass {
-            background: rgba(8, 32, 24, 0.65);
+        .aesthetic-glass {
+            background: rgba(255, 255, 255, 0.75);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(251, 191, 36, 0.15);
+            border: 1px solid rgba(180, 155, 130, 0.25);
         }
-        .ios-glass-card {
-            background: rgba(12, 42, 32, 0.45);
+        .dark .aesthetic-glass {
+            background: rgba(30, 27, 25, 0.8);
+            border: 1px solid rgba(180, 155, 130, 0.2);
+        }
+
+        .aesthetic-glass-card {
+            background: rgba(255, 255, 255, 0.6);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(180, 155, 130, 0.15);
         }
-        .ios-glass-card:hover {
-            border-color: rgba(251, 191, 36, 0.3);
-            box-shadow: 0 12px 35px -10px rgba(245, 158, 11, 0.15);
+        .dark .aesthetic-glass-card {
+            background: rgba(40, 36, 33, 0.65);
+            border: 1px solid rgba(180, 155, 130, 0.15);
         }
-        .ios-glass-header {
-            background: rgba(3, 13, 10, 0.8);
+        .aesthetic-glass-card:hover {
+            border-color: rgba(184, 151, 126, 0.5);
+            box-shadow: 0 12px 35px -10px rgba(139, 115, 101, 0.15);
+        }
+
+        .aesthetic-glass-header {
+            background: rgba(252, 251, 250, 0.85);
             backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
         }
-        .gold-gradient-text {
-            background: linear-gradient(135deg, #fffbeb 0%, #fde047 30%, #f59e0b 70%, #d97706 100%);
+        .dark .aesthetic-glass-header {
+            background: rgba(15, 14, 13, 0.9);
+        }
+
+        .brown-gradient-text {
+            background: linear-gradient(135deg, #4a3b32 0%, #6b5344 50%, #8c7365 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .gold-btn-gradient {
-            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
+        .dark .brown-gradient-text {
+            background: linear-gradient(135deg, #f5f2ed 0%, #d4c5b9 50%, #b8977e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        .gold-btn-gradient:hover {
-            background: linear-gradient(135deg, #fde047 0%, #fbbf24 50%, #f59e0b 100%);
+
+        .brown-btn-gradient {
+            background: linear-gradient(135deg, #8c7365 0%, #6b5344 100%);
+            color: #ffffff;
         }
-        .ios-button-active {
+        .dark .brown-btn-gradient {
+            background: linear-gradient(135deg, #b8977e 0%, #8c7365 100%);
+            color: #ffffff;
+        }
+        .brown-btn-gradient:hover {
+            background: linear-gradient(135deg, #6b5344 0%, #4a3b32 100%);
+        }
+
+        .button-active {
             transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .ios-button-active:active {
+        .button-active:active {
             transform: scale(0.95);
         }
-        /* Custom scrollbars */
         ::-webkit-scrollbar {
             width: 6px;
             height: 6px;
         }
         ::-webkit-scrollbar-track {
-            background: rgba(2, 44, 34, 0.3);
+            background: rgba(240, 235, 230, 0.5);
+        }
+        .dark ::-webkit-scrollbar-track {
+            background: rgba(30, 27, 25, 0.5);
         }
         ::-webkit-scrollbar-thumb {
-            background: rgba(245, 158, 11, 0.4);
+            background: rgba(140, 115, 101, 0.3);
             border-radius: 9999px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: rgba(245, 158, 11, 0.7);
+            background: rgba(140, 115, 101, 0.6);
         }
-        /* Dynamic iOS Switch Styling */
-        .ios-switch {
+        .aesthetic-switch {
             position: relative;
             display: inline-block;
             width: 44px;
             height: 24px;
         }
-        .ios-switch input {
+        .aesthetic-switch input {
             opacity: 0;
             width: 0;
             height: 0;
         }
-        .ios-slider {
+        .aesthetic-slider {
             position: absolute;
             cursor: pointer;
             top: 0; left: 0; right: 0; bottom: 0;
-            background-color: rgba(255, 255, 255, 0.15);
+            background-color: rgba(180, 155, 130, 0.3);
             transition: .3s cubic-bezier(0.4, 0, 0.2, 1);
             border-radius: 24px;
         }
-        .ios-slider:before {
+        .aesthetic-slider:before {
             position: absolute;
             content: "";
             height: 20px;
@@ -133,141 +157,106 @@
             background-color: white;
             transition: .3s cubic-bezier(0.4, 0, 0.2, 1);
             border-radius: 50%;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
         }
-        input:checked + .ios-slider {
-            background-color: #f59e0b;
+        input:checked + .aesthetic-slider {
+            background-color: #8c7365;
         }
-        input:checked + .ios-slider:before {
+        input:checked + .aesthetic-slider:before {
             transform: translateX(20px);
         }
+        @keyframes photoFlash { 0% { opacity: 0.95; } 100% { opacity: 0; } }
+        @keyframes photoPop { 0% { transform: scale(0.6); opacity: 0; filter: brightness(2.5); } 60% { transform: scale(1.04); opacity: 1; filter: brightness(1.4); } 100% { transform: scale(1); opacity: 1; filter: brightness(1); } }
+        .photo-flash-layer { animation: photoFlash 0.6s ease-out forwards; }
+        .photo-pop { animation: photoPop 0.5s ease-out forwards; }
+        header.sticky { padding-top: env(safe-area-inset-top, 0px); }
+        body { padding-bottom: env(safe-area-inset-bottom, 0px); }
+        #toast-message { margin-bottom: env(safe-area-inset-bottom, 0px); }
     </style>
 </head>
-<body class="bg-ios-bg text-slate-100 font-sans min-h-screen flex flex-col selection:bg-gold-500 selection:text-slate-950 antialiased overflow-x-hidden">
+<body class="bg-aesthetic-bg dark:bg-darkAesthetic-bg text-aesthetic-brownDark dark:text-darkAesthetic-text font-sans min-h-screen flex flex-col selection:bg-aesthetic-accent selection:text-white antialiased overflow-x-hidden transition-colors duration-300">
 
-    <!-- TOP APPLE iOS NAVBAR -->
-    <header class="sticky top-0 z-40 w-full ios-glass-header border-b border-gold-500/10 shadow-2xl transition-all">
+    <!-- TOP NAVBAR -->
+    <header class="sticky top-0 z-40 w-full aesthetic-glass-header border-b border-aesthetic-border shadow-sm transition-all">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            
-            <!-- Logo & Brand Title -->
             <div class="flex items-center space-x-3.5 cursor-pointer group" onclick="navigateTo('home')">
-                <div class="relative w-11 h-11 rounded-2xl bg-gradient-to-tr from-gold-600 via-gold-400 to-amber-200 flex items-center justify-center p-0.5 shadow-lg shadow-gold-500/20 group-hover:scale-105 transition-transform duration-300">
-                    <div class="w-full h-full bg-[#04120e] rounded-[14px] flex items-center justify-center">
-                        <i class="fa-solid fa-kaaba text-gold-400 text-xl group-hover:rotate-6 transition-transform"></i>
+                <div class="relative w-11 h-11 rounded-2xl bg-gradient-to-tr from-[#6b5344] via-[#8c7365] to-[#b8977e] flex items-center justify-center p-0.5 shadow-md group-hover:scale-105 transition-transform duration-300">
+                    <div class="w-full h-full bg-[#fcfbfa] dark:bg-[#0f0e0d] rounded-[14px] flex items-center justify-center transition-colors">
+                        <i class="fa-solid fa-kaaba text-[#6b5344] dark:text-[#b8977e] text-xl group-hover:rotate-6 transition-transform"></i>
                     </div>
                 </div>
-                <div>
-                    <div class="flex items-center gap-2">
-                        <h1 class="font-bold text-base sm:text-lg leading-tight gold-gradient-text tracking-tight">ABUNADIER DA'WAH-TV PH</h1>
-                        <span class="px-2 py-0.5 rounded-full text-[9px] font-extrabold bg-gold-500/20 text-gold-300 border border-gold-500/30 uppercase tracking-widest hidden sm:inline-block">iOS Edition</span>
-                    </div>
-                    <p class="text-[11px] text-emerald-400/90 font-medium tracking-wider uppercase">Online Madrasa System</p>
+                <div class="min-w-0">
+                    <h1 class="font-bold text-sm sm:text-lg leading-tight brown-gradient-text tracking-tight">ABUNADIER DA'WAH-TV PH</h1>
+                    <p class="text-[11px] text-aesthetic-brownLight dark:text-darkAesthetic-muted font-medium tracking-wider uppercase">Online Madrasa System</p>
                 </div>
             </div>
 
-            <!-- Frontend Navigation Actions (Apple Dynamic Pill Tabs) -->
             <div class="flex items-center space-x-3">
-                
-                <!-- NAVIGATION SHORTCUT BUTTONS -->
-                <div class="flex items-center bg-black/40 border border-white/10 rounded-2xl p-1 backdrop-blur-md shadow-inner">
-                    <button onclick="switchSystemView('frontend')" id="nav-btn-student" title="Student Portal" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 bg-gold-500 text-slate-950 shadow-md ios-button-active">
-                        <i class="fa-solid fa-graduation-cap text-xs"></i> <span class="hidden sm:inline">Student Portal</span>
-                    </button>
-                    <button onclick="switchSystemView('backend')" id="nav-btn-admin" title="Admin Backend" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 text-slate-400 hover:text-gold-400 hover:bg-emerald-950/40 ios-button-active">
-                        <i class="fa-solid fa-shield-halved text-xs"></i> <span class="hidden sm:inline">Admin</span>
-                    </button>
-                </div>
+                <!-- DAY / NIGHT THEME TOGGLE ICON -->
+                <button onclick="toggleDarkMode()" class="w-10 h-10 rounded-xl bg-white/70 dark:bg-white/10 border border-aesthetic-border flex items-center justify-center text-aesthetic-brownDark dark:text-amber-400 hover:bg-stone-200 dark:hover:bg-white/20 transition-all button-active shadow-sm" title="Toggle Day / Night Mode">
+                    <i id="theme-toggle-icon" class="fa-solid fa-moon text-sm"></i>
+                </button>
 
-                <!-- PUBLIC USER: LOGIN / REGISTER BUTTON -->
-                <div id="logged-out-actions" class="flex items-center space-x-2">
-                    <button onclick="openAuthModal('login')" class="px-3.5 py-2 text-xs sm:text-sm font-semibold text-slate-200 hover:text-gold-400 transition-colors rounded-xl hover:bg-white/5">
-                        <i class="fa-solid fa-right-to-bracket mr-1.5"></i> Log In
-                    </button>
-                    <button onclick="openAuthModal('register')" class="px-4 py-2 text-xs sm:text-sm font-bold gold-btn-gradient text-slate-950 rounded-xl shadow-lg hover:shadow-gold-500/25 transition-all duration-200 ios-button-active">
-                        <i class="fa-solid fa-user-plus mr-1.5"></i> Register
-                    </button>
-                </div>
-
-                <!-- LOGGED IN STUDENT HEADER ICON & POPUP DROPDOWN TRIGGER -->
                 <div id="logged-in-actions" class="hidden relative">
-                    <button onclick="toggleStudentMenu()" class="relative flex items-center justify-center p-1 rounded-full border border-gold-500/40 hover:border-gold-400 bg-emerald-950/60 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gold-400 shadow-md">
-                        <div id="header-avatar-container" class="w-9 h-9 rounded-full overflow-hidden flex items-center justify-center bg-slate-950 text-gold-400 border border-gold-500/30">
-                            <!-- Avatar inserted by JS -->
-                        </div>
-                        <span id="header-photo-warning-dot" class="hidden absolute top-0 right-0 w-3.5 h-3.5 bg-rose-500 border-2 border-slate-950 rounded-full animate-ping"></span>
+                    <button onclick="toggleStudentMenu()" class="relative flex items-center justify-center p-1 rounded-full border border-aesthetic-accent hover:border-aesthetic-brownDark bg-white/80 dark:bg-stone-800 transition-all duration-200 focus:outline-none shadow-sm">
+                        <div id="header-avatar-container" class="w-9 h-9 rounded-full overflow-hidden flex items-center justify-center bg-stone-100 dark:bg-stone-900 text-aesthetic-brownDark dark:text-darkAesthetic-text border border-aesthetic-border"></div>
+                        <span id="header-photo-warning-dot" class="hidden absolute top-0 right-0 w-3.5 h-3.5 bg-rose-500 border-2 border-white dark:border-stone-900 rounded-full animate-ping"></span>
                     </button>
 
-                    <!-- STUDENT DROPDOWN MENU (APPLE macOS FLYOUT) -->
-                    <div id="student-menu-dropdown" class="hidden absolute right-0 mt-3 w-80 ios-glass rounded-3xl border border-gold-500/30 shadow-ios-modal z-50 overflow-hidden transform transition-all duration-200">
-                        <div class="p-4 bg-black/40 border-b border-white/10 flex items-center justify-between">
-                            <span class="text-xs font-bold text-gold-400 uppercase tracking-widest flex items-center gap-2">
-                                <i class="fa-solid fa-graduation-cap text-gold-400"></i> Student Portal
+                    <div id="student-menu-dropdown" class="hidden absolute right-0 mt-3 w-[min(20rem,calc(100vw-2rem))] aesthetic-glass rounded-3xl border border-aesthetic-border shadow-aesthetic-modal z-50 overflow-hidden">
+                        <div class="p-4 bg-white/60 dark:bg-stone-900/60 border-b border-aesthetic-border flex items-center justify-between">
+                            <span class="text-xs font-bold text-aesthetic-brownLight dark:text-darkAesthetic-muted uppercase tracking-widest flex items-center gap-2">
+                                <i class="fa-solid fa-graduation-cap text-aesthetic-brownDark dark:text-darkAesthetic-text"></i> Student Portal
                             </span>
-                            <button onclick="toggleStudentMenu()" class="w-6 h-6 rounded-full bg-white/10 text-slate-400 hover:text-slate-100 flex items-center justify-center text-xs transition-colors"><i class="fa-solid fa-xmark"></i></button>
+                            <button onclick="toggleStudentMenu()" class="w-6 h-6 rounded-full bg-stone-200 dark:bg-stone-800 text-stone-600 dark:text-stone-300 hover:text-stone-900 flex items-center justify-center text-xs"><i class="fa-solid fa-xmark"></i></button>
                         </div>
-
                         <div class="p-3 space-y-2">
-                            <div class="p-3 bg-emerald-950/40 rounded-2xl border border-gold-500/15 backdrop-blur-md">
+                            <div class="p-3 bg-white/50 dark:bg-stone-800/50 rounded-2xl border border-aesthetic-border">
                                 <div class="flex items-center space-x-3 mb-2">
-                                    <div id="dropdown-avatar" class="w-12 h-12 rounded-full overflow-hidden bg-slate-950 border-2 border-gold-400 flex items-center justify-center text-gold-400 text-xl flex-shrink-0 shadow-md">
+                                    <div id="dropdown-avatar" class="w-12 h-12 rounded-full overflow-hidden bg-stone-100 dark:bg-stone-900 border-2 border-aesthetic-accent flex items-center justify-center text-aesthetic-brownDark dark:text-darkAesthetic-text text-xl flex-shrink-0">
                                         <i class="fa-solid fa-user"></i>
                                     </div>
                                     <div class="min-w-0 flex-1">
-                                        <h4 id="dropdown-student-name" class="font-bold text-slate-100 truncate text-sm">Student Name</h4>
+                                        <h4 id="dropdown-student-name" class="font-bold text-aesthetic-brownDark dark:text-darkAesthetic-text truncate text-sm">Student Name</h4>
                                         <div class="flex items-center gap-1.5 mt-1">
-                                            <span id="dropdown-gender-badge" class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-emerald-900/80 text-emerald-300 border border-emerald-500/30">
-                                                Male
-                                            </span>
-                                            <span id="dropdown-level-badge" class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-gold-500/20 text-gold-300 border border-gold-500/30">
-                                                Student
-                                            </span>
+                                            <span id="dropdown-gender-badge" class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-stone-200 dark:bg-stone-700 text-stone-700 dark:text-stone-200">Male</span>
+                                            <span id="dropdown-level-badge" class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-300">Student</span>
                                         </div>
                                     </div>
                                 </div>
-                                <div id="dropdown-timer-warning" class="hidden text-[11px] p-2.5 bg-rose-950/60 border border-rose-500/30 text-rose-300 rounded-xl font-medium flex items-center justify-between mt-2">
-                                    <span><i class="fa-solid fa-clock mr-1"></i> Upload Photo Limit:</span>
-                                    <span id="dropdown-timer-clock" class="font-bold text-rose-400">7d 00h</span>
-                                </div>
                             </div>
-
-                            <button onclick="openDetailedProfileModal()" class="w-full p-3 rounded-2xl bg-white/5 hover:bg-gold-500/10 border border-white/5 hover:border-gold-500/20 text-left flex items-center justify-between group transition-all ios-button-active">
+                            <button onclick="openDetailedProfileModal()" class="w-full p-3 rounded-2xl bg-white/40 dark:bg-stone-800/40 hover:bg-white/80 dark:hover:bg-stone-800 border border-aesthetic-border text-left flex items-center justify-between group transition-all">
                                 <div class="flex items-center space-x-3">
-                                    <div class="w-8 h-8 rounded-xl bg-gold-500/20 text-gold-400 flex items-center justify-center group-hover:bg-gold-500 group-hover:text-slate-950 transition-colors">
+                                    <div class="w-8 h-8 rounded-xl bg-stone-200 dark:bg-stone-700 text-aesthetic-brownDark dark:text-darkAesthetic-text flex items-center justify-center group-hover:bg-aesthetic-brownDark group-hover:text-white">
                                         <i class="fa-solid fa-id-card"></i>
                                     </div>
                                     <div>
-                                        <div class="text-xs font-bold text-slate-200 group-hover:text-gold-400">Profile Details</div>
-                                        <div class="text-[10px] text-slate-400">Name, Address, Contact, DOB</div>
+                                        <div class="text-xs font-bold text-aesthetic-brownDark dark:text-darkAesthetic-text group-hover:text-aesthetic-brownLight">Profile Details</div>
+                                        <div class="text-[10px] text-stone-500 dark:text-stone-400">Name, Address, Contact</div>
                                     </div>
                                 </div>
-                                <i class="fa-solid fa-chevron-right text-xs text-slate-500 group-hover:text-gold-400 transition-transform group-hover:translate-x-1"></i>
+                                <i class="fa-solid fa-chevron-right text-xs text-stone-400"></i>
                             </button>
                         </div>
-
-                        <div class="p-3 border-t border-white/10 bg-black/40 flex items-center justify-between gap-2">
-                            <button onclick="navigateTo('student-dashboard')" class="flex-1 py-2 px-3 text-xs font-bold text-emerald-400 hover:bg-emerald-950/60 rounded-xl text-center transition-colors">
-                                <i class="fa-solid fa-chalkboard-user mr-1"></i> Dashboard
-                            </button>
-                            <button onclick="logoutStudent()" class="py-2 px-3 text-xs font-bold text-rose-400 hover:bg-rose-950/60 rounded-xl text-center transition-colors">
-                                <i class="fa-solid fa-right-from-bracket mr-1"></i> Logout
-                            </button>
+                        <div class="p-3 border-t border-aesthetic-border bg-white/60 dark:bg-stone-900/60 flex items-center justify-between gap-2">
+                            <button onclick="navigateTo('student-dashboard')" class="flex-1 py-2 px-3 text-xs font-bold text-aesthetic-brownDark dark:text-darkAesthetic-text hover:bg-stone-200/60 dark:hover:bg-stone-800 rounded-xl text-center">Dashboard</button>
+                            <button onclick="logoutStudent()" class="py-2 px-3 text-xs font-bold text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-xl text-center">Logout</button>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </header>
 
-    <!-- PROPHETIC HADITH BANNER (WIDGET STYLE) -->
-    <div class="bg-[#020b08] border-b border-gold-500/10 py-3 px-4 shadow-inner">
+    <!-- PROPHETIC HADITH BANNER -->
+    <div class="bg-stone-100/80 dark:bg-stone-900/70 border-b border-aesthetic-border py-3 px-4">
         <div class="max-w-5xl mx-auto text-center space-y-1">
-            <p class="font-arabic text-gold-400 text-base sm:text-lg dir-rtl leading-relaxed" lang="ar">
+            <p class="font-arabic text-aesthetic-brownLight dark:text-amber-200/80 text-base sm:text-lg dir-rtl leading-relaxed" lang="ar">
                 «مَنْ سَلَكَ طَرِيقًا يَلْتَمِسُ فِيهِ عِلْمًا سَهَّلَ اللَّهُ لَهُ بِهِ طَرِيقًا إِلَى الْجَنَّةِ»
             </p>
-            <p class="text-[11px] sm:text-xs text-slate-400 italic">
+            <p class="text-[11px] sm:text-xs text-stone-600 dark:text-stone-400 italic">
                 "Whoever takes a path upon which he seeks knowledge, Allah will make the path to Paradise easy for him."
-                <span class="text-gold-500 font-semibold"> (Sahih Muslim 2699)</span>
+                <span class="text-aesthetic-brownDark dark:text-amber-300 font-semibold"> (Sahih Muslim 2699)</span>
             </p>
         </div>
     </div>
@@ -275,190 +264,145 @@
     <!-- MAIN CONTAINER -->
     <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
         
-        <!-- ==================== FRONTEND SECTION 1: PUBLIC LANDING PAGE ==================== -->
+        <!-- SECTION 1: PUBLIC LANDING PAGE -->
         <section id="view-home" class="space-y-10">
-            <!-- iOS Hero Banner Widget -->
-            <div class="relative rounded-3xl overflow-hidden border border-gold-500/30 p-8 sm:p-14 text-center ios-glass shadow-ios-card">
-                <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(251,191,36,0.12),transparent_60%)]"></div>
-                <div class="absolute -bottom-24 -left-24 w-72 h-72 bg-emerald-500/10 rounded-full blur-3xl"></div>
-                
+            <div class="relative rounded-3xl overflow-hidden border border-aesthetic-border p-8 sm:p-14 text-center aesthetic-glass shadow-aesthetic">
+                <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(184,151,126,0.1),transparent_60%)]"></div>
                 <div class="relative z-10 max-w-3xl mx-auto space-y-6">
-                    <span class="px-4 py-1.5 rounded-full text-xs font-extrabold bg-gold-500/15 text-gold-300 border border-gold-500/30 inline-flex items-center gap-2 uppercase tracking-widest shadow-md">
-                        <i class="fa-solid fa-moon text-gold-400"></i> Official Online Madrasa Portal
+                    <span class="px-4 py-1.5 rounded-full text-xs font-extrabold bg-stone-200/70 dark:bg-stone-800 text-aesthetic-brownDark dark:text-darkAesthetic-text border border-aesthetic-border inline-flex items-center gap-2 uppercase tracking-widest shadow-sm">
+                        <i class="fa-solid fa-moon text-aesthetic-brownLight dark:text-amber-300"></i> Official Online Madrasa Portal
                     </span>
-                    
-                    <h2 class="text-3xl sm:text-5xl font-extrabold text-slate-100 tracking-tight leading-tight">
-                        Portal Study ng Students - <span class="gold-gradient-text">Abunadier Online Madrasa</span>
+                    <h2 class="text-3xl sm:text-5xl font-extrabold text-aesthetic-brownDark dark:text-darkAesthetic-text tracking-tight leading-tight">
+                        <span class="brown-gradient-text">Abunadier Online Madrasa</span>
                     </h2>
-                    
-                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed font-normal max-w-2xl mx-auto">
-                        Isang interactive at modern na Online Madrasa Portal para sa pag-aaral ng authentic Islamic Knowledge across 4 comprehensive semesters.
+                    <p class="text-stone-600 dark:text-stone-300 text-sm sm:text-base leading-relaxed font-normal max-w-2xl mx-auto">
+                        An interactive and modern Online Madrasa Portal for studying authentic Islamic Knowledge across comprehensive semesters.
                     </p>
-
                     <div class="pt-4 flex flex-wrap justify-center gap-4">
-                        <button onclick="openAuthModal('register')" class="px-8 py-4 text-sm font-bold text-slate-950 gold-btn-gradient rounded-2xl shadow-xl hover:shadow-gold-500/30 hover:scale-105 transition-all ios-button-active">
+                        <button onclick="openAuthModal('register')" class="px-8 py-4 text-sm font-bold brown-btn-gradient rounded-2xl shadow-lg hover:shadow-xl transition-all button-active">
                             Enroll Student Now <i class="fa-solid fa-arrow-right ml-2"></i>
                         </button>
-                        <button onclick="scrollToCourses()" class="px-8 py-4 text-sm font-bold text-slate-200 bg-white/5 border border-gold-500/30 hover:bg-gold-500/10 rounded-2xl transition-all ios-button-active">
-                            Tignan ang Semesters
+                        <button onclick="openAuthModal('login')" class="px-8 py-4 text-sm font-bold text-aesthetic-brownDark dark:text-darkAesthetic-text bg-white/70 dark:bg-stone-800 border border-aesthetic-border hover:bg-white dark:hover:bg-stone-700 rounded-2xl transition-all button-active">
+                            Log In to Portal
                         </button>
                     </div>
-                </div>
-            </div>
-
-            <!-- Active Semesters Overview -->
-            <div id="courses-section" class="space-y-6">
-                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b border-white/10 pb-4 gap-2">
-                    <div>
-                        <h3 class="text-2xl font-bold text-slate-100 flex items-center gap-2">
-                            <i class="fa-solid fa-book-open text-gold-400"></i> Mga Aralin sa Madrasa Curriculum
-                        </h3>
-                        <p class="text-slate-400 text-xs sm:text-sm">Semesters na in-activate ng Admin Backend System</p>
-                    </div>
-                    <span class="text-xs text-gold-400/90 italic flex items-center gap-1.5"><i class="fa-solid fa-circle-info"></i> Kailangan mag-login ang estudyante para mabuksan ang dashboard at lesson videos</span>
-                </div>
-
-                <div id="public-semester-cards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <!-- Dynamic semester cards injected by JS -->
                 </div>
             </div>
         </section>
 
-        <!-- ==================== FRONTEND SECTION 2: STUDENT STUDY DASHBOARD ==================== -->
+        <!-- SECTION 2: STUDENT STUDY DASHBOARD -->
         <section id="view-student-dashboard" class="hidden space-y-6">
-            
-            <!-- VERIFIED STUDENT ACCOUNT BANNER (iOS HEAVY WIDGET) -->
-            <div class="ios-glass border border-gold-500/30 rounded-3xl p-6 flex flex-col sm:flex-row items-center justify-between shadow-ios-card gap-4">
+            <div class="aesthetic-glass border border-aesthetic-border rounded-3xl p-6 flex flex-col sm:flex-row items-center justify-between shadow-aesthetic gap-4">
                 <div class="flex items-center space-x-4">
-                    <div class="w-12 h-12 rounded-2xl gold-btn-gradient text-slate-950 flex items-center justify-center text-2xl font-black shadow-lg shadow-gold-500/20 flex-shrink-0">
+                    <div class="w-12 h-12 rounded-2xl brown-btn-gradient text-white flex items-center justify-center text-2xl font-black shadow-md flex-shrink-0">
                         <i class="fa-solid fa-graduation-cap"></i>
                     </div>
                     <div>
-                        <span class="text-[10px] font-extrabold tracking-widest text-gold-400 uppercase block">VERIFIED STUDENT ACCOUNT</span>
-                        <h2 id="dash-student-name" class="text-xl sm:text-2xl font-bold text-slate-100 leading-tight">Student Name</h2>
+                        <span class="text-[10px] font-extrabold tracking-widest text-aesthetic-brownLight dark:text-darkAesthetic-muted uppercase block">VERIFIED STUDENT ACCOUNT</span>
+                        <h2 id="dash-student-name" class="text-xl sm:text-2xl font-bold text-aesthetic-brownDark dark:text-darkAesthetic-text leading-tight">Student Name</h2>
                     </div>
                 </div>
-                <button onclick="logoutStudent()" class="w-full sm:w-auto px-5 py-2.5 bg-rose-950/40 border border-rose-500/40 hover:bg-rose-900/60 text-rose-300 font-bold text-xs rounded-2xl transition-all ios-button-active">
+                <button onclick="logoutStudent()" class="w-full sm:w-auto px-5 py-2.5 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/50 hover:bg-rose-100 text-rose-700 dark:text-rose-300 font-bold text-xs rounded-2xl transition-all button-active">
                     <i class="fa-solid fa-right-from-bracket mr-1.5"></i> Logout Student
                 </button>
             </div>
 
-            <!-- PHOTO WARNING NOTIFICATION IF APPLICABLE -->
-            <div id="photo-warning-card" class="hidden bg-rose-950/40 border border-rose-500/50 rounded-2xl p-4 shadow-xl backdrop-blur-md">
-                <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
-                    <div class="flex items-center space-x-3.5">
-                        <div class="w-10 h-10 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center text-xl flex-shrink-0">
-                            <i class="fa-solid fa-triangle-exclamation"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-xs font-bold text-rose-200">Kailangan ng Profile Photo</h4>
-                            <p class="text-[11px] text-rose-300/80">Mangyaring mag-upload ng larawan. Ma-papurge ang account pagkatapos ng 7 araw kapag walang larawan.</p>
-                        </div>
-                    </div>
-                    <button onclick="openDetailedProfileModal()" class="w-full sm:w-auto px-4 py-2 bg-rose-500 text-slate-950 text-xs font-bold rounded-xl hover:bg-rose-400 shadow-md ios-button-active">
-                        Upload Photo (<span id="dash-purge-timer">7d 00h</span>)
-                    </button>
-                </div>
-            </div>
+            <!-- SEMESTER SELECTOR TABS FOR STUDENTS -->
+            <div class="flex items-center gap-2 overflow-x-auto pb-2" id="student-semester-tabs"></div>
 
-            <!-- DASHBOARD VIEW 1: MAIN SUBJECTS & GRADES OVERVIEW -->
+            <!-- DASHBOARD VIEW 1: MAIN SUBJECTS -->
             <div id="dashboard-main-overview" class="space-y-6">
-                
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    
-                    <!-- LEFT COLUMN: WELCOME CARD & SUBJECT CARDS (2 COLS SPAN) -->
                     <div class="lg:col-span-2 space-y-6">
-                        
-                        <!-- WELCOME FIRST SEMESTER BANNER -->
-                        <div class="ios-glass-card rounded-3xl p-8 text-center space-y-3 shadow-ios-card">
-                            <h3 id="dash-semester-title" class="text-2xl font-extrabold gold-gradient-text">First Semester</h3>
-                            <h4 class="text-lg font-bold text-slate-100">Welcome to the Online Madrasa Program</h4>
-                            <p class="text-xs text-slate-300 max-w-xl mx-auto leading-relaxed">
-                                The administration warmly welcomes all new students, asking Almighty Allah to grant everyone success and guidance.
+                        <div class="aesthetic-glass-card rounded-3xl p-8 text-center space-y-3 shadow-aesthetic">
+                            <h3 id="dash-semester-title" class="text-2xl font-extrabold brown-gradient-text">First Semester</h3>
+                            <h4 class="text-lg font-bold text-aesthetic-brownDark dark:text-darkAesthetic-text">Welcome to the Online Madrasa Program</h4>
+                            <p class="text-xs text-stone-600 dark:text-stone-300 max-w-xl mx-auto leading-relaxed">
+                                The administration warmly welcomes all students, asking Almighty Allah to grant everyone success and guidance.
                             </p>
                         </div>
-
-                        <!-- SUBJECT TILES GRID (2 COLUMNS) -->
-                        <div id="subject-cards-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <!-- Dynamic Subject Tiles matching Image 1 layout injected by JS -->
+                        <div class="aesthetic-glass-card rounded-3xl p-5 space-y-4 shadow-aesthetic">
+                            <div class="flex items-center justify-between gap-3">
+                                <div>
+                                    <h4 class="text-xs font-bold uppercase tracking-widest text-aesthetic-brownDark dark:text-darkAesthetic-text">STUDY CALENDAR</h4>
+                                    <p id="cal-student-range" class="text-[10px] text-stone-500 dark:text-stone-400 mt-0.5"></p>
+                                </div>
+                                <i class="fa-solid fa-calendar-days text-aesthetic-brownLight dark:text-amber-400 text-base"></i>
+                            </div>
+                            <div id="cal-student-tabs" class="flex flex-wrap gap-2"></div>
+                            <div id="cal-student-list" class="space-y-2"></div>
+                            <p class="text-[10px] text-stone-500 dark:text-stone-400 leading-relaxed">Weeks 1–3 of each month: next lecture from the table of contents + quiz. Week 4: exam on those 3 lectures. 4 months total. Tap a lecture or quiz to open it.</p>
                         </div>
+                        <div id="subject-cards-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
                     </div>
-
-                    <!-- RIGHT COLUMN: CURRENT SEMESTER GRADES PANEL -->
-                    <div class="lg:col-span-1">
-                        <div class="ios-glass rounded-3xl p-6 space-y-4 shadow-ios-card sticky top-28">
-                            <div class="flex items-center justify-between border-b border-white/10 pb-3">
-                                <h4 class="text-xs font-bold uppercase tracking-widest text-slate-200">CURRENT SEMESTER GRADES</h4>
-                                <i class="fa-solid fa-medal text-gold-400 text-base"></i>
+                    <div class="lg:col-span-1 space-y-6">
+                        <div class="aesthetic-glass rounded-3xl p-6 text-center space-y-1.5 shadow-aesthetic">
+                            <span class="text-[10px] font-extrabold uppercase tracking-widest text-stone-500 dark:text-stone-400 block"><i class="fa-solid fa-trophy mr-1 text-aesthetic-brownLight dark:text-amber-400"></i>OVERALL RANKING</span>
+                            <div id="rank-top" class="text-5xl font-black brown-gradient-text leading-tight">Top -</div>
+                            <p id="rank-of" class="text-xs font-semibold text-stone-600 dark:text-stone-300"></p>
+                            <div class="pt-2 mt-2 border-t border-aesthetic-border"><span class="text-[10px] font-extrabold uppercase tracking-widest text-stone-500 dark:text-stone-400 block">OVERALL SCORE</span><div class="text-3xl font-black text-aesthetic-brownDark dark:text-darkAesthetic-text"><span id="rank-points">0</span> <span class="text-xs font-semibold text-stone-500 dark:text-stone-400">/ 100</span></div></div>
+                            <p id="rank-score" class="text-[11px] text-stone-500 dark:text-stone-400"></p>
+                        </div>
+                        <div class="aesthetic-glass rounded-3xl p-5 space-y-3 shadow-aesthetic">
+                            <div class="flex items-center justify-between border-b border-aesthetic-border pb-3">
+                                <div>
+                                    <h4 class="text-xs font-bold uppercase tracking-widest text-aesthetic-brownDark dark:text-darkAesthetic-text">TOP 10 STUDENTS</h4>
+                                    <p class="text-[10px] text-stone-500 dark:text-stone-400 mt-0.5">Highest overall score</p>
+                                </div>
+                                <i class="fa-solid fa-ranking-star text-aesthetic-brownLight dark:text-amber-400 text-base"></i>
                             </div>
-
-                            <div id="semester-grades-list" class="space-y-2.5">
-                                <!-- Grade items injected by JS -->
+                            <div id="top10-list" class="space-y-2"></div>
+                        </div>
+                        <div class="aesthetic-glass rounded-3xl p-6 space-y-4 shadow-aesthetic sticky top-28">
+                            <div class="flex items-center justify-between border-b border-aesthetic-border pb-3">
+                                <h4 class="text-xs font-bold uppercase tracking-widest text-aesthetic-brownDark dark:text-darkAesthetic-text">SEMESTER GRADES</h4>
+                                <i class="fa-solid fa-medal text-aesthetic-brownLight dark:text-amber-400 text-base"></i>
                             </div>
+                            <div id="semester-grades-list" class="space-y-2.5"></div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- DASHBOARD VIEW 2: SUBJECT LECTURE PLAYER & TABLE OF CONTENTS -->
+            <!-- DASHBOARD VIEW 2: SUBJECT DETAIL & TOC -->
             <div id="dashboard-subject-detail" class="hidden space-y-6">
-                
-                <!-- BACK BUTTON NAVIGATION -->
                 <div>
-                    <button onclick="backToMainDashboard()" class="text-gold-400 hover:text-gold-300 font-bold text-xs inline-flex items-center gap-2 transition-colors px-3 py-1.5 rounded-xl bg-white/5 border border-gold-500/20 ios-button-active">
+                    <button onclick="backToMainDashboard()" class="text-aesthetic-brownLight dark:text-amber-300 hover:text-aesthetic-brownDark font-bold text-xs inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/75 dark:bg-stone-800 border border-aesthetic-border button-active">
                         <i class="fa-solid fa-arrow-left"></i> Back to Main Dashboard
                     </button>
                 </div>
-
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    
-                    <!-- LEFT / MAIN SECTION: VIDEO PLAYER & LECTURE OVERVIEW -->
                     <div class="lg:col-span-2 space-y-5">
-                        
-                        <!-- SUBJECT HEADER BLOCK -->
-                        <div class="ios-glass-card rounded-3xl p-6 space-y-2 shadow-lg">
+                        <div class="aesthetic-glass-card rounded-3xl p-6 space-y-2 shadow-md">
                             <div class="flex items-center space-x-3">
-                                <div id="detail-subject-icon" class="w-10 h-10 rounded-2xl bg-gold-500/20 text-gold-400 border border-gold-500/30 flex items-center justify-center text-xl shadow-md">
+                                <div id="detail-subject-icon" class="w-10 h-10 rounded-2xl bg-stone-200 dark:bg-stone-800 text-aesthetic-brownDark dark:text-darkAesthetic-text border border-aesthetic-border flex items-center justify-center text-xl shadow-sm">
                                     <i class="fa-solid fa-cubes"></i>
                                 </div>
-                                <h2 id="detail-subject-title" class="text-2xl font-extrabold text-gold-400">Aqeedah</h2>
+                                <h2 id="detail-subject-title" class="text-2xl font-extrabold text-aesthetic-brownDark dark:text-darkAesthetic-text">Aqeedah</h2>
                             </div>
-                            <p id="detail-subject-desc" class="text-xs text-slate-300 pt-1 leading-relaxed">
-                                Meaning of Aqeedah, importance, sources of reception, and fundamentals of Ahl al-Sunnah.
-                            </p>
+                            <p id="detail-subject-desc" class="text-xs text-stone-600 dark:text-stone-300 pt-1 leading-relaxed"></p>
                         </div>
 
-                        <!-- VIDEO PLAYER BLOCK -->
-                        <div class="ios-glass rounded-3xl p-6 space-y-4 shadow-ios-card">
+                        <div class="aesthetic-glass rounded-3xl p-6 space-y-4 shadow-aesthetic">
                             <div class="flex items-center justify-between">
                                 <div>
-                                    <span id="detail-lecture-num" class="text-[10px] font-extrabold text-gold-400 uppercase tracking-widest block">LECTURE 1</span>
-                                    <h3 id="detail-lecture-title" class="text-lg font-bold text-slate-100">Meaning of Correct Aqeedah</h3>
+                                    <span id="detail-lecture-num" class="text-[10px] font-extrabold text-aesthetic-brownLight dark:text-amber-300 uppercase tracking-widest block">LECTURE 1</span>
+                                    <h3 id="detail-lecture-title" class="text-lg font-bold text-aesthetic-brownDark dark:text-darkAesthetic-text">Meaning of Correct Aqeedah</h3>
                                 </div>
-                                <span class="px-3 py-1 rounded-full text-[11px] font-bold bg-gold-500/15 text-gold-300 border border-gold-500/30">
-                                    Active Module
-                                </span>
+                                <span class="px-3 py-1 rounded-full text-[11px] font-bold bg-stone-200/80 dark:bg-stone-800 text-aesthetic-brownDark dark:text-darkAesthetic-text border border-aesthetic-border">Active Module</span>
                             </div>
 
-                            <!-- VIDEO EMBED CONTAINER -->
-                            <div class="relative w-full aspect-video bg-black rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
-                                <iframe id="detail-video-iframe" class="w-full h-full" src="" title="Lecture Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <div class="relative w-full aspect-video bg-stone-900 rounded-2xl overflow-hidden border border-aesthetic-border shadow-lg">
+                                <iframe id="detail-video-iframe" class="w-full h-full" src="" title="Lecture Video" frameborder="0" allowfullscreen></iframe>
                             </div>
 
-                            <!-- LECTURE NOTES & RESOURCES -->
                             <div class="pt-2 space-y-3">
-                                <div class="bg-black/40 border border-white/10 rounded-2xl p-4 space-y-1">
-                                    <span class="text-[10px] font-bold text-gold-400 uppercase tracking-wider block">LECTURE NOTES & OVERVIEW</span>
-                                    <p id="detail-lecture-notes" class="text-xs text-slate-300 leading-relaxed">
-                                        Introduction to Islamic Aqeedah and principles of Islamic theology.
-                                    </p>
+                                <div class="bg-white/60 dark:bg-stone-900/60 border border-aesthetic-border rounded-2xl p-4 space-y-1">
+                                    <span class="text-[10px] font-bold text-aesthetic-brownLight dark:text-amber-300 uppercase tracking-wider block">LECTURE NOTES & OVERVIEW</span>
+                                    <p id="detail-lecture-notes" class="text-xs text-stone-700 dark:text-stone-300 leading-relaxed"></p>
                                 </div>
-
                                 <div class="flex flex-wrap gap-3">
-                                    <button onclick="downloadResource('audio')" class="px-4 py-2.5 bg-emerald-950/60 hover:bg-emerald-900 text-gold-300 border border-gold-500/30 text-xs font-bold rounded-2xl flex items-center gap-2 transition-all ios-button-active">
-                                        <i class="fa-solid fa-volume-high"></i> Download MP3 Audio
-                                    </button>
-                                    <a id="detail-pdf-btn" href="#" target="_blank" class="px-4 py-2.5 bg-emerald-950/60 hover:bg-emerald-900 text-gold-300 border border-gold-500/30 text-xs font-bold rounded-2xl flex items-center gap-2 transition-all ios-button-active">
+                                    <a id="detail-pdf-btn" href="#" target="_blank" class="px-4 py-2.5 bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 text-aesthetic-brownDark dark:text-darkAesthetic-text border border-aesthetic-border text-xs font-bold rounded-2xl flex items-center gap-2">
                                         <i class="fa-solid fa-book-open"></i> Download Book PDF
                                     </a>
                                 </div>
@@ -466,1238 +410,23 @@
                         </div>
                     </div>
 
-                    <!-- RIGHT SIDEBAR: SUBJECT GRADE & TABLE OF CONTENTS -->
                     <div class="lg:col-span-1 space-y-5">
-                        
-                        <!-- SUBJECT GRADE SCORE CARD (CIRCLE WIDGET) -->
-                        <div class="ios-glass-card rounded-3xl p-6 text-center space-y-3 shadow-lg">
-                            <span class="text-[10px] font-extrabold uppercase tracking-widest text-slate-400 block">SUBJECT GRADE</span>
-                            
+                        <div class="aesthetic-glass-card rounded-3xl p-6 text-center space-y-3 shadow-md">
+                            <span class="text-[10px] font-extrabold uppercase tracking-widest text-stone-500 dark:text-stone-400 block">SUBJECT SCORE</span>
                             <div class="relative w-28 h-28 mx-auto flex items-center justify-center">
-                                <div class="w-full h-full rounded-full border-4 border-gold-500/20 flex items-center justify-center bg-black/40 shadow-inner">
+                                <div class="w-full h-full rounded-full border-4 border-stone-200 dark:border-stone-700 flex items-center justify-center bg-white/70 dark:bg-stone-900/60 shadow-inner">
                                     <div class="text-center">
-                                        <span id="detail-subject-score" class="text-3xl font-black text-gold-400">100</span>
-                                        <span class="text-xs font-semibold text-slate-400">/100</span>
+                                        <span id="detail-subject-score" class="text-3xl font-black text-aesthetic-brownDark dark:text-darkAesthetic-text">0</span>
+                                        <span class="text-xs font-semibold text-stone-500 dark:text-stone-400">/100</span>
                                     </div>
                                 </div>
                             </div>
-
-                            <p class="text-[11px] text-slate-400 italic">Recorded student assessment score.</p>
                         </div>
 
-                        <!-- TABLE OF CONTENTS LECTURE LIST -->
-                        <div class="ios-glass rounded-3xl p-5 space-y-4 shadow-ios-card">
-                            <div class="flex items-center justify-between border-b border-white/10 pb-3">
+                        <div class="aesthetic-glass rounded-3xl p-5 space-y-4 shadow-aesthetic">
+                            <div class="flex items-center justify-between border-b border-aesthetic-border pb-3">
                                 <div class="flex items-center space-x-2">
-                                    <i class="fa-solid fa-list-ul text-gold-400 text-xs"></i>
-                                    <h4 class="text-xs font-bold uppercase tracking-wider text-slate-200">TABLE OF CONTENTS</h4>
+                                    <i class="fa-solid fa-circle-play text-aesthetic-brownLight dark:text-amber-300 text-xs"></i>
+                                    <h4 class="text-xs font-bold uppercase tracking-wider text-aesthetic-brownDark dark:text-darkAesthetic-text">TABLE OF CONTENTS · LECTURES</h4>
                                 </div>
-                                <span id="detail-lecture-count-badge" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-gold-500/10 text-gold-400 border border-gold-500/30">
-                                    6 Lectures
-                                </span>
-                            </div>
-
-                            <div id="detail-toc-list" class="space-y-2">
-                                <!-- Lecture items generated dynamically by JS -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </section>
-
-        <!-- ==================== BACKEND SECTION: MANAGEMENT ENGINE & DATABASE ==================== -->
-        <section id="view-admin-dashboard" class="hidden space-y-8">
-            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b border-white/10 pb-4 gap-4">
-                <div>
-                    <h2 class="text-3xl font-extrabold gold-gradient-text flex items-center gap-3">
-                        <i class="fa-solid fa-server"></i> Backend Administration Engine
-                    </h2>
-                    <p class="text-xs sm:text-sm text-slate-400">Database API Engine, Semester Controls & Student Records Management</p>
-                </div>
-                <button onclick="switchSystemView('frontend')" class="px-4 py-2 text-xs font-bold bg-white/5 hover:bg-gold-500/20 text-gold-300 border border-gold-500/30 rounded-2xl ios-button-active">
-                    <i class="fa-solid fa-graduation-cap mr-1.5"></i> Switch to Frontend Study Portal
-                </button>
-            </div>
-
-            <!-- BACKEND CONTROLLER: SEMESTER ACTIVATION -->
-            <div class="ios-glass p-6 rounded-3xl border border-gold-500/30 space-y-4 shadow-ios-card">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <h3 class="text-lg font-bold text-slate-100 flex items-center gap-2">
-                            <i class="fa-solid fa-toggle-on text-gold-400"></i> Semester Database Controls (Backend Switch)
-                        </h3>
-                        <p class="text-xs text-slate-400">Ang pag-toggle dito ay direktang mag-a-update sa Frontend Study Portal ng bata.</p>
-                    </div>
-                </div>
-
-                <div id="admin-semester-toggles" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
-                    <!-- Dynamic Toggles generated by JS -->
-                </div>
-            </div>
-
-            <!-- BACKEND CONTROLLER: MANAGE SUBJECT & TABLE OF CONTENTS -->
-            <div class="ios-glass border border-gold-500/30 rounded-3xl p-6 shadow-ios-card space-y-5">
-                <div class="flex items-center space-x-2 text-gold-400">
-                    <i class="fa-regular fa-pen-to-square text-lg"></i>
-                    <h3 class="font-bold text-base tracking-wide uppercase gold-gradient-text">MANAGE SUBJECT & TABLE OF CONTENTS</h3>
-                </div>
-
-                <div class="space-y-4">
-                    <!-- 1. SELECT SUBJECT -->
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-300 mb-1.5">1. Select Subject</label>
-                        <select id="admin-subject-select" onchange="handleAdminSubjectChange()" class="w-full bg-black/50 border border-white/10 rounded-2xl p-3 text-sm text-slate-100 font-medium focus:border-gold-400 focus:outline-none">
-                            <!-- Injected dynamically -->
-                        </select>
-                    </div>
-
-                    <!-- ADD NEW LECTURE TAB CARD -->
-                    <div class="bg-black/40 border border-white/10 rounded-2xl p-4 space-y-2">
-                        <div class="flex items-center space-x-2 text-gold-400 text-xs font-bold">
-                            <i class="fa-solid fa-circle-plus"></i>
-                            <span>Add New Lecture Tab</span>
-                        </div>
-                        <p class="text-xs text-slate-400">Magdagdag ng Lecture 3, Lecture 4, o mas mataas pa sa Talaan ng Nilalaman.</p>
-                        <button type="button" onclick="createNewLectureTab()" class="w-full py-2.5 bg-emerald-950/80 hover:bg-emerald-900 text-emerald-300 border border-emerald-500/40 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all ios-button-active">
-                            <i class="fa-solid fa-plus"></i> Create New Lecture Tab
-                        </button>
-                    </div>
-
-                    <!-- 2. SELECT LECTURE TAB TO EDIT -->
-                    <div>
-                        <div class="flex items-center justify-between mb-1.5">
-                            <label class="block text-xs font-semibold text-slate-300">2. Select Lecture Tab to Edit</label>
-                            <button type="button" onclick="deleteSelectedLectureTab()" class="text-xs font-semibold text-rose-400 hover:text-rose-300 flex items-center gap-1">
-                                <i class="fa-solid fa-trash-can"></i> Delete Selected
-                            </button>
-                        </div>
-                        <select id="admin-lecture-select" onchange="handleAdminLectureChange()" class="w-full bg-black/60 border-2 border-gold-500/40 rounded-2xl p-3 text-sm font-bold text-gold-400 focus:outline-none shadow-md">
-                            <!-- Injected dynamically -->
-                        </select>
-                    </div>
-                </div>
-
-                <!-- LECTURE DETAILS FORM (EDIT CURRENTLY SELECTED TAB) -->
-                <form id="admin-edit-lecture-form" onsubmit="handleSaveLectureContent(event)" class="bg-black/50 border border-white/10 rounded-2xl p-4 space-y-4 pt-4 mt-2">
-                    <div class="border-b border-white/10 pb-2">
-                        <h4 class="text-xs font-bold text-gold-400 uppercase tracking-wider"><i class="fa-solid fa-sliders mr-1"></i> Edit Selected Lecture Details</h4>
-                        <p class="text-[11px] text-slate-400">Ang anumang baguhin dito ay lalabas sa portal ng mga estudyante.</p>
-                    </div>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-300 mb-1">Lecture Number / Tag</label>
-                            <input type="text" id="admin-edit-lec-num" required placeholder="e.g. LECTURE 1" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-slate-100 focus:border-gold-400 focus:outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-300 mb-1">Lecture Title</label>
-                            <input type="text" id="admin-edit-lec-title" required placeholder="e.g. Meaning of Correct Aqeedah" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-slate-100 focus:border-gold-400 focus:outline-none">
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-300 mb-1">YouTube Embed / Video Link</label>
-                            <input type="url" id="admin-edit-lec-video" required placeholder="https://www.youtube.com/embed/..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-slate-100 focus:border-gold-400 focus:outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-300 mb-1">PDF Reference Book Link</label>
-                            <input type="url" id="admin-edit-lec-pdf" placeholder="https://..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-slate-100 focus:border-gold-400 focus:outline-none">
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-300 mb-1">Lecture Overview / Notes</label>
-                        <textarea id="admin-edit-lec-notes" rows="2" placeholder="Panuto o buod ng aralin..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-slate-100 focus:border-gold-400 focus:outline-none"></textarea>
-                    </div>
-
-                    <button type="submit" class="w-full py-3 gold-btn-gradient text-slate-950 font-bold text-xs rounded-xl shadow-lg transition-all ios-button-active">
-                        <i class="fa-solid fa-floppy-disk mr-1.5"></i> Save & Publish Changes to Student Portal
-                    </button>
-                </form>
-            </div>
-
-            <!-- BACKEND DATABASE: STUDENT RECORDS -->
-            <div class="ios-glass p-6 rounded-3xl border border-gold-500/30 space-y-4 shadow-ios-card">
-                <h3 class="text-lg font-bold text-slate-100 flex items-center gap-2">
-                    <i class="fa-solid fa-users text-gold-400"></i> Backend Database: Enrolled Students
-                </h3>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left text-sm text-slate-300">
-                        <thead class="bg-black/60 text-gold-400 uppercase text-xs font-bold border-b border-white/10">
-                            <tr>
-                                <th class="p-3">Student Name</th>
-                                <th class="p-3">Email</th>
-                                <th class="p-3">Gender</th>
-                                <th class="p-3">Contact</th>
-                                <th class="p-3">Registration Date</th>
-                                <th class="p-3">Photo Status</th>
-                            </tr>
-                        </thead>
-                        <tbody id="admin-students-list-body" class="divide-y divide-white/5">
-                            <!-- Rows generated dynamically -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- FOOTER WITH CREATOR CREDIT -->
-    <footer class="mt-auto border-t border-gold-500/10 bg-[#020a08] text-slate-400 py-6 text-center text-xs backdrop-blur-md">
-        <div class="max-w-7xl mx-auto px-4 space-y-2">
-            <p class="font-semibold text-slate-300">Abunadier Da'wah-TV PH &copy; 2026. All Rights Reserved.</p>
-            <p class="text-gold-400/90 font-medium">
-                <i class="fa-solid fa-code text-xs mr-1"></i> System Designed & Developed by <span class="font-bold underline decoration-gold-500">Abunadier</span>
-            </p>
-            <p class="text-slate-500 text-[11px]">Dedicated to promoting authentic Islamic knowledge through modern online learning systems.</p>
-        </div>
-    </footer>
-
-
-    <!-- MODAL 1: AUTHENTICATION (LOGIN / REGISTER) - APPLE iOS STYLE -->
-    <div id="auth-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md transition-all">
-        <div class="ios-glass border border-gold-500/40 max-w-md w-full rounded-3xl shadow-ios-modal p-6 relative">
-            <button onclick="closeAuthModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 text-slate-400 hover:text-slate-100 flex items-center justify-center text-xs transition-colors">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-
-            <div class="flex border-b border-white/10 mb-6">
-                <button id="tab-login" onclick="switchAuthTab('login')" class="flex-1 pb-3 font-bold text-center border-b-2 border-gold-400 text-gold-400">
-                    Log In
-                </button>
-                <button id="tab-register" onclick="switchAuthTab('register')" class="flex-1 pb-3 font-bold text-center border-b-2 border-transparent text-slate-400 hover:text-slate-200">
-                    Register Student
-                </button>
-            </div>
-
-            <!-- LOGIN FORM -->
-            <form id="form-login" onsubmit="handleLoginSubmit(event)" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-medium text-slate-300 mb-1">Email Address</label>
-                    <input type="email" id="login-email" required class="w-full bg-black/50 border border-white/10 rounded-xl p-3 text-sm text-slate-100 focus:border-gold-400 focus:outline-none">
-                </div>
-                <div>
-                    <label class="block text-xs font-medium text-slate-300 mb-1">Password</label>
-                    <input type="password" id="login-password" required class="w-full bg-black/50 border border-white/10 rounded-xl p-3 text-sm text-slate-100 focus:border-gold-400 focus:outline-none">
-                </div>
-                <button type="submit" class="w-full py-3 gold-btn-gradient text-slate-950 font-bold text-sm rounded-xl shadow-lg transition-all ios-button-active">
-                    Sign In to Portal <i class="fa-solid fa-right-to-bracket ml-1"></i>
-                </button>
-            </form>
-
-            <!-- REGISTER FORM -->
-            <form id="form-register" onsubmit="handleRegisterSubmit(event)" class="hidden space-y-4">
-                <div>
-                    <label class="block text-xs font-medium text-slate-300 mb-1">Pangalan ng Estudante / Bata</label>
-                    <input type="text" id="reg-name" required placeholder="Juan De La Cruz" class="w-full bg-black/50 border border-white/10 rounded-xl p-3 text-sm text-slate-100 focus:border-gold-400 focus:outline-none">
-                </div>
-                <div>
-                    <label class="block text-xs font-medium text-slate-300 mb-1">Email Address</label>
-                    <input type="email" id="reg-email" required placeholder="student@example.com" class="w-full bg-black/50 border border-white/10 rounded-xl p-3 text-sm text-slate-100 focus:border-gold-400 focus:outline-none">
-                </div>
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="block text-xs font-medium text-slate-300 mb-1">Gender</label>
-                        <select id="reg-gender" class="w-full bg-black/50 border border-white/10 rounded-xl p-3 text-sm text-slate-100 focus:border-gold-400 focus:outline-none">
-                            <option value="Male">Male (Brother)</option>
-                            <option value="Female">Female (Sister)</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-medium text-slate-300 mb-1">Password</label>
-                        <input type="password" id="reg-password" required class="w-full bg-black/50 border border-white/10 rounded-xl p-3 text-sm text-slate-100 focus:border-gold-400 focus:outline-none">
-                    </div>
-                </div>
-                <button type="submit" class="w-full py-3 bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-slate-100 font-bold text-sm rounded-xl shadow-lg transition-all ios-button-active">
-                    Create Student Account <i class="fa-solid fa-user-plus ml-1"></i>
-                </button>
-            </form>
-        </div>
-    </div>
-
-
-    <!-- MODAL 2: STUDENT PROFILE & UPLOAD PHOTO MODAL -->
-    <div id="detailed-profile-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md overflow-y-auto">
-        <div class="ios-glass border border-gold-500/40 max-w-lg w-full rounded-3xl shadow-ios-modal p-6 relative my-8">
-            <button onclick="closeDetailedProfileModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 text-slate-400 hover:text-slate-100 flex items-center justify-center text-xs transition-colors">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-
-            <div class="flex items-center space-x-3 border-b border-white/10 pb-4 mb-5">
-                <div class="w-10 h-10 rounded-2xl bg-gold-500/20 text-gold-400 flex items-center justify-center text-xl shadow-md">
-                    <i class="fa-solid fa-id-card"></i>
-                </div>
-                <div>
-                    <h3 class="text-lg font-bold text-slate-100">Student Profile & Details</h3>
-                    <p class="text-xs text-slate-400">Impormasyon at profile picture ng estudyante</p>
-                </div>
-            </div>
-
-            <form id="profile-details-form" onsubmit="handleSaveDetailedProfile(event)" class="space-y-4">
-                <!-- PHOTO UPLOAD SECTION -->
-                <div class="p-4 bg-emerald-950/40 border border-emerald-500/30 rounded-2xl space-y-3 backdrop-blur-md">
-                    <label class="block text-xs font-bold text-gold-400 uppercase tracking-wider">
-                        <i class="fa-solid fa-camera mr-1"></i> Profile Picture Upload
-                    </label>
-                    <div class="flex items-center space-x-4">
-                        <div id="modal-avatar-preview" class="w-16 h-16 rounded-full bg-slate-950 border-2 border-gold-400 overflow-hidden flex items-center justify-center text-gold-400 text-2xl flex-shrink-0 shadow-md">
-                            <i class="fa-solid fa-user"></i>
-                        </div>
-                        <div class="flex-1 space-y-2">
-                            <input type="text" id="prof-photo-url" placeholder="Paste Image Web URL..." class="w-full bg-black/50 border border-white/10 rounded-xl p-2.5 text-xs text-slate-100 focus:border-gold-400 focus:outline-none">
-                            <div class="flex items-center justify-between text-[11px] text-slate-400">
-                                <span>Or upload file:</span>
-                                <input type="file" id="prof-photo-file" accept="image/*" onchange="handleFileUploadPreview(event)" class="text-[10px] text-slate-400 file:mr-2 file:py-1 file:px-2 file:rounded-lg file:border-0 file:text-[10px] file:bg-gold-500 file:text-slate-950 hover:file:bg-gold-400">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- PROFILE FIELDS -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-300 mb-1">Full Name</label>
-                        <input type="text" id="prof-fullname" required class="w-full bg-black/50 border border-white/10 rounded-xl p-2.5 text-sm text-slate-100 focus:border-gold-400 focus:outline-none">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-300 mb-1">Email Address</label>
-                        <input type="email" id="prof-email" readonly class="w-full bg-black/30 border border-white/10 rounded-xl p-2.5 text-sm text-slate-400 cursor-not-allowed">
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-300 mb-1">Gender</label>
-                        <select id="prof-gender" class="w-full bg-black/50 border border-white/10 rounded-xl p-2.5 text-sm text-slate-100 focus:border-gold-400 focus:outline-none">
-                            <option value="Male">Male (Brother)</option>
-                            <option value="Female">Female (Sister)</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-300 mb-1">Contact Number</label>
-                        <input type="tel" id="prof-contact" placeholder="e.g. 09171234567" class="w-full bg-black/50 border border-white/10 rounded-xl p-2.5 text-sm text-slate-100 focus:border-gold-400 focus:outline-none">
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-xs font-semibold text-slate-300 mb-1">Home Address / Location</label>
-                    <input type="text" id="prof-address" placeholder="Barangay, City, Province" class="w-full bg-black/50 border border-white/10 rounded-xl p-2.5 text-sm text-slate-100 focus:border-gold-400 focus:outline-none">
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-300 mb-1">Date of Birth</label>
-                        <input type="date" id="prof-dob" class="w-full bg-black/50 border border-white/10 rounded-xl p-2.5 text-sm text-slate-100 focus:border-gold-400 focus:outline-none">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-300 mb-1">Grade Level / Occupation</label>
-                        <input type="text" id="prof-work" placeholder="e.g. Grade 5 Student" class="w-full bg-black/50 border border-white/10 rounded-xl p-2.5 text-sm text-slate-100 focus:border-gold-400 focus:outline-none">
-                    </div>
-                </div>
-
-                <div class="pt-3 flex space-x-3">
-                    <button type="button" onclick="closeDetailedProfileModal()" class="flex-1 py-2.5 border border-white/10 text-slate-300 hover:bg-white/5 rounded-xl text-sm font-semibold transition-colors">
-                        Cancel
-                    </button>
-                    <button type="submit" class="flex-1 py-2.5 gold-btn-gradient text-slate-950 font-bold rounded-xl text-sm shadow-md transition-all ios-button-active">
-                        <i class="fa-solid fa-floppy-disk mr-1.5"></i> Save Details
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-
-    <!-- MODAL 3: BACKEND PASSCODE ACCESS MODAL -->
-    <div id="admin-passcode-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-        <div class="ios-glass border border-gold-500/40 max-w-sm w-full rounded-3xl p-6 relative text-center shadow-ios-modal">
-            <button onclick="closeAdminPasscodeModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 text-slate-400 hover:text-slate-100 flex items-center justify-center text-xs transition-colors">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-            <div class="w-12 h-12 bg-gold-500/20 text-gold-400 rounded-2xl flex items-center justify-center mx-auto mb-3 text-xl shadow-md border border-gold-500/30">
-                <i class="fa-solid fa-shield-halved"></i>
-            </div>
-            <h3 class="text-lg font-bold text-slate-100">Backend System Access</h3>
-            <p class="text-xs text-slate-400 mb-4">Ipasok ang Admin Passcode (Default: admin123)</p>
-            
-            <form onsubmit="handleAdminAuthSubmit(event)" class="space-y-4">
-                <input type="password" id="admin-passcode-input" required placeholder="Passcode..." class="w-full bg-black/50 border border-white/10 rounded-xl p-3 text-center text-sm text-slate-100 focus:border-gold-400 focus:outline-none">
-                <button type="submit" class="w-full py-3 gold-btn-gradient text-slate-950 font-bold text-sm rounded-xl transition-all shadow-md ios-button-active">
-                    Unlock Backend System
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <!-- NOTIFICATION TOAST (iOS STYLE FLOATING CAPSULE) -->
-    <div id="toast-message" class="hidden fixed bottom-6 right-6 z-50 max-w-md px-5 py-3 rounded-2xl ios-glass border border-gold-500/40 text-slate-100 shadow-ios-modal flex items-center space-x-3 transition-all duration-300">
-        <i id="toast-icon" class="fa-solid fa-circle-check text-gold-400 text-lg"></i>
-        <span id="toast-text" class="text-xs font-bold">Operation completed successfully.</span>
-    </div>
-
-
-    <!-- APPLICATION LOGIC & DATABASE ENGINE -->
-    <script>
-        // BACKEND DATABASE KEYS
-        const STORAGE_KEY_SEMESTERS = 'madrasa_semesters_active_v5';
-        const STORAGE_KEY_USERS = 'madrasa_users_db_v5';
-        const STORAGE_KEY_LOGGED = 'madrasa_logged_user_v5';
-        const STORAGE_KEY_SUBJECTS = 'madrasa_subjects_curriculum_v5';
-
-        // Initial System State
-        let semesterActivation = JSON.parse(localStorage.getItem(STORAGE_KEY_SEMESTERS)) || {
-            sem1: true,
-            sem2: false,
-            sem3: false,
-            sem4: false
-        };
-
-        // Subjects Structure updated (Hadith removed)
-        const defaultSubjectsData = {
-            sem1: [
-                {
-                    id: 'subj_aqeedah',
-                    title: 'Aqeedah',
-                    icon: 'fa-layer-group',
-                    desc: 'Meaning of Aqeedah, importance, sources of reception, and fundamentals of Ahl al-Sunnah.',
-                    grade: 100,
-                    lectures: [
-                        { id: 'l1', title: 'Meaning of Correct Aqeedah', num: 'LECTURE 1', youtubeUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ', pdfUrl: '#', notes: 'Introduction to Islamic Aqeedah and principles of Islamic theology.', completed: true },
-                        { id: 'l2', title: 'Sources of Aqeedah Reception', num: 'LECTURE 2', youtubeUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ', pdfUrl: '#', notes: 'Detailed overview of primary Islamic texts.', completed: false },
-                        { id: 'l3', title: 'New Lecture Topic 3', num: 'LECTURE 3', youtubeUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ', pdfUrl: '#', notes: 'Key pillars of faith and belief.', completed: false },
-                        { id: 'l4', title: 'weekly Exam: aqeeda', num: 'EXAM', youtubeUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ', pdfUrl: '#', notes: 'Weekly student progress examination.', completed: false },
-                        { id: 'l5', title: 'New Lecture Topic 5', num: 'LECTURE 5', youtubeUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ', pdfUrl: '#', notes: 'Fundamentals of Tauheed.', completed: false },
-                        { id: 'l6', title: 'New Lecture Topic 6', num: 'LECTURE 6', youtubeUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ', pdfUrl: '#', notes: 'Review and synthesis of Aqeedah lessons.', completed: false }
-                    ]
-                },
-                {
-                    id: 'subj_tafseer',
-                    title: 'Tafseer',
-                    icon: 'fa-book-quran',
-                    desc: 'An introduction to the science of Tafseer, explaining Surah Al-Fatiha and Ayat al-Kursi.',
-                    grade: 100,
-                    lectures: [
-                        { id: 't1', title: 'Introduction to Tafseer', num: 'LECTURE 1', youtubeUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ', pdfUrl: '#', notes: 'Principles of Quranic exegesis.', completed: false },
-                        { id: 't2', title: 'Tafseer Surah Al-Fatihah', num: 'LECTURE 2', youtubeUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ', pdfUrl: '#', notes: 'Verse by verse explanation of Al-Fatihah.', completed: false }
-                    ]
-                },
-                {
-                    id: 'subj_seerah',
-                    title: 'Seerah',
-                    icon: 'fa-kaaba',
-                    desc: 'Complete biography of the Prophet Muhammad (PBUH) in a structured manner.',
-                    grade: 100,
-                    lectures: [
-                        { id: 's1', title: 'The Prophet\'s Early Life in Makkah', num: 'LECTURE 1', youtubeUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ', pdfUrl: '#', notes: 'Birth and noble character of the Prophet (PBUH).', completed: true }
-                    ]
-                },
-                {
-                    id: 'subj_fiqh',
-                    title: 'Fiqh',
-                    icon: 'fa-scale-balanced',
-                    desc: 'The Book of Purification completely, followed by parts of the Book of Prayer.',
-                    grade: 100,
-                    lectures: [
-                        { id: 'f1', title: 'Taharah & Purification', num: 'LECTURE 1', youtubeUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ', pdfUrl: '#', notes: 'Rulings of Wudu and cleanliness.', completed: true }
-                    ]
-                },
-                {
-                    id: 'subj_arabic',
-                    title: 'Arabic Language',
-                    icon: 'fa-font',
-                    desc: 'A concise introduction to the Arabic language, covering parts of speech, nouns, verbs, and letters.',
-                    grade: 100,
-                    lectures: [
-                        { id: 'a1', title: 'Parts of Speech in Arabic', num: 'LECTURE 1', youtubeUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ', pdfUrl: '#', notes: 'Ism, Fi\'l, and Harf basics.', completed: true },
-                        { id: 'a2', title: 'Basic Sentence Structure', num: 'LECTURE 2', youtubeUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ', pdfUrl: '#', notes: 'Nominal and verbal sentences.', completed: false }
-                    ]
-                },
-                {
-                    id: 'subj_tajweed',
-                    title: 'Tajweed',
-                    icon: 'fa-align-left',
-                    desc: 'Fundamental rules for proper recitation of the Holy Quran with correct pronunciation.',
-                    grade: 100,
-                    lectures: [
-                        { id: 'tj1', title: 'Makharij al-Huroof', num: 'LECTURE 1', youtubeUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ', pdfUrl: '#', notes: 'Articulation points of Arabic letters.', completed: true }
-                    ]
-                }
-            ]
-        };
-
-        let subjectsData = JSON.parse(localStorage.getItem(STORAGE_KEY_SUBJECTS)) || defaultSubjectsData;
-        let usersDB = JSON.parse(localStorage.getItem(STORAGE_KEY_USERS)) || [];
-        let currentUser = JSON.parse(localStorage.getItem(STORAGE_KEY_LOGGED)) || null;
-
-        let activeSubject = null;
-        let activeLecture = null;
-        let countdownTimerInterval = null;
-
-        // APPLICATION INIT
-        window.onload = function() {
-            saveState();
-            checkPurgeTimers();
-            updateUIState();
-            renderPublicSemesterCards();
-            startTimerCountdown();
-        };
-
-        function saveState() {
-            localStorage.setItem(STORAGE_KEY_SEMESTERS, JSON.stringify(semesterActivation));
-            localStorage.setItem(STORAGE_KEY_SUBJECTS, JSON.stringify(subjectsData));
-            localStorage.setItem(STORAGE_KEY_USERS, JSON.stringify(usersDB));
-            if (currentUser) {
-                localStorage.setItem(STORAGE_KEY_LOGGED, JSON.stringify(currentUser));
-            } else {
-                localStorage.removeItem(STORAGE_KEY_LOGGED);
-            }
-        }
-
-        // SWITCH SYSTEM MODE (FRONTEND PORTAL vs BACKEND ENGINE)
-        function switchSystemView(mode) {
-            const btnFront = document.getElementById('nav-btn-student');
-            const btnBack = document.getElementById('nav-btn-admin');
-
-            if (mode === 'frontend') {
-                btnFront.className = 'px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 bg-gold-500 text-slate-950 shadow-md ios-button-active';
-                btnBack.className = 'px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 text-slate-400 hover:text-gold-400 hover:bg-emerald-950/40 ios-button-active';
-                
-                if (currentUser) {
-                    navigateTo('student-dashboard');
-                } else {
-                    navigateTo('home');
-                }
-            } else if (mode === 'backend') {
-                openAdminPasscodeModal();
-            }
-        }
-
-        // PURGE TIMER LOGIC (7 DAYS UNLESS PHOTO UPLOADED)
-        function checkPurgeTimers() {
-            const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
-            const now = Date.now();
-
-            usersDB = usersDB.filter(user => {
-                if (!user.photoUrl) {
-                    const elapsed = now - user.registeredAt;
-                    if (elapsed > SEVEN_DAYS_MS) {
-                        if (currentUser && currentUser.email === user.email) {
-                            currentUser = null;
-                            showToast('Na-purge ang account dahil lampas 7 araw nang walang profile photo.', 'warning');
-                        }
-                        return false;
-                    }
-                }
-                return true;
-            });
-            saveState();
-        }
-
-        function startTimerCountdown() {
-            if (countdownTimerInterval) clearInterval(countdownTimerInterval);
-            
-            countdownTimerInterval = setInterval(() => {
-                if (currentUser && !currentUser.photoUrl) {
-                    const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
-                    const elapsed = Date.now() - currentUser.registeredAt;
-                    const remaining = SEVEN_DAYS_MS - elapsed;
-
-                    if (remaining <= 0) {
-                        checkPurgeTimers();
-                        updateUIState();
-                        return;
-                    }
-
-                    const days = Math.floor(remaining / (1000 * 60 * 60 * 24));
-                    const hours = Math.floor((remaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-
-                    const timestr = `${days}d ${hours}h`;
-                    
-                    const dashTimer = document.getElementById('dash-purge-timer');
-                    const dropTimer = document.getElementById('dropdown-timer-clock');
-                    if (dashTimer) dashTimer.innerText = timestr;
-                    if (dropTimer) dropTimer.innerText = timestr;
-                }
-            }, 30000);
-        }
-
-        // NAVIGATION VIEW MANAGER
-        function navigateTo(viewName) {
-            document.getElementById('student-menu-dropdown').classList.add('hidden');
-            
-            document.getElementById('view-home').classList.add('hidden');
-            document.getElementById('view-student-dashboard').classList.add('hidden');
-            document.getElementById('view-admin-dashboard').classList.add('hidden');
-
-            if (viewName === 'home') {
-                document.getElementById('view-home').classList.remove('hidden');
-            } else if (viewName === 'student-dashboard') {
-                if (!currentUser) {
-                    openAuthModal('login');
-                    return;
-                }
-                document.getElementById('view-student-dashboard').classList.remove('hidden');
-                backToMainDashboard();
-            } else if (viewName === 'admin') {
-                document.getElementById('view-admin-dashboard').classList.remove('hidden');
-                renderAdminPanel();
-            }
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // UI STATE UPDATE
-        function updateUIState() {
-            const loggedOutBox = document.getElementById('logged-out-actions');
-            const loggedInBox = document.getElementById('logged-in-actions');
-
-            if (currentUser) {
-                loggedOutBox.classList.add('hidden');
-                loggedInBox.classList.remove('hidden');
-
-                const avatarContainer = document.getElementById('header-avatar-container');
-                const dropAvatar = document.getElementById('dropdown-avatar');
-                const dropName = document.getElementById('dropdown-student-name');
-                const dropGender = document.getElementById('dropdown-gender-badge');
-                const photoWarnDot = document.getElementById('header-photo-warning-dot');
-                const dropTimerWarn = document.getElementById('dropdown-timer-warning');
-
-                if (currentUser.photoUrl) {
-                    avatarContainer.innerHTML = `<img src="${currentUser.photoUrl}" class="w-full h-full object-cover">`;
-                    dropAvatar.innerHTML = `<img src="${currentUser.photoUrl}" class="w-full h-full object-cover">`;
-                    photoWarnDot.classList.add('hidden');
-                    dropTimerWarn.classList.add('hidden');
-                } else {
-                    avatarContainer.innerHTML = `<i class="fa-solid fa-user"></i>`;
-                    dropAvatar.innerHTML = `<i class="fa-solid fa-user"></i>`;
-                    photoWarnDot.classList.remove('hidden');
-                    dropTimerWarn.classList.remove('hidden');
-                }
-
-                dropName.innerText = currentUser.name;
-                dropGender.innerText = currentUser.gender || 'Male';
-            } else {
-                loggedOutBox.classList.remove('hidden');
-                loggedInBox.classList.add('hidden');
-            }
-        }
-
-        function toggleStudentMenu() {
-            document.getElementById('student-menu-dropdown').classList.toggle('hidden');
-        }
-
-        // PUBLIC SEMESTER CARDS (FRONTEND)
-        function renderPublicSemesterCards() {
-            const container = document.getElementById('public-semester-cards');
-            container.innerHTML = '';
-
-            const semTitles = {
-                sem1: 'First Semester',
-                sem2: 'Second Semester',
-                sem3: 'Third Semester',
-                sem4: 'Fourth Semester'
-            };
-
-            ['sem1', 'sem2', 'sem3', 'sem4'].forEach(semKey => {
-                const isActive = semesterActivation[semKey];
-                const list = subjectsData[semKey] || [];
-
-                const card = document.createElement('div');
-                card.className = `ios-glass-card border p-6 rounded-3xl transition-all shadow-ios-card ${isActive ? 'hover:border-gold-400 hover:shadow-ios-glow' : 'opacity-50'}`;
-                
-                card.innerHTML = `
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="text-xs font-bold px-3 py-1 rounded-full ${isActive ? 'bg-emerald-900/80 text-emerald-300 border border-emerald-500/30' : 'bg-white/5 text-slate-500'}">
-                            ${isActive ? '<i class="fa-solid fa-circle-check text-emerald-400 mr-1"></i> Active' : '<i class="fa-solid fa-lock text-slate-500 mr-1"></i> Locked'}
-                        </span>
-                        <span class="text-xs text-slate-400"><i class="fa-solid fa-book-bookmark text-gold-400 mr-1"></i> ${list.length} Subjects</span>
-                    </div>
-                    <h4 class="font-bold text-lg text-slate-100 mb-2">${semTitles[semKey]}</h4>
-                    <p class="text-xs text-slate-400 mb-5 leading-relaxed">${isActive ? 'Maaaring ma-access ng bata ang video lectures at PDFs.' : 'Naghihintay ng pahintulot mula sa Admin Backend.'}</p>
-                    <button onclick="handleSemesterCardClick('${semKey}')" class="w-full py-3 rounded-2xl text-xs font-bold ${isActive ? 'gold-btn-gradient text-slate-950 shadow-md hover:shadow-gold-500/20' : 'bg-white/5 text-slate-500 cursor-not-allowed'} transition-all ios-button-active">
-                        ${isActive ? 'Buksan ang Dashboard' : 'Naka-lock ang Semester'}
-                    </button>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        function handleSemesterCardClick(semKey) {
-            if (!semesterActivation[semKey]) {
-                showToast('Ang semester na ito ay kasalukuyang naka-lock sa Backend Admin.', 'warning');
-                return;
-            }
-            if (!currentUser) {
-                openAuthModal('login');
-            } else {
-                navigateTo('student-dashboard');
-            }
-        }
-
-        function scrollToCourses() {
-            document.getElementById('courses-section').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // RENDER STUDENT STUDY DASHBOARD
-        function backToMainDashboard() {
-            document.getElementById('dash-student-name').innerText = currentUser ? currentUser.name : 'Student';
-
-            // Show main grid, hide subject detail
-            document.getElementById('dashboard-main-overview').classList.remove('hidden');
-            document.getElementById('dashboard-subject-detail').classList.add('hidden');
-
-            renderSubjectTiles();
-            renderGradesSidebar();
-        }
-
-        function renderSubjectTiles() {
-            const grid = document.getElementById('subject-cards-grid');
-            grid.innerHTML = '';
-
-            const subjects = subjectsData['sem1'] || [];
-
-            subjects.forEach(subj => {
-                const lectureCount = subj.lectures ? subj.lectures.length : 0;
-                
-                const card = document.createElement('div');
-                card.onclick = () => openSubjectDetail(subj.id);
-                card.className = "ios-glass-card border border-white/10 hover:border-gold-500/50 rounded-3xl p-5 space-y-3 cursor-pointer transition-all shadow-ios-card group ios-button-active";
-
-                card.innerHTML = `
-                    <div class="flex items-start justify-between">
-                        <div class="w-11 h-11 rounded-2xl bg-gold-500/15 text-gold-400 flex items-center justify-center text-xl group-hover:bg-gold-500 group-hover:text-slate-950 transition-colors shadow-md">
-                            <i class="fa-solid ${subj.icon || 'fa-book'}"></i>
-                        </div>
-                        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-gold-500/10 text-gold-400 border border-gold-500/20">
-                            ${lectureCount} Lectures
-                        </span>
-                    </div>
-
-                    <div>
-                        <h4 class="font-bold text-base text-gold-400 group-hover:text-gold-300 transition-colors">${subj.title}</h4>
-                        <p class="text-xs text-slate-300 line-clamp-2 mt-1 leading-relaxed">${subj.desc}</p>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        function renderGradesSidebar() {
-            const list = document.getElementById('semester-grades-list');
-            list.innerHTML = '';
-
-            const subjects = subjectsData['sem1'] || [];
-
-            subjects.forEach(subj => {
-                const row = document.createElement('div');
-                row.className = "p-3 rounded-2xl bg-black/40 border border-white/10 flex items-center justify-between";
-                
-                row.innerHTML = `
-                    <span class="text-xs font-semibold text-slate-300">${subj.title}</span>
-                    <span class="text-xs font-bold text-gold-400">${subj.grade} <span class="text-[10px] text-slate-500 font-medium">/100</span></span>
-                `;
-                list.appendChild(row);
-            });
-        }
-
-        // OPEN SUBJECT & LECTURE DETAILS VIEW
-        function openSubjectDetail(subjectId) {
-            const subjects = subjectsData['sem1'] || [];
-            activeSubject = subjects.find(s => s.id === subjectId) || subjects[0];
-            
-            if (!activeSubject) return;
-
-            activeLecture = activeSubject.lectures[0] || {
-                id: 'l1',
-                title: 'Meaning of Correct Aqeedah',
-                num: 'LECTURE 1',
-                youtubeUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-                pdfUrl: '#',
-                notes: 'Introduction to Islamic Aqeedah and principles of Islamic theology.'
-            };
-
-            document.getElementById('dashboard-main-overview').classList.add('hidden');
-            document.getElementById('dashboard-subject-detail').classList.remove('hidden');
-
-            // Set Subject Header Info
-            document.getElementById('detail-subject-title').innerText = activeSubject.title;
-            document.getElementById('detail-subject-desc').innerText = activeSubject.desc;
-            document.getElementById('detail-subject-score').innerText = activeSubject.grade;
-            document.getElementById('detail-lecture-count-badge').innerText = `${activeSubject.lectures.length} Lectures`;
-
-            renderLecturePlayer();
-            renderTableOfContents();
-        }
-
-        function selectLecture(lectureId) {
-            if (!activeSubject) return;
-            activeLecture = activeSubject.lectures.find(l => l.id === lectureId) || activeSubject.lectures[0];
-            renderLecturePlayer();
-            renderTableOfContents();
-        }
-
-        function renderLecturePlayer() {
-            if (!activeLecture) return;
-
-            document.getElementById('detail-lecture-num').innerText = activeLecture.num || 'LECTURE';
-            document.getElementById('detail-lecture-title').innerText = activeLecture.title;
-            document.getElementById('detail-lecture-notes').innerText = activeLecture.notes || 'No lecture notes available.';
-            document.getElementById('detail-pdf-btn').href = activeLecture.pdfUrl || '#';
-
-            let embedUrl = activeLecture.youtubeUrl || '';
-            if (embedUrl.includes('watch?v=')) {
-                embedUrl = embedUrl.replace('watch?v=', 'embed/');
-            } else if (embedUrl.includes('youtu.be/')) {
-                embedUrl = embedUrl.replace('youtu.be/', 'www.youtube.com/embed/');
-            }
-
-            document.getElementById('detail-video-iframe').src = embedUrl;
-        }
-
-        function renderTableOfContents() {
-            const toc = document.getElementById('detail-toc-list');
-            toc.innerHTML = '';
-
-            if (!activeSubject || !activeSubject.lectures) return;
-
-            activeSubject.lectures.forEach(lec => {
-                const isSelected = activeLecture && activeLecture.id === lec.id;
-                
-                const btn = document.createElement('button');
-                btn.onclick = () => selectLecture(lec.id);
-                btn.className = `w-full p-3 rounded-2xl border text-left flex items-center justify-between text-xs transition-all ios-button-active ${
-                    isSelected 
-                        ? 'bg-emerald-950/80 border-gold-500/50 text-gold-400 font-bold shadow-md' 
-                        : 'bg-black/40 border-white/10 text-slate-300 hover:border-gold-500/20'
-                }`;
-
-                btn.innerHTML = `
-                    <div class="flex items-center space-x-2.5 truncate pr-2">
-                        <i class="fa-solid fa-book-open text-gold-400 text-xs flex-shrink-0"></i>
-                        <span class="truncate">${lec.num ? lec.num + ': ' : ''}${lec.title}</span>
-                    </div>
-                    ${lec.completed ? '<i class="fa-solid fa-circle-check text-emerald-400 text-xs flex-shrink-0"></i>' : ''}
-                `;
-                toc.appendChild(btn);
-            });
-        }
-
-        function downloadResource(type) {
-            showToast(`Inihahanda ang pag-download ng ${type.toUpperCase()} file...`, 'info');
-        }
-
-        // DETAILED PROFILE HANDLERS
-        function openDetailedProfileModal() {
-            document.getElementById('student-menu-dropdown').classList.add('hidden');
-            if (!currentUser) {
-                openAuthModal('login');
-                return;
-            }
-
-            document.getElementById('prof-fullname').value = currentUser.name || '';
-            document.getElementById('prof-email').value = currentUser.email || '';
-            document.getElementById('prof-gender').value = currentUser.gender || 'Male';
-            document.getElementById('prof-contact').value = currentUser.contact || '';
-            document.getElementById('prof-address').value = currentUser.address || '';
-            document.getElementById('prof-dob').value = currentUser.dob || '';
-            document.getElementById('prof-work').value = currentUser.work || '';
-            document.getElementById('prof-photo-url').value = currentUser.photoUrl || '';
-
-            const preview = document.getElementById('modal-avatar-preview');
-            if (currentUser.photoUrl) {
-                preview.innerHTML = `<img src="${currentUser.photoUrl}" class="w-full h-full object-cover">`;
-            } else {
-                preview.innerHTML = `<i class="fa-solid fa-user"></i>`;
-            }
-
-            document.getElementById('detailed-profile-modal').classList.remove('hidden');
-        }
-
-        function closeDetailedProfileModal() {
-            document.getElementById('detailed-profile-modal').classList.add('hidden');
-        }
-
-        function handleFileUploadPreview(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const dataUrl = e.target.result;
-                    document.getElementById('prof-photo-url').value = dataUrl;
-                    document.getElementById('modal-avatar-preview').innerHTML = `<img src="${dataUrl}" class="w-full h-full object-cover">`;
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-
-        function handleSaveDetailedProfile(event) {
-            event.preventDefault();
-            if (!currentUser) return;
-
-            currentUser.name = document.getElementById('prof-fullname').value.trim();
-            currentUser.gender = document.getElementById('prof-gender').value;
-            currentUser.contact = document.getElementById('prof-contact').value.trim();
-            currentUser.address = document.getElementById('prof-address').value.trim();
-            currentUser.dob = document.getElementById('prof-dob').value;
-            currentUser.work = document.getElementById('prof-work').value.trim();
-            currentUser.photoUrl = document.getElementById('prof-photo-url').value.trim();
-
-            const index = usersDB.findIndex(u => u.email === currentUser.email);
-            if (index !== -1) {
-                usersDB[index] = { ...currentUser };
-            }
-
-            saveState();
-            updateUIState();
-            if (!document.getElementById('view-student-dashboard').classList.contains('hidden')) {
-                backToMainDashboard();
-            }
-
-            closeDetailedProfileModal();
-            showToast('Nai-save ang impormasyon ng estudyante!', 'success');
-        }
-
-        // AUTH HANDLERS
-        function openAuthModal(tab) {
-            switchAuthTab(tab);
-            document.getElementById('auth-modal').classList.remove('hidden');
-        }
-
-        function closeAuthModal() {
-            document.getElementById('auth-modal').classList.add('hidden');
-        }
-
-        function switchAuthTab(tab) {
-            const loginBtn = document.getElementById('tab-login');
-            const regBtn = document.getElementById('tab-register');
-            const loginForm = document.getElementById('form-login');
-            const regForm = document.getElementById('form-register');
-
-            if (tab === 'login') {
-                loginBtn.className = 'flex-1 pb-3 font-bold text-center border-b-2 border-gold-400 text-gold-400';
-                regBtn.className = 'flex-1 pb-3 font-bold text-center border-b-2 border-transparent text-slate-400 hover:text-slate-200';
-                loginForm.classList.remove('hidden');
-                regForm.classList.add('hidden');
-            } else {
-                regBtn.className = 'flex-1 pb-3 font-bold text-center border-b-2 border-gold-400 text-gold-400';
-                loginBtn.className = 'flex-1 pb-3 font-bold text-center border-b-2 border-transparent text-slate-400 hover:text-slate-200';
-                regForm.classList.remove('hidden');
-                loginForm.classList.add('hidden');
-            }
-        }
-
-        function handleRegisterSubmit(e) {
-            e.preventDefault();
-            const name = document.getElementById('reg-name').value.trim();
-            const email = document.getElementById('reg-email').value.trim().toLowerCase();
-            const gender = document.getElementById('reg-gender').value;
-            const password = document.getElementById('reg-password').value;
-
-            if (usersDB.some(u => u.email === email)) {
-                showToast('May umiiral nang account gamit ang email na ito.', 'warning');
-                return;
-            }
-
-            const newUser = {
-                name,
-                email,
-                gender,
-                password,
-                photoUrl: '',
-                contact: '',
-                address: '',
-                dob: '',
-                work: '',
-                registeredAt: Date.now()
-            };
-
-            usersDB.push(newUser);
-            currentUser = newUser;
-            saveState();
-            closeAuthModal();
-            updateUIState();
-            navigateTo('student-dashboard');
-            showToast('Maligayang pagdating sa Study Portal ng Madrasa!', 'success');
-        }
-
-        function handleLoginSubmit(e) {
-            e.preventDefault();
-            const email = document.getElementById('login-email').value.trim().toLowerCase();
-            const password = document.getElementById('login-password').value;
-
-            const user = usersDB.find(u => u.email === email && u.password === password);
-            if (!user) {
-                showToast('Maling email o password.', 'warning');
-                return;
-            }
-
-            currentUser = user;
-            saveState();
-            closeAuthModal();
-            updateUIState();
-            navigateTo('student-dashboard');
-            showToast(`Maligayang pagbabalik, ${user.name}!`, 'success');
-        }
-
-        function logoutStudent() {
-            currentUser = null;
-            saveState();
-            updateUIState();
-            navigateTo('home');
-            showToast('Naka-logout ka na sa Study Portal.', 'info');
-        }
-
-        // BACKEND ENGINE CONTROL FUNCTIONS
-        function openAdminPasscodeModal() {
-            document.getElementById('admin-passcode-modal').classList.remove('hidden');
-        }
-
-        function closeAdminPasscodeModal() {
-            document.getElementById('admin-passcode-modal').classList.add('hidden');
-        }
-
-        function handleAdminAuthSubmit(e) {
-            e.preventDefault();
-            const pass = document.getElementById('admin-passcode-input').value;
-            if (pass === 'admin123') {
-                closeAdminPasscodeModal();
-                document.getElementById('admin-passcode-input').value = '';
-                
-                // Update header toggle buttons styling
-                const btnFront = document.getElementById('nav-btn-student');
-                const btnBack = document.getElementById('nav-btn-admin');
-                btnBack.className = 'px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 bg-gold-500 text-slate-950 shadow-md ios-button-active';
-                btnFront.className = 'px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 text-slate-400 hover:text-gold-400 hover:bg-emerald-950/40 ios-button-active';
-
-                navigateTo('admin');
-                showToast('Naka-login ka na sa Backend Admin Engine.', 'success');
-            } else {
-                showToast('Maling Admin Passcode.', 'warning');
-            }
-        }
-
-        function renderAdminPanel() {
-            // Render Semester Toggles with Apple iOS Switches
-            const toggleBox = document.getElementById('admin-semester-toggles');
-            toggleBox.innerHTML = '';
-
-            const semLabels = { sem1: 'First Semester', sem2: 'Second Semester', sem3: 'Third Semester', sem4: 'Fourth Semester' };
-
-            ['sem1', 'sem2', 'sem3', 'sem4'].forEach(semKey => {
-                const isActive = semesterActivation[semKey];
-                const card = document.createElement('div');
-                card.className = `p-4 rounded-2xl border flex items-center justify-between transition-all ${isActive ? 'bg-emerald-950/40 border-gold-500/30 shadow-md' : 'bg-black/40 border-white/10'}`;
-                
-                card.innerHTML = `
-                    <div>
-                        <div class="text-sm font-bold text-slate-100">${semLabels[semKey]}</div>
-                        <span class="text-[11px] ${isActive ? 'text-emerald-400' : 'text-slate-500'} font-medium">
-                            ${isActive ? 'Status: Active sa Frontend' : 'Status: Naka-lock'}
-                        </span>
-                    </div>
-                    <label class="ios-switch">
-                        <input type="checkbox" ${isActive ? 'checked' : ''} onchange="toggleSemesterActivation('${semKey}')">
-                        <span class="ios-slider"></span>
-                    </label>
-                `;
-                toggleBox.appendChild(card);
-            });
-
-            // Populate Admin Subject Selector Dropdown
-            populateAdminSubjectDropdown();
-
-            // Render Student DB Table
-            const studentTableBody = document.getElementById('admin-students-list-body');
-            studentTableBody.innerHTML = '';
-
-            if (usersDB.length === 0) {
-                studentTableBody.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-slate-500 text-xs">Walang nakarehistrong estudyante sa database.</td></tr>`;
-                return;
-            }
-
-            usersDB.forEach(user => {
-                const tr = document.createElement('tr');
-                const regDate = new Date(user.registeredAt).toLocaleDateString();
-                tr.innerHTML = `
-                    <td class="p-3 font-semibold text-slate-100 flex items-center gap-2">
-                        <div class="w-8 h-8 rounded-full bg-slate-950 border border-gold-400/50 flex items-center justify-center text-xs text-gold-400 overflow-hidden flex-shrink-0 shadow">
-                            ${user.photoUrl ? `<img src="${user.photoUrl}" class="w-full h-full object-cover">` : `<i class="fa-solid fa-user"></i>`}
-                        </div>
-                        ${user.name}
-                    </td>
-                    <td class="p-3 text-slate-300 text-xs">${user.email}</td>
-                    <td class="p-3"><span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-white/10 text-emerald-300">${user.gender || 'Male'}</span></td>
-                    <td class="p-3 text-slate-300 text-xs">${user.contact || 'N/A'}</td>
-                    <td class="p-3 text-slate-400 text-xs">${regDate}</td>
-                    <td class="p-3">
-                        ${user.photoUrl 
-                            ? `<span class="text-xs text-emerald-400 font-semibold flex items-center gap-1"><i class="fa-solid fa-check-circle"></i> May Photo</span>` 
-                            : `<span class="text-xs text-rose-400 font-semibold flex items-center gap-1"><i class="fa-solid fa-clock"></i> Kulang sa Photo</span>`}
-                    </td>
-                `;
-                studentTableBody.appendChild(tr);
-            });
-        }
-
-        // SUBJECT & LECTURE MANAGEMENT LOGIC
-        function populateAdminSubjectDropdown() {
-            const subjectSelect = document.getElementById('admin-subject-select');
-            subjectSelect.innerHTML = '';
-
-            const list = subjectsData['sem1'] || [];
-
-            list.forEach(subj => {
-                const opt = document.createElement('option');
-                opt.value = subj.id;
-                opt.innerText = subj.title;
-                subjectSelect.appendChild(opt);
-            });
-
-            handleAdminSubjectChange();
-        }
-
-        function handleAdminSubjectChange() {
-            const subjectId = document.getElementById('admin-subject-select').value;
-            const list = subjectsData['sem1'] || [];
-            const subj = list.find(s => s.id === subjectId) || list[0];
-
-            const lectureSelect = document.getElementById('admin-lecture-select');
-            lectureSelect.innerHTML = '';
-
-            if (subj && subj.lectures) {
-                subj.lectures.forEach(lec => {
-                    const opt = document.createElement('option');
-                    opt.value = lec.id;
-                    opt.innerText = `${lec.num || 'LECTURE'}: ${lec.title}`;
-                    lectureSelect.appendChild(opt);
-                });
-            }
-
-            handleAdminLectureChange();
-        }
-
-        function handleAdminLectureChange() {
-            const subjectId = document.getElementById('admin-subject-select').value;
-            const lectureId = document.getElementById('admin-lecture-select').value;
-
-            const list = subjectsData['sem1'] || [];
-            const subj = list.find(s => s.id === subjectId);
-            if (!subj) return;
-
-            const lec = (subj.lectures || []).find(l => l.id === lectureId);
-            if (!lec) return;
-
-            document.getElementById('admin-edit-lec-num').value = lec.num || '';
-            document.getElementById('admin-edit-lec-title').value = lec.title || '';
-            document.getElementById('admin-edit-lec-video').value = lec.youtubeUrl || '';
-            document.getElementById('admin-edit-lec-pdf').value = lec.pdfUrl || '';
-            document.getElementById('admin-edit-lec-notes').value = lec.notes || '';
-        }
-
-        function createNewLectureTab() {
-            const subjectId = document.getElementById('admin-subject-select').value;
-            const list = subjectsData['sem1'] || [];
-            const subj = list.find(s => s.id === subjectId);
-
-            if (!subj) return;
-
-            const newNum = (subj.lectures ? subj.lectures.length : 0) + 1;
-            const newLec = {
-                id: 'lec_' + Date.now(),
-                num: `LECTURE ${newNum}`,
-                title: `New Lecture Topic ${newNum}`,
-                youtubeUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-                pdfUrl: '#',
-                notes: 'Bagong talaan ng aralin.',
-                completed: false
-            };
-
-            if (!subj.lectures) subj.lectures = [];
-            subj.lectures.push(newLec);
-
-            saveState();
-            handleAdminSubjectChange();
-            
-            // Auto select new lecture
-            document.getElementById('admin-lecture-select').value = newLec.id;
-            handleAdminLectureChange();
-
-            showToast(`Naidagdag ang ${newLec.num} sa ${subj.title}!`, 'success');
-        }
-
-        function deleteSelectedLectureTab() {
-            const subjectId = document.getElementById('admin-subject-select').value;
-            const lectureId = document.getElementById('admin-lecture-select').value;
-
-            const list = subjectsData['sem1'] || [];
-            const subj = list.find(s => s.id === subjectId);
-
-            if (!subj || !subj.lectures || subj.lectures.length <= 1) {
-                showToast('Hindi pwedeng burahin ang huling natitirang lecture.', 'warning');
-                return;
-            }
-
-            subj.lectures = subj.lectures.filter(l => l.id !== lectureId);
-            saveState();
-            handleAdminSubjectChange();
-            showToast('Naisagawang burahin ang lecture tab.', 'info');
-        }
-
-        function handleSaveLectureContent(e) {
-            e.preventDefault();
-            const subjectId = document.getElementById('admin-subject-select').value;
-            const lectureId = document.getElementById('admin-lecture-select').value;
-
-            const list = subjectsData['sem1'] || [];
-            const subj = list.find(s => s.id === subjectId);
-            if (!subj) return;
-
-            const lec = (subj.lectures || []).find(l => l.id === lectureId);
-            if (!lec) return;
-
-            lec.num = document.getElementById('admin-edit-lec-num').value.trim();
-            lec.title = document.getElementById('admin-edit-lec-title').value.trim();
-            lec.youtubeUrl = document.getElementById('admin-edit-lec-video').value.trim();
-            lec.pdfUrl = document.getElementById('admin-edit-lec-pdf').value.trim();
-            lec.notes = document.getElementById('admin-edit-lec-notes').value.trim();
-
-            saveState();
-            handleAdminSubjectChange();
-            showToast('Nai-save at automatic na lumabas na sa Student Study Portal!', 'success');
-        }
-
-        function toggleSemesterActivation(semKey) {
-            semesterActivation[semKey] = !semesterActivation[semKey];
-            saveState();
-            renderAdminPanel();
-            renderPublicSemesterCards();
-            showToast(`Nai-update ang status ng ${semKey.toUpperCase()}.`, 'info');
-        }
-
-        // NOTIFICATION TOAST
-        function showToast(message, type = 'success') {
-            const toast = document.getElementById('toast-message');
-            const icon = document.getElementById('toast-icon');
-            const text = document.getElementById('toast-text');
-
-            text.innerText = message;
-            
-            if (type === 'warning') {
-                icon.className = 'fa-solid fa-triangle-exclamation text-amber-400 text-lg';
-            } else if (type === 'info') {
-                icon.className = 'fa-solid fa-circle-info text-sky-400 text-lg';
-            } else {
-                icon.className = 'fa-solid fa-circle-check text-gold-400 text-lg';
-            }
-
-            toast.classList.remove('hidden');
-            setTimeout(() => {
-                toast.classList.add('hidden');
-            }, 3500);
-        }
-    </script>
-</body>
-</html>
+                                <span id="detail-lectures-badge"
