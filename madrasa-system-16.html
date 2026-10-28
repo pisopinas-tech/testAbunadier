@@ -1,0 +1,2087 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Abunadier Da'wah-TV PH - Online Madrasa System</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        aesthetic: {
+                            bg: '#fcfbfa',
+                            surface: 'rgba(255, 255, 255, 0.75)',
+                            card: 'rgba(255, 255, 255, 0.6)',
+                            border: 'rgba(180, 155, 130, 0.2)',
+                            brownDark: '#4a3b32',
+                            brownLight: '#8c7365',
+                            accent: '#b8977e',
+                        },
+                        darkAesthetic: {
+                            bg: '#0f0e0d',
+                            surface: 'rgba(30, 27, 25, 0.75)',
+                            card: 'rgba(40, 36, 33, 0.6)',
+                            border: 'rgba(180, 155, 130, 0.15)',
+                            text: '#f5f2ed',
+                            muted: '#b0a499',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Display"', '"SF Pro Text"', '"Segoe UI"', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+                        arabic: ['Amiri', 'Traditional Arabic', 'serif']
+                    },
+                    boxShadow: {
+                        'aesthetic': '0 10px 30px -10px rgba(139, 115, 101, 0.08), 0 0 0 1px rgba(180, 155, 130, 0.15)',
+                        'aesthetic-modal': '0 25px 50px -12px rgba(74, 59, 50, 0.25)',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        .aesthetic-glass {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(180, 155, 130, 0.25);
+        }
+        .dark .aesthetic-glass {
+            background: rgba(30, 27, 25, 0.8);
+            border: 1px solid rgba(180, 155, 130, 0.2);
+        }
+
+        .aesthetic-glass-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(180, 155, 130, 0.15);
+        }
+        .dark .aesthetic-glass-card {
+            background: rgba(40, 36, 33, 0.65);
+            border: 1px solid rgba(180, 155, 130, 0.15);
+        }
+        .aesthetic-glass-card:hover {
+            border-color: rgba(184, 151, 126, 0.5);
+            box-shadow: 0 12px 35px -10px rgba(139, 115, 101, 0.15);
+        }
+
+        .aesthetic-glass-header {
+            background: rgba(252, 251, 250, 0.85);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+        }
+        .dark .aesthetic-glass-header {
+            background: rgba(15, 14, 13, 0.9);
+        }
+
+        .brown-gradient-text {
+            background: linear-gradient(135deg, #4a3b32 0%, #6b5344 50%, #8c7365 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .dark .brown-gradient-text {
+            background: linear-gradient(135deg, #f5f2ed 0%, #d4c5b9 50%, #b8977e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .brown-btn-gradient {
+            background: linear-gradient(135deg, #8c7365 0%, #6b5344 100%);
+            color: #ffffff;
+        }
+        .dark .brown-btn-gradient {
+            background: linear-gradient(135deg, #b8977e 0%, #8c7365 100%);
+            color: #ffffff;
+        }
+        .brown-btn-gradient:hover {
+            background: linear-gradient(135deg, #6b5344 0%, #4a3b32 100%);
+        }
+
+        .button-active {
+            transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .button-active:active {
+            transform: scale(0.95);
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(240, 235, 230, 0.5);
+        }
+        .dark ::-webkit-scrollbar-track {
+            background: rgba(30, 27, 25, 0.5);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(140, 115, 101, 0.3);
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(140, 115, 101, 0.6);
+        }
+        .aesthetic-switch {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 24px;
+        }
+        .aesthetic-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .aesthetic-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(180, 155, 130, 0.3);
+            transition: .3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 24px;
+        }
+        .aesthetic-slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            transition: .3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+        }
+        input:checked + .aesthetic-slider {
+            background-color: #8c7365;
+        }
+        input:checked + .aesthetic-slider:before {
+            transform: translateX(20px);
+        }
+        @keyframes photoFlash { 0% { opacity: 0.95; } 100% { opacity: 0; } }
+        @keyframes photoPop { 0% { transform: scale(0.6); opacity: 0; filter: brightness(2.5); } 60% { transform: scale(1.04); opacity: 1; filter: brightness(1.4); } 100% { transform: scale(1); opacity: 1; filter: brightness(1); } }
+        .photo-flash-layer { animation: photoFlash 0.6s ease-out forwards; }
+        .photo-pop { animation: photoPop 0.5s ease-out forwards; }
+        header.sticky { padding-top: env(safe-area-inset-top, 0px); }
+        body { padding-bottom: env(safe-area-inset-bottom, 0px); }
+        #toast-message { margin-bottom: env(safe-area-inset-bottom, 0px); }
+    </style>
+</head>
+<body class="bg-aesthetic-bg dark:bg-darkAesthetic-bg text-aesthetic-brownDark dark:text-darkAesthetic-text font-sans min-h-screen flex flex-col selection:bg-aesthetic-accent selection:text-white antialiased overflow-x-hidden transition-colors duration-300">
+
+    <!-- TOP NAVBAR -->
+    <header class="sticky top-0 z-40 w-full aesthetic-glass-header border-b border-aesthetic-border shadow-sm transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3.5 cursor-pointer group" onclick="navigateTo('home')">
+                <div class="relative w-11 h-11 rounded-2xl bg-gradient-to-tr from-[#6b5344] via-[#8c7365] to-[#b8977e] flex items-center justify-center p-0.5 shadow-md group-hover:scale-105 transition-transform duration-300">
+                    <div class="w-full h-full bg-[#fcfbfa] dark:bg-[#0f0e0d] rounded-[14px] flex items-center justify-center transition-colors">
+                        <i class="fa-solid fa-kaaba text-[#6b5344] dark:text-[#b8977e] text-xl group-hover:rotate-6 transition-transform"></i>
+                    </div>
+                </div>
+                <div class="min-w-0">
+                    <h1 class="font-bold text-sm sm:text-lg leading-tight brown-gradient-text tracking-tight">ABUNADIER DA'WAH-TV PH</h1>
+                    <p class="text-[11px] text-aesthetic-brownLight dark:text-darkAesthetic-muted font-medium tracking-wider uppercase">Online Madrasa System</p>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-3">
+                <!-- DAY / NIGHT THEME TOGGLE ICON -->
+                <button onclick="toggleDarkMode()" class="w-10 h-10 rounded-xl bg-white/70 dark:bg-white/10 border border-aesthetic-border flex items-center justify-center text-aesthetic-brownDark dark:text-amber-400 hover:bg-stone-200 dark:hover:bg-white/20 transition-all button-active shadow-sm" title="Toggle Day / Night Mode">
+                    <i id="theme-toggle-icon" class="fa-solid fa-moon text-sm"></i>
+                </button>
+
+                <div id="logged-in-actions" class="hidden relative">
+                    <button onclick="toggleStudentMenu()" class="relative flex items-center justify-center p-1 rounded-full border border-aesthetic-accent hover:border-aesthetic-brownDark bg-white/80 dark:bg-stone-800 transition-all duration-200 focus:outline-none shadow-sm">
+                        <div id="header-avatar-container" class="w-9 h-9 rounded-full overflow-hidden flex items-center justify-center bg-stone-100 dark:bg-stone-900 text-aesthetic-brownDark dark:text-darkAesthetic-text border border-aesthetic-border"></div>
+                        <span id="header-photo-warning-dot" class="hidden absolute top-0 right-0 w-3.5 h-3.5 bg-rose-500 border-2 border-white dark:border-stone-900 rounded-full animate-ping"></span>
+                    </button>
+
+                    <div id="student-menu-dropdown" class="hidden absolute right-0 mt-3 w-[min(20rem,calc(100vw-2rem))] aesthetic-glass rounded-3xl border border-aesthetic-border shadow-aesthetic-modal z-50 overflow-hidden">
+                        <div class="p-4 bg-white/60 dark:bg-stone-900/60 border-b border-aesthetic-border flex items-center justify-between">
+                            <span class="text-xs font-bold text-aesthetic-brownLight dark:text-darkAesthetic-muted uppercase tracking-widest flex items-center gap-2">
+                                <i class="fa-solid fa-graduation-cap text-aesthetic-brownDark dark:text-darkAesthetic-text"></i> Student Portal
+                            </span>
+                            <button onclick="toggleStudentMenu()" class="w-6 h-6 rounded-full bg-stone-200 dark:bg-stone-800 text-stone-600 dark:text-stone-300 hover:text-stone-900 flex items-center justify-center text-xs"><i class="fa-solid fa-xmark"></i></button>
+                        </div>
+                        <div class="p-3 space-y-2">
+                            <div class="p-3 bg-white/50 dark:bg-stone-800/50 rounded-2xl border border-aesthetic-border">
+                                <div class="flex items-center space-x-3 mb-2">
+                                    <div id="dropdown-avatar" class="w-12 h-12 rounded-full overflow-hidden bg-stone-100 dark:bg-stone-900 border-2 border-aesthetic-accent flex items-center justify-center text-aesthetic-brownDark dark:text-darkAesthetic-text text-xl flex-shrink-0">
+                                        <i class="fa-solid fa-user"></i>
+                                    </div>
+                                    <div class="min-w-0 flex-1">
+                                        <h4 id="dropdown-student-name" class="font-bold text-aesthetic-brownDark dark:text-darkAesthetic-text truncate text-sm">Student Name</h4>
+                                        <div class="flex items-center gap-1.5 mt-1">
+                                            <span id="dropdown-gender-badge" class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-stone-200 dark:bg-stone-700 text-stone-700 dark:text-stone-200">Male</span>
+                                            <span id="dropdown-level-badge" class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-300">Student</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button onclick="openDetailedProfileModal()" class="w-full p-3 rounded-2xl bg-white/40 dark:bg-stone-800/40 hover:bg-white/80 dark:hover:bg-stone-800 border border-aesthetic-border text-left flex items-center justify-between group transition-all">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-8 h-8 rounded-xl bg-stone-200 dark:bg-stone-700 text-aesthetic-brownDark dark:text-darkAesthetic-text flex items-center justify-center group-hover:bg-aesthetic-brownDark group-hover:text-white">
+                                        <i class="fa-solid fa-id-card"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs font-bold text-aesthetic-brownDark dark:text-darkAesthetic-text group-hover:text-aesthetic-brownLight">Profile Details</div>
+                                        <div class="text-[10px] text-stone-500 dark:text-stone-400">Name, Address, Contact</div>
+                                    </div>
+                                </div>
+                                <i class="fa-solid fa-chevron-right text-xs text-stone-400"></i>
+                            </button>
+                        </div>
+                        <div class="p-3 border-t border-aesthetic-border bg-white/60 dark:bg-stone-900/60 flex items-center justify-between gap-2">
+                            <button onclick="navigateTo('student-dashboard')" class="flex-1 py-2 px-3 text-xs font-bold text-aesthetic-brownDark dark:text-darkAesthetic-text hover:bg-stone-200/60 dark:hover:bg-stone-800 rounded-xl text-center">Dashboard</button>
+                            <button onclick="logoutStudent()" class="py-2 px-3 text-xs font-bold text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-xl text-center">Logout</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- PROPHETIC HADITH BANNER -->
+    <div class="bg-stone-100/80 dark:bg-stone-900/70 border-b border-aesthetic-border py-3 px-4">
+        <div class="max-w-5xl mx-auto text-center space-y-1">
+            <p class="font-arabic text-aesthetic-brownLight dark:text-amber-200/80 text-base sm:text-lg dir-rtl leading-relaxed" lang="ar">
+                «مَنْ سَلَكَ طَرِيقًا يَلْتَمِسُ فِيهِ عِلْمًا سَهَّلَ اللَّهُ لَهُ بِهِ طَرِيقًا إِلَى الْجَنَّةِ»
+            </p>
+            <p class="text-[11px] sm:text-xs text-stone-600 dark:text-stone-400 italic">
+                "Whoever takes a path upon which he seeks knowledge, Allah will make the path to Paradise easy for him."
+                <span class="text-aesthetic-brownDark dark:text-amber-300 font-semibold"> (Sahih Muslim 2699)</span>
+            </p>
+        </div>
+    </div>
+
+    <!-- MAIN CONTAINER -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
+        
+        <!-- SECTION 1: PUBLIC LANDING PAGE -->
+        <section id="view-home" class="space-y-10">
+            <div class="relative rounded-3xl overflow-hidden border border-aesthetic-border p-8 sm:p-14 text-center aesthetic-glass shadow-aesthetic">
+                <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(184,151,126,0.1),transparent_60%)]"></div>
+                <div class="relative z-10 max-w-3xl mx-auto space-y-6">
+                    <span class="px-4 py-1.5 rounded-full text-xs font-extrabold bg-stone-200/70 dark:bg-stone-800 text-aesthetic-brownDark dark:text-darkAesthetic-text border border-aesthetic-border inline-flex items-center gap-2 uppercase tracking-widest shadow-sm">
+                        <i class="fa-solid fa-moon text-aesthetic-brownLight dark:text-amber-300"></i> Official Online Madrasa Portal
+                    </span>
+                    <h2 class="text-3xl sm:text-5xl font-extrabold text-aesthetic-brownDark dark:text-darkAesthetic-text tracking-tight leading-tight">
+                        Student Study Portal - <span class="brown-gradient-text">Abunadier Online Madrasa</span>
+                    </h2>
+                    <p class="text-stone-600 dark:text-stone-300 text-sm sm:text-base leading-relaxed font-normal max-w-2xl mx-auto">
+                        An interactive and modern Online Madrasa Portal for studying authentic Islamic Knowledge across comprehensive semesters.
+                    </p>
+                    <div class="pt-4 flex flex-wrap justify-center gap-4">
+                        <button onclick="openAuthModal('register')" class="px-8 py-4 text-sm font-bold brown-btn-gradient rounded-2xl shadow-lg hover:shadow-xl transition-all button-active">
+                            Enroll Student Now <i class="fa-solid fa-arrow-right ml-2"></i>
+                        </button>
+                        <button onclick="openAuthModal('login')" class="px-8 py-4 text-sm font-bold text-aesthetic-brownDark dark:text-darkAesthetic-text bg-white/70 dark:bg-stone-800 border border-aesthetic-border hover:bg-white dark:hover:bg-stone-700 rounded-2xl transition-all button-active">
+                            Log In to Portal
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: STUDENT STUDY DASHBOARD -->
+        <section id="view-student-dashboard" class="hidden space-y-6">
+            <div class="aesthetic-glass border border-aesthetic-border rounded-3xl p-6 flex flex-col sm:flex-row items-center justify-between shadow-aesthetic gap-4">
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 rounded-2xl brown-btn-gradient text-white flex items-center justify-center text-2xl font-black shadow-md flex-shrink-0">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <div>
+                        <span class="text-[10px] font-extrabold tracking-widest text-aesthetic-brownLight dark:text-darkAesthetic-muted uppercase block">VERIFIED STUDENT ACCOUNT</span>
+                        <h2 id="dash-student-name" class="text-xl sm:text-2xl font-bold text-aesthetic-brownDark dark:text-darkAesthetic-text leading-tight">Student Name</h2>
+                    </div>
+                </div>
+                <button onclick="logoutStudent()" class="w-full sm:w-auto px-5 py-2.5 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/50 hover:bg-rose-100 text-rose-700 dark:text-rose-300 font-bold text-xs rounded-2xl transition-all button-active">
+                    <i class="fa-solid fa-right-from-bracket mr-1.5"></i> Logout Student
+                </button>
+            </div>
+
+            <!-- SEMESTER SELECTOR TABS FOR STUDENTS -->
+            <div class="flex items-center gap-2 overflow-x-auto pb-2" id="student-semester-tabs"></div>
+
+            <!-- DASHBOARD VIEW 1: MAIN SUBJECTS -->
+            <div id="dashboard-main-overview" class="space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="lg:col-span-2 space-y-6">
+                        <div class="aesthetic-glass-card rounded-3xl p-8 text-center space-y-3 shadow-aesthetic">
+                            <h3 id="dash-semester-title" class="text-2xl font-extrabold brown-gradient-text">First Semester</h3>
+                            <h4 class="text-lg font-bold text-aesthetic-brownDark dark:text-darkAesthetic-text">Welcome to the Online Madrasa Program</h4>
+                            <p class="text-xs text-stone-600 dark:text-stone-300 max-w-xl mx-auto leading-relaxed">
+                                The administration warmly welcomes all students, asking Almighty Allah to grant everyone success and guidance.
+                            </p>
+                        </div>
+                        <div class="aesthetic-glass-card rounded-3xl p-5 space-y-4 shadow-aesthetic">
+                            <div class="flex items-center justify-between gap-3">
+                                <div>
+                                    <h4 class="text-xs font-bold uppercase tracking-widest text-aesthetic-brownDark dark:text-darkAesthetic-text">STUDY CALENDAR</h4>
+                                    <p id="cal-student-range" class="text-[10px] text-stone-500 dark:text-stone-400 mt-0.5"></p>
+                                </div>
+                                <i class="fa-solid fa-calendar-days text-aesthetic-brownLight dark:text-amber-400 text-base"></i>
+                            </div>
+                            <div id="cal-student-tabs" class="flex flex-wrap gap-2"></div>
+                            <div id="cal-student-list" class="space-y-2"></div>
+                            <p class="text-[10px] text-stone-500 dark:text-stone-400 leading-relaxed">Weeks 1–3 of each month: next lecture from the table of contents + quiz. Week 4: exam on those 3 lectures. 4 months total. Tap a lecture or quiz to open it.</p>
+                        </div>
+                        <div id="subject-cards-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+                    </div>
+                    <div class="lg:col-span-1 space-y-6">
+                        <div class="aesthetic-glass rounded-3xl p-6 text-center space-y-1.5 shadow-aesthetic">
+                            <span class="text-[10px] font-extrabold uppercase tracking-widest text-stone-500 dark:text-stone-400 block"><i class="fa-solid fa-trophy mr-1 text-aesthetic-brownLight dark:text-amber-400"></i>OVERALL RANKING</span>
+                            <div id="rank-top" class="text-5xl font-black brown-gradient-text leading-tight">Top -</div>
+                            <p id="rank-of" class="text-xs font-semibold text-stone-600 dark:text-stone-300"></p>
+                            <div class="pt-2 mt-2 border-t border-aesthetic-border"><span class="text-[10px] font-extrabold uppercase tracking-widest text-stone-500 dark:text-stone-400 block">OVERALL SCORE</span><div class="text-3xl font-black text-aesthetic-brownDark dark:text-darkAesthetic-text"><span id="rank-points">0</span> <span class="text-xs font-semibold text-stone-500 dark:text-stone-400">/ 100</span></div></div>
+                            <p id="rank-score" class="text-[11px] text-stone-500 dark:text-stone-400"></p>
+                        </div>
+                        <div class="aesthetic-glass rounded-3xl p-5 space-y-3 shadow-aesthetic">
+                            <div class="flex items-center justify-between border-b border-aesthetic-border pb-3">
+                                <div>
+                                    <h4 class="text-xs font-bold uppercase tracking-widest text-aesthetic-brownDark dark:text-darkAesthetic-text">TOP 10 STUDENTS</h4>
+                                    <p class="text-[10px] text-stone-500 dark:text-stone-400 mt-0.5">Highest overall score</p>
+                                </div>
+                                <i class="fa-solid fa-ranking-star text-aesthetic-brownLight dark:text-amber-400 text-base"></i>
+                            </div>
+                            <div id="top10-list" class="space-y-2"></div>
+                        </div>
+                        <div class="aesthetic-glass rounded-3xl p-6 space-y-4 shadow-aesthetic sticky top-28">
+                            <div class="flex items-center justify-between border-b border-aesthetic-border pb-3">
+                                <h4 class="text-xs font-bold uppercase tracking-widest text-aesthetic-brownDark dark:text-darkAesthetic-text">SEMESTER GRADES</h4>
+                                <i class="fa-solid fa-medal text-aesthetic-brownLight dark:text-amber-400 text-base"></i>
+                            </div>
+                            <div id="semester-grades-list" class="space-y-2.5"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DASHBOARD VIEW 2: SUBJECT DETAIL & TOC -->
+            <div id="dashboard-subject-detail" class="hidden space-y-6">
+                <div>
+                    <button onclick="backToMainDashboard()" class="text-aesthetic-brownLight dark:text-amber-300 hover:text-aesthetic-brownDark font-bold text-xs inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/75 dark:bg-stone-800 border border-aesthetic-border button-active">
+                        <i class="fa-solid fa-arrow-left"></i> Back to Main Dashboard
+                    </button>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="lg:col-span-2 space-y-5">
+                        <div class="aesthetic-glass-card rounded-3xl p-6 space-y-2 shadow-md">
+                            <div class="flex items-center space-x-3">
+                                <div id="detail-subject-icon" class="w-10 h-10 rounded-2xl bg-stone-200 dark:bg-stone-800 text-aesthetic-brownDark dark:text-darkAesthetic-text border border-aesthetic-border flex items-center justify-center text-xl shadow-sm">
+                                    <i class="fa-solid fa-cubes"></i>
+                                </div>
+                                <h2 id="detail-subject-title" class="text-2xl font-extrabold text-aesthetic-brownDark dark:text-darkAesthetic-text">Aqeedah</h2>
+                            </div>
+                            <p id="detail-subject-desc" class="text-xs text-stone-600 dark:text-stone-300 pt-1 leading-relaxed"></p>
+                        </div>
+
+                        <div class="aesthetic-glass rounded-3xl p-6 space-y-4 shadow-aesthetic">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <span id="detail-lecture-num" class="text-[10px] font-extrabold text-aesthetic-brownLight dark:text-amber-300 uppercase tracking-widest block">LECTURE 1</span>
+                                    <h3 id="detail-lecture-title" class="text-lg font-bold text-aesthetic-brownDark dark:text-darkAesthetic-text">Meaning of Correct Aqeedah</h3>
+                                </div>
+                                <span class="px-3 py-1 rounded-full text-[11px] font-bold bg-stone-200/80 dark:bg-stone-800 text-aesthetic-brownDark dark:text-darkAesthetic-text border border-aesthetic-border">Active Module</span>
+                            </div>
+
+                            <div class="relative w-full aspect-video bg-stone-900 rounded-2xl overflow-hidden border border-aesthetic-border shadow-lg">
+                                <iframe id="detail-video-iframe" class="w-full h-full" src="" title="Lecture Video" frameborder="0" allowfullscreen></iframe>
+                            </div>
+
+                            <div class="pt-2 space-y-3">
+                                <div class="bg-white/60 dark:bg-stone-900/60 border border-aesthetic-border rounded-2xl p-4 space-y-1">
+                                    <span class="text-[10px] font-bold text-aesthetic-brownLight dark:text-amber-300 uppercase tracking-wider block">LECTURE NOTES & OVERVIEW</span>
+                                    <p id="detail-lecture-notes" class="text-xs text-stone-700 dark:text-stone-300 leading-relaxed"></p>
+                                </div>
+                                <div class="flex flex-wrap gap-3">
+                                    <a id="detail-pdf-btn" href="#" target="_blank" class="px-4 py-2.5 bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 text-aesthetic-brownDark dark:text-darkAesthetic-text border border-aesthetic-border text-xs font-bold rounded-2xl flex items-center gap-2">
+                                        <i class="fa-solid fa-book-open"></i> Download Book PDF
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-1 space-y-5">
+                        <div class="aesthetic-glass-card rounded-3xl p-6 text-center space-y-3 shadow-md">
+                            <span class="text-[10px] font-extrabold uppercase tracking-widest text-stone-500 dark:text-stone-400 block">SUBJECT SCORE</span>
+                            <div class="relative w-28 h-28 mx-auto flex items-center justify-center">
+                                <div class="w-full h-full rounded-full border-4 border-stone-200 dark:border-stone-700 flex items-center justify-center bg-white/70 dark:bg-stone-900/60 shadow-inner">
+                                    <div class="text-center">
+                                        <span id="detail-subject-score" class="text-3xl font-black text-aesthetic-brownDark dark:text-darkAesthetic-text">0</span>
+                                        <span class="text-xs font-semibold text-stone-500 dark:text-stone-400">/100</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="aesthetic-glass rounded-3xl p-5 space-y-4 shadow-aesthetic">
+                            <div class="flex items-center justify-between border-b border-aesthetic-border pb-3">
+                                <div class="flex items-center space-x-2">
+                                    <i class="fa-solid fa-circle-play text-aesthetic-brownLight dark:text-amber-300 text-xs"></i>
+                                    <h4 class="text-xs font-bold uppercase tracking-wider text-aesthetic-brownDark dark:text-darkAesthetic-text">TABLE OF CONTENTS · LECTURES</h4>
+                                </div>
+                                <span id="detail-lectures-badge" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-stone-200 dark:bg-stone-800 text-aesthetic-brownDark dark:text-darkAesthetic-text">0 Lectures</span>
+                            </div>
+                            <div id="detail-lectures-list" class="space-y-2"></div>
+                        </div>
+
+                        <div class="aesthetic-glass rounded-3xl p-5 space-y-4 shadow-aesthetic">
+                            <div class="flex items-center justify-between border-b border-aesthetic-border pb-3">
+                                <div class="flex items-center space-x-2">
+                                    <i class="fa-solid fa-list-ul text-aesthetic-brownLight dark:text-amber-300 text-xs"></i>
+                                    <h4 class="text-xs font-bold uppercase tracking-wider text-aesthetic-brownDark dark:text-darkAesthetic-text">TABLE OF CONTENTS · QUIZZES</h4>
+                                </div>
+                                <span id="detail-lecture-count-badge" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-stone-200 dark:bg-stone-800 text-aesthetic-brownDark dark:text-darkAesthetic-text">6 Lectures</span>
+                            </div>
+                            <div id="detail-toc-list" class="space-y-2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: BACKEND ADMIN ENGINE -->
+        <section id="view-admin-dashboard" class="hidden space-y-8">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b border-aesthetic-border pb-4 gap-4">
+                <div>
+                    <h2 class="text-3xl font-extrabold brown-gradient-text flex items-center gap-3">
+                        <i class="fa-solid fa-server"></i> Backend Administration Engine
+                    </h2>
+                    <p class="text-xs sm:text-sm text-stone-600 dark:text-stone-400">Database API Engine, Semester Controls & Custom Subject Management</p>
+                </div>
+                <div class="flex flex-wrap items-center gap-3">
+                    <button onclick="openChangeAdminPassModal()" class="px-4 py-2 text-xs font-bold bg-stone-200 dark:bg-stone-800 hover:bg-stone-300 text-aesthetic-brownDark dark:text-darkAesthetic-text border border-aesthetic-border rounded-2xl button-active">
+                        <i class="fa-solid fa-key mr-1.5"></i> Change Admin Password
+                    </button>
+                    <button onclick="adminLogout()" class="px-4 py-2 text-xs font-bold bg-rose-50 dark:bg-rose-950/40 hover:bg-rose-100 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-900/50 rounded-2xl button-active">
+                        <i class="fa-solid fa-right-from-bracket mr-1.5"></i> Logout Admin
+                    </button>
+                </div>
+            </div>
+
+            <!-- SEMESTER ACTIVATION TOGGLES -->
+            <div class="aesthetic-glass p-6 rounded-3xl border border-aesthetic-border space-y-4 shadow-aesthetic">
+                <div>
+                    <h3 class="text-lg font-bold text-aesthetic-brownDark dark:text-darkAesthetic-text flex items-center gap-2">
+                        <i class="fa-solid fa-toggle-on text-aesthetic-brownLight dark:text-amber-300"></i> Semester Database Controls (Backend Switch)
+                    </h3>
+                    <p class="text-xs text-stone-600 dark:text-stone-400">Toggle to activate or lock semesters on the student portal.</p>
+                </div>
+                <div id="admin-semester-toggles" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 pt-2"></div>
+            </div>
+
+            <!-- MANAGE SUBJECT & TABLE OF CONTENTS (PER SEMESTER) -->
+            <div class="aesthetic-glass border border-aesthetic-border rounded-3xl p-6 shadow-aesthetic space-y-5">
+                <div class="flex items-center justify-between border-b border-aesthetic-border pb-3">
+                    <div class="flex items-center space-x-2 text-aesthetic-brownDark dark:text-darkAesthetic-text">
+                        <i class="fa-regular fa-pen-to-square text-lg"></i>
+                        <h3 class="font-bold text-base tracking-wide uppercase brown-gradient-text">MANAGE SUBJECT & TABLE OF CONTENTS</h3>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-stone-700 dark:text-stone-300 mb-1.5">1. Select Semester</label>
+                        <select id="admin-semester-select" onchange="handleAdminSemesterChange()" class="w-full bg-white/70 dark:bg-stone-900 border border-aesthetic-border rounded-2xl p-3 text-sm text-aesthetic-brownDark dark:text-darkAesthetic-text font-medium focus:border-aesthetic-brownLight focus:outline-none">
+                            <option value="sem1">First Semester</option>
+                            <option value="sem2">Second Semester</option>
+                            <option value="sem3">Third Semester</option>
+                            <option value="sem4">Fourth Semester</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <div class="flex items-center justify-between mb-1.5">
+                            <label class="block text-xs font-semibold text-stone-700 dark:text-stone-300">2. Select Subject</label>
+                            <button type="button" onclick="deleteSelectedSubject()" class="text-xs font-semibold text-rose-600 dark:text-rose-400 hover:text-rose-800 flex items-center gap-1">
+                                <i class="fa-solid fa-trash-can"></i> Delete Subject
+                            </button>
+                        </div>
+                        <select id="admin-subject-select" onchange="handleAdminSubjectChange()" class="w-full bg-white/70 dark:bg-stone-900 border border-aesthetic-border rounded-2xl p-3 text-sm text-aesthetic-brownDark dark:text-darkAesthetic-text font-medium focus:border-aesthetic-brownLight focus:outline-none"></select>
+                    </div>
+                </div>
+
+                <!-- ADD NEW CUSTOM SUBJECT CONTROLS -->
+                <div class="p-4 bg-white/40 dark:bg-stone-900/40 border border-aesthetic-border rounded-2xl space-y-3">
+                    <h4 class="text-xs font-bold text-aesthetic-brownLight dark:text-amber-300 uppercase tracking-wider"><i class="fa-solid fa-circle-plus mr-1"></i> Custom Subject Creator</h4>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <input type="text" id="new-subject-title-input" placeholder="New Subject Title (e.g. Fiqh)" class="bg-white/80 dark:bg-stone-800 border border-aesthetic-border rounded-xl p-2.5 text-xs text-aesthetic-brownDark dark:text-darkAesthetic-text focus:border-aesthetic-brownLight">
+                        <input type="text" id="new-subject-desc-input" placeholder="Short Description..." class="bg-white/80 dark:bg-stone-800 border border-aesthetic-border rounded-xl p-2.5 text-xs text-aesthetic-brownDark dark:text-darkAesthetic-text focus:border-aesthetic-brownLight">
+                        <button type="button" onclick="addNewCustomSubject()" class="py-2.5 px-4 brown-btn-gradient text-white font-bold text-xs rounded-xl shadow-sm flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-plus"></i> Add New Subject
+                        </button>
+                    </div>
+                </div>
+
+                <div class="pt-2">
+                    <div class="flex items-center justify-between mb-1.5">
+                        <label class="block text-xs font-semibold text-stone-700 dark:text-stone-300">3. Select Lecture (shown to students in the Lectures Table of Contents)</label>
+                        <button type="button" onclick="deleteSelectedLectureTab()" class="text-xs font-semibold text-rose-600 dark:text-rose-400 hover:text-rose-800 flex items-center gap-1">
+                            <i class="fa-solid fa-trash-can"></i> Delete Lecture
+                        </button>
+                    </div>
+                    <select id="admin-lecture-select" onchange="handleAdminLectureChange()" class="w-full bg-white/80 dark:bg-stone-900 border-2 border-aesthetic-accent/50 rounded-2xl p-3 text-sm font-bold text-aesthetic-brownDark dark:text-darkAesthetic-text focus:outline-none shadow-sm"></select>
+                </div>
+
+                <!-- LECTURE DETAILS FORM -->
+                <form id="admin-edit-lecture-form" onsubmit="handleSaveLectureContent(event)" class="bg-white/50 dark:bg-stone-900/50 border border-aesthetic-border rounded-2xl p-4 space-y-4">
+                    <div class="flex items-center justify-between border-b border-aesthetic-border pb-2">
+                        <div>
+                            <h4 class="text-xs font-bold text-aesthetic-brownLight dark:text-amber-300 uppercase tracking-wider"><i class="fa-solid fa-sliders mr-1"></i> Edit / Add Lecture Details</h4>
+                            <p class="text-[11px] text-stone-500 dark:text-stone-400">Modify the selected lecture or click 'Add New Lecture' to create a new one.</p>
+                        </div>
+                        <button type="button" onclick="addNewLectureFromForm()" class="px-3 py-1.5 bg-stone-200 dark:bg-stone-800 hover:bg-stone-300 dark:hover:bg-stone-700 text-aesthetic-brownDark dark:text-darkAesthetic-text border border-aesthetic-border rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-sm">
+                            <i class="fa-solid fa-plus-circle"></i> Add New Lecture
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-semibold text-stone-700 dark:text-stone-300 mb-1">Lecture Number / Tag</label>
+                            <input type="text" id="admin-edit-lec-num" required class="w-full bg-white/80 dark:bg-stone-800 border border-aesthetic-border rounded-xl p-2.5 text-xs text-aesthetic-brownDark dark:text-darkAesthetic-text focus:border-aesthetic-brownLight">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-stone-700 dark:text-stone-300 mb-1">Lecture Title</label>
+                            <input type="text" id="admin-edit-lec-title" required class="w-full bg-white/80 dark:bg-stone-800 border border-aesthetic-border rounded-xl p-2.5 text-xs text-aesthetic-brownDark dark:text-darkAesthetic-text focus:border-aesthetic-brownLight">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-semibold text-stone-700 dark:text-stone-300 mb-1">YouTube Embed / Video Link</label>
+                            <input type="url" id="admin-edit-lec-video" required class="w-full bg-white/80 dark:bg-stone-800 border border-aesthetic-border rounded-xl p-2.5 text-xs text-aesthetic-brownDark dark:text-darkAesthetic-text focus:border-aesthetic-brownLight">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-stone-700 dark:text-stone-300 mb-1">PDF Reference Book Link</label>
+                            <input type="url" id="admin-edit-lec-pdf" class="w-full bg-white/80 dark:bg-stone-800 border border-aesthetic-border rounded-xl p-2.5 text-xs text-aesthetic-brownDark dark:text-darkAesthetic-text focus:border-aesthetic-brownLight">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-stone-700 dark:text-stone-300 mb-1">Lecture Overview / Notes</label>
+                        <textarea id="admin-edit-lec-notes" rows="2" class="w-full bg-white/80 dark:bg-stone-800 border border-aesthetic-border rounded-xl p-2.5 text-xs text-aesthetic-brownDark dark:text-darkAesthetic-text focus:border-aesthetic-brownLight"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full py-3 brown-btn-gradient text-white font-bold text-xs rounded-xl shadow-md transition-all button-active">
+                        <i class="fa-solid fa-floppy-disk mr-1.5"></i> Save & Publish Changes to Student Portal
+                    </button>
+                </form>
+            </div>
+
+            <!-- ADMIN: TABLE OF CONTENTS BUILDER -->
+            <div class="aesthetic-glass p-6 rounded-3xl border border-aesthetic-border space-y-4 shadow-aesthetic">
+                <div>
+                    <h3 class="text-lg font-bold text-aesthetic-brownDark dark:text-darkAesthetic-text flex items-center gap-2"><i class="fa-solid fa-list-check text-aesthetic-brownLight dark:text-amber-300"></i> Table of Contents Builder</h3>
+                    <p class="text-xs text-stone-600 dark:text-stone-400">Subject: <b id="toc-subject-label">-</b> (chosen in the subject selector above). Students see these weeks as their Table of Contents and answer them in the app.</p>
+                    <p class="text-[11px] text-stone-500 dark:text-stone-400 mt-1">Points: weekly quiz = 3 questions × 1 point = 3. Monthly exam = 5 questions × 3.2 points = 16. One month = 3 + 3 + 3 + 16 = 25 points, so 4 months = 100.</p>
+                </div>
+                <div id="toc-editor" class="space-y-3">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-semibold text-stone-700 dark:text-stone-300 mb-1">Week</label>
+                            <select id="toc-week-select" onchange="tocWeekChanged()" class="w-full bg-white/80 dark:bg-stone-800 border border-aesthetic-border rounded-xl p-2.5 text-xs text-aesthetic-brownDark dark:text-darkAesthetic-text"><option value="1">Week 1 · Quiz</option><option value="2">Week 2 · Quiz</option><option value="3">Week 3 · Quiz</option><option value="4">Week 4 · Monthly Exam</option><option value="5">Week 5 · Quiz</option><option value="6">Week 6 · Quiz</option><option value="7">Week 7 · Quiz</option><option value="8">Week 8 · Monthly Exam</option><option value="9">Week 9 · Quiz</option><option value="10">Week 10 · Quiz</option><option value="11">Week 11 · Quiz</option><option value="12">Week 12 · Monthly Exam</option><option value="13">Week 13 · Quiz</option><option value="14">Week 14 · Quiz</option><option value="15">Week 15 · Quiz</option><option value="16">Week 16 · Monthly Exam</option></select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-stone-700 dark:text-stone-300 mb-1">Title</label>
+                            <input type="text" id="toc-title" oninput="tocDirty=true" class="w-full bg-white/80 dark:bg-stone-800 border border-aesthetic-border rounded-xl p-2.5 text-xs text-aesthetic-brownDark dark:text-darkAesthetic-text">
+                        </div>
+                    </div>
+                    <label class="flex items-center gap-2 text-xs font-semibold text-stone-700 dark:text-stone-300"><input type="checkbox" id="toc-published" onchange="tocDirty=true"> Visible to students</label>
+                    <div id="toc-questions" class="space-y-3"></div>
+                    <p id="toc-count" class="text-[11px] font-semibold text-stone-500 dark:text-stone-400"></p>
+                    <button type="button" onclick="tocAddQuestion()" class="w-full py-2.5 bg-stone-200 dark:bg-stone-800 text-aesthetic-brownDark dark:text-darkAesthetic-text font-bold text-xs rounded-xl border border-aesthetic-border button-active"><i class="fa-solid fa-plus mr-1.5"></i> Add Question</button>
+                    <button type="button" onclick="tocSave()" class="w-full py-3 brown-btn-gradient text-white font-bold text-xs rounded-xl shadow-md button-active"><i class="fa-solid fa-floppy-disk mr-1.5"></i> Save This Week</button>
+                </div>
+            </div>
+
+            <!-- ADMIN: TOP 10 + STUDY CALENDAR -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="aesthetic-glass p-6 rounded-3xl border border-aesthetic-border space-y-3 shadow-aesthetic">
+                    <div class="border-b border-aesthetic-border pb-3">
+                        <h3 class="text-lg font-bold text-aesthetic-brownDark dark:text-darkAesthetic-text flex items-center gap-2"><i class="fa-solid fa-ranking-star text-aesthetic-brownLight dark:text-amber-300"></i> Top 10 Students</h3>
+                        <p class="text-xs text-stone-600 dark:text-stone-400">Ranked by highest overall score across all subjects.</p>
+                    </div>
+                    <div id="admin-top10-list" class="space-y-2"></div>
+                </div>
+                <div class="space-y-3">
+                    <div class="aesthetic-glass p-4 rounded-3xl border border-aesthetic-border flex flex-wrap items-center gap-3 shadow-aesthetic">
+                        <label for="cal-start-input" class="text-xs font-bold text-aesthetic-brownDark dark:text-darkAesthetic-text"><i class="fa-solid fa-flag mr-1.5"></i>Program start date (Week 1)</label>
+                        <input type="date" id="cal-start-input" onchange="setCalendarStart(this.value)" class="bg-white dark:bg-stone-800 border border-aesthetic-border rounded-xl p-2 text-xs font-bold text-aesthetic-brownDark dark:text-darkAesthetic-text">
+                    </div>
+                    <div class="aesthetic-glass rounded-3xl p-5 space-y-4 shadow-aesthetic">
+                            <div class="flex items-center justify-between gap-3">
+                                <div>
+                                    <h4 class="text-xs font-bold uppercase tracking-widest text-aesthetic-brownDark dark:text-darkAesthetic-text">STUDY CALENDAR</h4>
+                                    <p id="cal-admin-range" class="text-[10px] text-stone-500 dark:text-stone-400 mt-0.5"></p>
+                                </div>
+                                <i class="fa-solid fa-calendar-days text-aesthetic-brownLight dark:text-amber-400 text-base"></i>
+                            </div>
+                            <div id="cal-admin-tabs" class="flex flex-wrap gap-2"></div>
+                            <div id="cal-admin-list" class="space-y-2"></div>
+                            <p class="text-[10px] text-stone-500 dark:text-stone-400 leading-relaxed">Weeks 1–3 of each month: next lecture from the table of contents + quiz. Week 4: exam on those 3 lectures. 4 months total. Tap a lecture or quiz to open it.</p>
+                        </div>
+                </div>
+            </div>
+
+            <!-- BACKEND DATABASE: ENROLLED STUDENTS -->
+            <div class="aesthetic-glass p-6 rounded-3xl border border-aesthetic-border space-y-4 shadow-aesthetic">
+                <h3 class="text-lg font-bold text-aesthetic-brownDark dark:text-darkAesthetic-text flex items-center gap-2">
+                    <i class="fa-solid fa-users text-aesthetic-brownLight dark:text-amber-300"></i> Backend Database: Enrolled Students
+                </h3>
+                <p class="text-xs text-stone-600 dark:text-stone-400">Click on any student card to view their complete data, password, and scores in all subjects.</p>
+                <div id="admin-students-list-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-2"></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="mt-auto border-t border-aesthetic-border bg-stone-100/60 dark:bg-stone-900/60 text-stone-600 dark:text-stone-400 py-6 text-center text-xs backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 space-y-2">
+            <p class="font-semibold text-aesthetic-brownDark dark:text-darkAesthetic-text">Abunadier Da'wah-TV PH &copy; 2026. All Rights Reserved.</p>
+            <p class="text-aesthetic-brownLight dark:text-amber-300 font-medium flex items-center justify-center gap-2">
+                <span><i class="fa-solid fa-code text-xs mr-1"></i> System Designed & Developed by <span class="font-bold underline decoration-aesthetic-accent">Abunadier</span></span>
+                <button onclick="switchSystemView('backend')" title="Admin Backend Panel" class="w-6 h-6 rounded-lg bg-white/80 dark:bg-stone-800 border border-aesthetic-border text-aesthetic-brownDark dark:text-darkAesthetic-text hover:text-aesthetic-brownLight hover:border-aesthetic-accent flex items-center justify-center text-[10px] transition-all cursor-pointer">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </button>
+            </p>
+        </div>
+    </footer>
+
+    <!-- MODAL 1: AUTHENTICATION -->
+    <div id="auth-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
+        <div class="aesthetic-glass border border-aesthetic-border max-w-md w-full rounded-3xl shadow-aesthetic-modal p-6 relative">
+            <button onclick="closeAuthModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-stone-200 dark:bg-stone-800 text-stone-600 dark:text-stone-300 hover:text-stone-900 flex items-center justify-center text-xs"><i class="fa-solid fa-xmark"></i></button>
+            <div class="flex border-b border-aesthetic-border mb-6">
+                <button id="tab-login" onclick="switchAuthTab('login')" class="flex-1 pb-3 font-bold text-center border-b-2 border-aesthetic-brownDark dark:border-amber-400 text-aesthetic-brownDark dark:text-darkAesthetic-text">Log In</button>
+                <button id="tab-register" onclick="switchAuthTab('register')" class="flex-1 pb-3 font-bold text-center border-b-2 border-transparent text-stone-500 dark:text-stone-400">Register Student</button>
+            </div>
+            <form id="form-login" onsubmit="handleLoginSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-medium text-stone-700 dark:text-stone-300 mb-1">Username</label>
+                    <input type="text" id="login-email" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="Your username" required class="w-full bg-white/70 dark:bg-stone-900 border border-aesthetic-border rounded-xl p-3 text-sm text-aesthetic-brownDark dark:text-darkAesthetic-text focus:border-aesthetic-brownLight">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-stone-700 dark:text-stone-300 mb-1">Password</label>
+                    <input type="password" id="login-password" required class="w-full bg-white/70 dark:bg-stone-900 border border-aesthetic-border rounded-xl p-3 text-sm text-aesthetic-brownDark dark:text-darkAesthetic-text focus:border-aesthetic-brownLight">
+                </div>
+                <button type="submit" class="w-full py-3 brown-btn-gradient text-white font-bold text-sm rounded-xl shadow-md">Sign In to Portal</button>
+            </form>
+            <form id="form-register" onsubmit="handleRegisterSubmit(event)" class="hidden space-y-4">
+                <div>
+                    <label class="block text-xs font-medium text-stone-700 dark:text-stone-300 mb-1">Full Real Name</label>
+                    <input type="text" id="reg-name" required class="w-full bg-white/70 dark:bg-stone-900 border border-aesthetic-border rounded-xl p-3 text-sm text-aesthetic-brownDark dark:text-darkAesthetic-text focus:border-aesthetic-brownLight">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-stone-700 dark:text-stone-300 mb-1">Username</label>
+                    <input type="text" id="reg-email" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="e.g. ahmad_123 (3-20 letters/numbers)" minlength="3" maxlength="20" pattern="[A-Za-z0-9._-]{3,20}" title="3-20 characters: letters, numbers, dot, dash or underscore. No spaces." required class="w-full bg-white/70 dark:bg-stone-900 border border-aesthetic-border rounded-xl p-3 text-sm text-aesthetic-brownDark dark:text-darkAesthetic-text focus:border-aesthetic-brownLight">
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-medium text-stone-700 dark:text-stone-300 mb-1">Gender</label>
+                        <select id="reg-gender" class="w-full bg-white/70 dark:bg-stone-900 border border-aesthetic-border rounded-xl p-3 text-sm text-aesthetic-brownDark dark:text-darkAesthetic-text">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-stone-700 dark:text-stone-300 mb-1">Password</label>
+                        <input type="password" id="reg-password" required class="w-full bg-white/70 dark:bg-stone-900 border border-aesthetic-border rounded-xl p-3 text-sm text-aesthetic-brownDark dark:text-darkAesthetic-text">
+                    </div>
+                </div>
+                <button type="submit" class="w-full py-3 bg-stone-800 hover:bg-stone-900 text-white font-bold text-sm rounded-xl shadow-md">Create Student Account</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 2: STUDENT PROFILE -->
+    <div id="detailed-profile-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm overflow-y-auto">
+        <div class="aesthetic-glass border border-aesthetic-border max-w-lg w-full rounded-3xl shadow-aesthetic-modal p-6 relative my-8">
+            <button onclick="closeDetailedProfileModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-stone-200 dark:bg-stone-800 text-stone-600 dark:text-stone-300 hover:text-stone-900 flex items-center justify-center text-xs"><i class="fa-solid fa-xmark"></i></button>
+            <div class="flex items-center space-x-3 border-b border-aesthetic-border pb-4 mb-5">
+                <div class="w-10 h-10 rounded-2xl bg-stone-200 dark:bg-stone-800 text-aesthetic-brownDark dark:text-darkAesthetic-text flex items-center justify-center text-xl shadow-sm"><i class="fa-solid fa-id-card"></i></div>
+                <div>
+                    <h3 class="text-lg font-bold text-aesthetic-brownDark dark:text-darkAesthetic-text">Student Profile & Details</h3>
+                    <p class="text-xs text-stone-500 dark:text-stone-400">Student personal information and profile picture</p>
+                </div>
+            </div>
+            <form id="profile-details-form" onsubmit="handleSaveDetailedProfile(event)" class="space-y-4">
+                <div class="p-4 bg-white/60 dark:bg-stone-900/50 border border-aesthetic-border rounded-2xl space-y-3">
+                    <label class="block text-xs font-bold text-aesthetic-brownDark dark:text-darkAesthetic-text uppercase tracking-wider"><i class="fa-solid fa-camera mr-1"></i> Profile Picture Upload</label>
+                    <div class="flex items-center space-x-4">
+                        <div id="modal-avatar-preview" class="w-16 h-16 rounded-full bg-stone-100 dark:bg-stone-800 border-2 border-aesthetic-accent overflow-hidden flex items-center justify-center text-aesthetic-brownDark dark:text-darkAesthetic-text text-2xl flex-shrink-0">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                        <div class="flex-1 space-y-2">
+                            <input type="text" id="prof-photo-url" placeholder="Paste Image Web URL..." class="w-full bg-white/70 dark:bg-stone-900 border border-aesthetic-border rounded-xl p-2.5 text-xs text-aesthetic-brownDark dark:text-darkAesthetic-text focus:border-aesthetic-brownLight">
+                            <input type="file" id="prof-photo-file" accept="image/*" onchange="handleFileUploadPreview(event)" class="text-[10px] text-stone-500 dark:text-stone-400 file:mr-2 file:py-1 file:px-2 file:rounded-lg file:border-0 file:bg-stone-200 dark:file:bg-stone-800 file:text-aesthetic-brownDark dark:file:text-darkAesthetic-text">
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-stone-700 dark:text-stone-300 mb-1">Full Name</label>
+                        <input type="text" id="prof-fullname" required class="w-full bg-white/70 dark:bg-stone-900 border border-aesthetic-border rounded-xl p-2.5 text-sm text-aesthetic-brownDark dark:text-darkAesthetic-text">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-stone-700 dark:text-stone-300 mb-1">Username</label>
+                        <input type="text" id="prof-email" readonly class="w-full bg-stone-100 dark:bg-stone-800 border border-aesthetic-border rounded-xl p-2.5 text-sm text-stone-500 cursor-not-allowed">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-stone-700 dark:text-stone-300 mb-1">Gender</label>
+                        <select id="prof-gender" class="w-full bg-white/70 dark:bg-stone-900 border border-aesthetic-border rounded-xl p-2.5 text-sm text-aesthetic-brownDark dark:text-darkAesthetic-text">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-stone-700 dark:text-stone-300 mb-1">Contact Number</label>
+                        <input type="tel" id="prof-contact" class="w-full bg-white/70 dark:bg-stone-900 border border-aesthetic-border rounded-xl p-2.5 text-sm text-aesthetic-brownDark dark:text-darkAesthetic-text">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-stone-700 dark:text-stone-300 mb-1">Home Address / Location</label>
+                    <input type="text" id="prof-address" class="w-full bg-white/70 dark:bg-stone-900 border border-aesthetic-border rounded-xl p-2.5 text-sm text-aesthetic-brownDark dark:text-darkAesthetic-text">
+                </div>
+                <button type="submit" class="w-full py-2.5 brown-btn-gradient text-white font-bold rounded-xl text-sm shadow-md">Save Details</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 3: ADMIN PASSCODE -->
+    <div id="admin-passcode-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
+        <div class="aesthetic-glass border border-aesthetic-border max-w-sm w-full rounded-3xl p-6 relative text-center shadow-aesthetic-modal">
+            <button onclick="closeAdminPasscodeModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-stone-200 dark:bg-stone-800 text-stone-600 dark:text-stone-300 hover:text-stone-900 flex items-center justify-center text-xs"><i class="fa-solid fa-xmark"></i></button>
+            <div class="w-12 h-12 bg-stone-200 dark:bg-stone-800 text-aesthetic-brownDark dark:text-darkAesthetic-text rounded-2xl flex items-center justify-center mx-auto mb-3 text-xl shadow-sm border border-aesthetic-border">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <h3 class="text-lg font-bold text-aesthetic-brownDark dark:text-darkAesthetic-text">Backend System Access</h3>
+            <p id="admin-modal-subtitle" class="text-xs text-stone-500 dark:text-stone-400 mb-4">Enter Admin Passcode (Default: admin123)</p>
+            <form onsubmit="handleAdminAuthSubmit(event)" class="space-y-4">
+                <input type="password" id="admin-passcode-input" required placeholder="Passcode..." class="w-full bg-white/70 dark:bg-stone-900 border border-aesthetic-border rounded-xl p-3 text-center text-sm text-aesthetic-brownDark dark:text-darkAesthetic-text focus:border-aesthetic-brownLight">
+                <button type="submit" id="admin-modal-btn" class="w-full py-3 brown-btn-gradient text-white font-bold text-sm rounded-xl shadow-md">Unlock Backend System</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 4: ADMIN STUDENT DETAILED VIEW MODAL -->
+    <div id="admin-student-detail-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm overflow-y-auto">
+        <div class="aesthetic-glass border border-aesthetic-border max-w-lg w-full rounded-3xl shadow-aesthetic-modal p-6 relative my-8 space-y-4">
+            <button onclick="closeAdminStudentDetailModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-stone-200 dark:bg-stone-800 text-stone-600 dark:text-stone-300 hover:text-stone-900 flex items-center justify-center text-xs"><i class="fa-solid fa-xmark"></i></button>
+            <div class="flex items-center space-x-3 border-b border-aesthetic-border pb-3">
+                <div id="admin-modal-student-avatar" class="w-14 h-14 rounded-full overflow-hidden bg-stone-200 dark:bg-stone-800 border-2 border-aesthetic-accent flex items-center justify-center text-aesthetic-brownDark dark:text-darkAesthetic-text text-xl flex-shrink-0 shadow-sm">
+                    <i class="fa-solid fa-user-graduate"></i>
+                </div>
+                <div>
+                    <h3 id="admin-modal-student-name" class="text-lg font-bold text-aesthetic-brownDark dark:text-darkAesthetic-text">Student Name</h3>
+                    <p class="text-xs text-stone-500 dark:text-stone-400">Complete Student Credentials & Subject Scores</p>
+                </div>
+            </div>
+            <div class="space-y-3 text-xs">
+                <div class="p-3 bg-white/60 dark:bg-stone-900/50 border border-aesthetic-border rounded-2xl space-y-2">
+                    <div class="flex justify-between"><span class="text-stone-500 dark:text-stone-400">Username:</span><span id="admin-modal-student-email" class="font-bold text-aesthetic-brownDark dark:text-darkAesthetic-text">email@test.com</span></div>
+                    <div class="flex justify-between"><span class="text-stone-500 dark:text-stone-400">Password Created:</span><span id="admin-modal-student-pass" class="font-bold text-aesthetic-brownDark dark:text-darkAesthetic-text bg-stone-200 dark:bg-stone-800 px-2 py-0.5 rounded">password</span></div>
+                    <div class="flex justify-between"><span class="text-stone-500 dark:text-stone-400">Gender:</span><span id="admin-modal-student-gender" class="font-bold text-aesthetic-brownDark dark:text-darkAesthetic-text">Male</span></div>
+                    <div class="flex justify-between"><span class="text-stone-500 dark:text-stone-400">Contact:</span><span id="admin-modal-student-contact" class="font-bold text-aesthetic-brownDark dark:text-darkAesthetic-text">N/A</span></div>
+                    <div class="flex justify-between"><span class="text-stone-500 dark:text-stone-400">Address:</span><span id="admin-modal-student-address" class="font-bold text-aesthetic-brownDark dark:text-darkAesthetic-text">N/A</span></div>
+                    <div class="flex justify-between"><span class="text-stone-500 dark:text-stone-400">Registration Date:</span><span id="admin-modal-student-date" class="font-bold text-aesthetic-brownDark dark:text-darkAesthetic-text">Date</span></div>
+                </div>
+
+                <div class="space-y-2">
+                    <h4 class="font-bold text-aesthetic-brownDark dark:text-darkAesthetic-text uppercase tracking-wider text-[11px]"><i class="fa-solid fa-medal mr-1"></i> Student Grades across All Subjects</h4>
+                    <div id="admin-modal-student-scores-list" class="space-y-1.5 max-h-48 overflow-y-auto pr-1"></div>
+                </div>
+            </div>
+            <button onclick="saveStudentScores()" class="w-full py-2.5 mb-2 brown-btn-gradient font-bold rounded-xl text-xs button-active">Save Scores</button>
+            <button onclick="closeAdminStudentDetailModal()" class="w-full py-2.5 bg-stone-200 dark:bg-stone-800 hover:bg-stone-300 dark:hover:bg-stone-700 text-aesthetic-brownDark dark:text-darkAesthetic-text font-bold rounded-xl text-xs">Close Window</button>
+        </div>
+    </div>
+
+    <!-- QUIZ MODAL -->
+    <div id="quiz-modal" class="hidden fixed inset-0 flex items-end sm:items-center justify-center bg-black/60 sm:p-4" style="z-index:90">
+        <div class="w-full sm:max-w-lg max-h-[92vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl p-5 space-y-4 border border-aesthetic-border bg-white dark:bg-stone-900" style="padding-bottom:calc(1.25rem + env(safe-area-inset-bottom,0px))">
+            <div class="flex items-start justify-between gap-3">
+                <div class="min-w-0">
+                    <p id="quiz-subject" class="text-[10px] font-bold uppercase tracking-widest text-stone-500 dark:text-stone-400"></p>
+                    <h3 id="quiz-title" class="text-lg font-bold text-aesthetic-brownDark dark:text-darkAesthetic-text"></h3>
+                </div>
+                <button onclick="closeQuiz()" class="w-9 h-9 rounded-full bg-stone-200 dark:bg-stone-800 text-stone-600 dark:text-stone-300 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="quiz-body" class="space-y-4"></div>
+        </div>
+    </div>
+
+    <!-- PROFILE PHOTO VIEWER -->
+    <div id="photo-viewer" class="hidden fixed inset-0 flex flex-col items-center justify-center p-4 bg-black/85" style="z-index:100" onclick="closePhotoViewer()">
+        <div id="photo-flash-layer" class="absolute inset-0 bg-white pointer-events-none opacity-0"></div>
+        <button onclick="closePhotoViewer()" class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/15 text-white flex items-center justify-center text-lg" style="margin-top:env(safe-area-inset-top,0px)"><i class="fa-solid fa-xmark"></i></button>
+        <img id="photo-viewer-img" src="" alt="Student profile photo" class="max-w-full max-h-[75vh] rounded-3xl object-contain shadow-2xl border-4 border-white/20" onclick="event.stopPropagation()">
+        <p id="photo-viewer-name" class="mt-4 text-white font-bold text-base text-center"></p>
+    </div>
+
+    <!-- NOTIFICATION TOAST -->
+    <div id="toast-message" class="hidden fixed bottom-6 left-4 right-4 sm:left-auto sm:right-6 z-50 sm:max-w-md px-5 py-3 rounded-2xl aesthetic-glass border border-aesthetic-border text-aesthetic-brownDark dark:text-darkAesthetic-text shadow-aesthetic-modal flex items-center space-x-3">
+        <i id="toast-icon" class="fa-solid fa-circle-check text-aesthetic-brownLight dark:text-amber-300 text-lg"></i>
+        <span id="toast-text" class="text-xs font-bold">Operation completed successfully.</span>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC ENGINE -->
+    <script>
+        const STORAGE_KEY_SEMESTERS = 'madrasa_semesters_active_v14';
+        const STORAGE_KEY_USERS = 'madrasa_users_db_v14';
+        const STORAGE_KEY_LOGGED = 'madrasa_logged_user_v14';
+        const STORAGE_KEY_SUBJECTS = 'madrasa_subjects_curriculum_v14';
+        const STORAGE_KEY_ADMIN_PASS = 'madrasa_admin_pass_v14';
+        const STORAGE_KEY_ADMIN_LOGGED = 'madrasa_admin_logged_v14';
+        const STORAGE_KEY_DARKMODE = 'madrasa_darkmode_v14';
+        const STORAGE_KEY_CAL = 'madrasa_calendar_start_v14';
+
+        let semesterActivation = JSON.parse(localStorage.getItem(STORAGE_KEY_SEMESTERS)) || {
+            sem1: true,
+            sem2: false,
+            sem3: false,
+            sem4: false
+        };
+
+        const defaultSubjectsData = {
+            sem1: [
+                {
+                    id: 'subj_aqeedah_1',
+                    title: 'Aqeedah',
+                    icon: 'fa-layer-group',
+                    desc: 'Meaning of Aqeedah, importance, sources of reception, and fundamentals.',
+                    grade: 100,
+                    lectures: [
+                        { id: 'l1', title: 'Meaning of Correct Aqeedah', num: 'LECTURE 1', youtubeUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ', pdfUrl: '#', notes: 'Introduction to Islamic Aqeedah.', completed: true },
+                        { id: 'l2', title: 'Sources of Aqeedah Reception', num: 'LECTURE 2', youtubeUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ', pdfUrl: '#', notes: 'Detailed overview.', completed: false }
+                    ]
+                }
+            ],
+            sem2: [],
+            sem3: [],
+            sem4: []
+        };
+
+        let subjectsData = JSON.parse(localStorage.getItem(STORAGE_KEY_SUBJECTS)) || defaultSubjectsData;
+        let usersDB = JSON.parse(localStorage.getItem(STORAGE_KEY_USERS)) || [];
+        let currentUser = JSON.parse(localStorage.getItem(STORAGE_KEY_LOGGED)) || null;
+        let adminPasscode = localStorage.getItem(STORAGE_KEY_ADMIN_PASS) || 'admin123';
+        let isAdminLoggedIn = JSON.parse(localStorage.getItem(STORAGE_KEY_ADMIN_LOGGED)) || false;
+        let isDarkMode = JSON.parse(localStorage.getItem(STORAGE_KEY_DARKMODE)) || false;
+
+        let activeSemesterKey = 'sem1';
+        let activeSubject = null;
+        let activeLecture = null;
+
+        let adminInactivityTimer = null;
+        const ADMIN_INACTIVITY_LIMIT = 60 * 1000; // 1 Minute
+
+        window.onload = function() {
+            Object.values(subjectsData).forEach(list => (list || []).forEach(ensureSlots));
+            applyDarkModeState();
+            saveState();
+            updateUIState();
+            if (isAdminLoggedIn) {
+                setupAdminInactivityWatchers();
+            }
+        };
+
+        function esc(v) {
+            return String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+        }
+
+        function toEmbedUrl(url) {
+            url = (url || '').trim();
+            const m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?(?:.*&)?v=|shorts\/|live\/|embed\/))([\w-]{11})/);
+            return m ? 'https://www.youtube.com/embed/' + m[1] : url;
+        }
+
+        // ---- STUDY CALENDAR: 4 months x 4 weeks (W1-3 lecture + quiz, W4 exam) ----
+        function dateToISO(d) { return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
+        function isoToDate(v) { const [y, m, d] = v.split('-').map(Number); return new Date(y, m - 1, d); }
+        let calendarStart = localStorage.getItem(STORAGE_KEY_CAL) || (() => {
+            const t = new Date(); t.setHours(0, 0, 0, 0); t.setDate(t.getDate() - ((t.getDay() + 6) % 7)); return dateToISO(t);
+        })();
+        let calMonth = null;
+        function calDate(week, offset = 0) { const d = isoToDate(calendarStart); d.setDate(d.getDate() + week * 7 + offset); return d; }
+        function fmtD(d) { return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }); }
+        function currentCalWeek() {
+            const t = new Date(); t.setHours(0, 0, 0, 0);
+            return Math.floor(Math.round((t - isoToDate(calendarStart)) / 864e5) / 7);
+        }
+        function selectCalMonth(m) { calMonth = m; renderCalendar('student'); renderCalendar('admin'); }
+        function setCalendarStart(v) {
+            if (!v) return;
+            calendarStart = v; calMonth = null;
+            saveState(); renderCalendar('student'); renderCalendar('admin');
+            showToast('Calendar start date updated.', 'success');
+        }
+        // 12 lecture slots (3 per month) + 4 exam slots per subject, so the whole 4-month plan is ready.
+        function ensureSlots(subj) {
+            if (!subj) return;
+            if (!subj.lectures) subj.lectures = [];
+            for (let n = subj.lectures.length + 1; n <= 12; n++) {
+                subj.lectures.push({ id: subj.id + '_slot' + n, num: 'LECTURE ' + n, title: 'Coming soon', youtubeUrl: '', pdfUrl: '', notes: '', completed: false, placeholder: true });
+            }
+            if (!Array.isArray(subj.toc)) subj.toc = [];
+            for (let w = 1; w <= 16; w++) {
+                if (!subj.toc[w - 1]) subj.toc[w - 1] = { title: w % 4 === 0 ? `Month ${w / 4} Final Exam` : `Week ${w} Quiz`, published: false, questions: [] };
+                else if (w % 4 === 0 && /^Week \d+ Exam$/.test(subj.toc[w - 1].title)) subj.toc[w - 1].title = `Month ${w / 4} Final Exam`;
+            }
+            if (!Array.isArray(subj.exams)) subj.exams = [];
+            for (let e = 0; e < 4; e++) if (!subj.exams[e]) subj.exams[e] = { title: 'Exam ' + (e + 1), url: '' };
+        }
+        function realLectureCount(subj) { return (subj.lectures || []).filter(l => !l.placeholder).length; }
+        function isHttpUrl(u) { return /^https?:\/\//i.test(u || ''); }
+        // ================= TABLE OF CONTENTS (QUIZZES): ADMIN BUILDER =================
+        let tocDraft = null, tocDirty = false, tocWeek = 1;
+        function tocCurrentSubject() {
+            const f = id => document.getElementById(id);
+            if (!f('toc-week-select')) return null;
+            return (subjectsData[f('admin-semester-select').value] || []).find(x => x.id === f('admin-subject-select').value) || null;
+        }
+        function tocWeekChanged() {
+            const sel = document.getElementById('toc-week-select');
+            if (tocDirty && !confirm('Discard unsaved changes to this week?')) { sel.value = tocWeek; return; }
+            tocWeek = Number(sel.value); tocLoad();
+        }
+        function tocLoad() {
+            const f = id => document.getElementById(id);
+            if (!f('toc-week-select')) return;
+            const subj = tocCurrentSubject();
+            f('toc-subject-label').innerText = subj ? subj.title : 'No subject selected';
+            tocDirty = false;
+            if (!subj) { tocDraft = null; f('toc-editor').classList.add('hidden'); return; }
+            ensureSlots(subj);
+            f('toc-editor').classList.remove('hidden');
+            tocDraft = JSON.parse(JSON.stringify(subj.toc[tocWeek - 1]));
+            f('toc-title').value = tocDraft.title;
+            f('toc-published').checked = !!tocDraft.published;
+            tocRenderQuestions();
+        }
+        function tocRenderQuestions() {
+            const box = document.getElementById('toc-questions');
+            const weekly = tocWeek % 4 !== 0, nq = tocDraft.questions.length;
+            document.getElementById('toc-count').innerText = weekly ? `${nq}/3 questions · 1 point each (weekly quiz = 3 points)` : `${nq}/5 questions · 3.2 points each (monthly exam = 16 points)`;
+            if (!tocDraft.questions.length) { box.innerHTML = '<div class="p-4 text-center text-xs text-stone-500 dark:text-stone-400 border border-dashed border-aesthetic-border rounded-2xl">No questions yet. Tap "Add Question".</div>'; return; }
+            const inp = 'w-full bg-white/80 dark:bg-stone-800 border border-aesthetic-border rounded-xl p-2.5 text-xs text-aesthetic-brownDark dark:text-darkAesthetic-text';
+            box.innerHTML = tocDraft.questions.map((q, i) => {
+                const choices = q.type === 'tf'
+                    ? ['true', 'false'].map(v => `<label class="flex items-center gap-2 text-xs font-semibold text-stone-700 dark:text-stone-300"><input type="radio" name="tans${i}" ${q.answer === v ? 'checked' : ''} onchange="tocSetAnswer(${i},'${v}')"> ${v === 'true' ? 'True' : 'False'}</label>`).join('')
+                    : ['A', 'B', 'C', 'D'].map((L, j) => `<div class="flex items-center gap-2"><input type="radio" name="tans${i}" ${q.answer === j ? 'checked' : ''} onchange="tocSetAnswer(${i},${j})" title="Mark as correct answer"><span class="w-5 text-xs font-bold text-aesthetic-brownDark dark:text-darkAesthetic-text">${L}.</span><input type="text" value="${esc(q.options[j] || '')}" oninput="tocSetOption(${i},${j},this.value)" placeholder="Choice ${L}" class="${inp}"></div>`).join('');
+                return `<div class="p-3 rounded-2xl border border-aesthetic-border bg-white/50 dark:bg-stone-800/50 space-y-2.5">
+                    <div class="flex items-center justify-between gap-2">
+                        <span class="text-xs font-extrabold text-aesthetic-brownDark dark:text-darkAesthetic-text">Question ${i + 1}</span>
+                        <div class="flex items-center gap-2">
+                            <select onchange="tocSetType(${i},this.value)" class="${inp} !w-auto"><option value="mcq" ${q.type === 'mcq' ? 'selected' : ''}>Multiple choice (A-D)</option><option value="tf" ${q.type === 'tf' ? 'selected' : ''}>True or False</option></select>
+                            <button type="button" onclick="tocDelQuestion(${i})" class="w-8 h-8 rounded-lg bg-rose-100 dark:bg-rose-900/40 text-rose-600 flex-shrink-0" title="Delete question"><i class="fa-solid fa-trash text-xs"></i></button>
+                        </div>
+                    </div>
+                    <textarea rows="2" oninput="tocSetField(${i},this.value)" placeholder="Type the question here..." class="${inp}">${esc(q.text)}</textarea>
+                    <div class="space-y-2">${choices}</div>
+                    <p class="text-[10px] text-stone-500 dark:text-stone-400">Select the round button beside the correct answer.</p>
+                </div>`;
+            }).join('');
+        }
+        function tocAddQuestion() { const lim = tocWeek % 4 === 0 ? 5 : 3; if (tocDraft.questions.length >= lim) { showToast(tocWeek % 4 === 0 ? 'A monthly exam has exactly 5 questions.' : 'A weekly quiz has exactly 3 questions.', 'warning'); return; } tocDraft.questions.push({ id: 'q' + Date.now() + Math.floor(Math.random() * 1000), text: '', type: 'mcq', options: ['', '', '', ''], answer: null }); tocDirty = true; tocRenderQuestions(); }
+        function tocDelQuestion(i) { if (!confirm('Delete this question?')) return; tocDraft.questions.splice(i, 1); tocDirty = true; tocRenderQuestions(); }
+        function tocSetType(i, t) { const q = tocDraft.questions[i]; q.type = t; q.answer = null; if (!q.options) q.options = ['', '', '', '']; tocDirty = true; tocRenderQuestions(); }
+        function tocSetField(i, v) { tocDraft.questions[i].text = v; tocDirty = true; }
+        function tocSetOption(i, j, v) { tocDraft.questions[i].options[j] = v; tocDirty = true; }
+        function tocSetAnswer(i, v) { tocDraft.questions[i].answer = v; tocDirty = true; }
+        function tocSave() {
+            const f = id => document.getElementById(id);
+            const subj = tocCurrentSubject();
+            if (!subj || !tocDraft) { showToast('Select a subject first.', 'warning'); return; }
+            tocDraft.title = f('toc-title').value.trim() || `Week ${tocWeek}`;
+            tocDraft.published = f('toc-published').checked;
+            for (let i = 0; i < tocDraft.questions.length; i++) {
+                const q = tocDraft.questions[i], n = i + 1;
+                if (!q.text.trim()) { showToast(`Question ${n} is empty.`, 'warning'); return; }
+                if (q.type === 'mcq') {
+                    if (q.options.filter(o => o.trim()).length < 2) { showToast(`Question ${n} needs at least 2 choices.`, 'warning'); return; }
+                    if (q.answer === null || !(q.options[q.answer] || '').trim()) { showToast(`Select the correct answer for question ${n}.`, 'warning'); return; }
+                } else if (q.answer !== 'true' && q.answer !== 'false') { showToast(`Select True or False as the answer for question ${n}.`, 'warning'); return; }
+            }
+            const need = tocWeek % 4 === 0 ? 5 : 3;
+            if (tocDraft.published && tocDraft.questions.length !== need) { showToast(`${tocWeek % 4 === 0 ? 'A monthly exam' : 'A weekly quiz'} needs exactly ${need} questions before students can see it.`, 'warning'); return; }
+            if (tocDraft.published && !tocDraft.questions.length) { showToast('Add at least one question before making it visible.', 'warning'); return; }
+            subj.toc[tocWeek - 1] = JSON.parse(JSON.stringify(tocDraft));
+            saveState(); tocDirty = false; renderCalendar('admin');
+            showToast(tocDraft.published ? 'Saved. Students can now see it.' : 'Saved (hidden from students).', 'success');
+        }
+
+        // ================= STUDENT: TAKE QUIZ (one attempt, auto-scored) =================
+        let quizCtx = null;
+        function choiceLabel(q, a) {
+            if (a === null || a === undefined) return 'No answer';
+            return q.type === 'tf' ? (a === 'true' ? 'True' : 'False') : 'ABCD'[a] + '. ' + (q.options[a] || '');
+        }
+        function openQuiz(semKey, subjId, week) {
+            if (!currentUser) return;
+            const subj = (subjectsData[semKey] || []).find(x => x.id === subjId);
+            if (!subj) return;
+            ensureSlots(subj);
+            const quiz = subj.toc[week - 1];
+            if (!quiz.published || !quiz.questions.length) { showToast('This quiz is not available yet.', 'info'); return; }
+            quizCtx = { semKey, subj, week, quiz };
+            document.getElementById('quiz-subject').innerText = subj.title;
+            document.getElementById('quiz-title').innerText = quiz.title;
+            const r = ((freshUser(currentUser) || {}).quizResults || {})[subj.id + ':' + week];
+            if (r) renderQuizResult(r); else renderQuizForm();
+            document.getElementById('quiz-modal').classList.remove('hidden');
+        }
+        function closeQuiz() { document.getElementById('quiz-modal').classList.add('hidden'); quizCtx = null; }
+        function renderQuizForm() {
+            const body = document.getElementById('quiz-body');
+            body.innerHTML = quizCtx.quiz.questions.map((q, i) => {
+                const opts = q.type === 'tf' ? [['true', 'True'], ['false', 'False']] : q.options.map((o, j) => [j, 'ABCD'[j] + '. ' + o]).filter(x => x[1].slice(3).trim());
+                return `<div class="space-y-2"><p class="text-sm font-bold text-aesthetic-brownDark dark:text-darkAesthetic-text">${i + 1}. ${esc(q.text)}</p>` + opts.map(([v, label]) => `<label class="flex items-start gap-2.5 p-2.5 rounded-xl border border-aesthetic-border bg-white/60 dark:bg-stone-800/60 text-xs text-stone-700 dark:text-stone-200"><input type="radio" name="qz${i}" value="${v}" class="mt-0.5"><span>${esc(label)}</span></label>`).join('') + '</div>';
+            }).join('') + '<button onclick="submitQuiz()" class="w-full py-3 brown-btn-gradient text-white font-bold text-xs rounded-xl shadow-md button-active">Submit Answers (one attempt only)</button>';
+        }
+        function submitQuiz() {
+            const { quiz, subj, week } = quizCtx;
+            const answers = quiz.questions.map((q, i) => { const el = document.querySelector(`input[name="qz${i}"]:checked`); return el ? (q.type === 'tf' ? el.value : Number(el.value)) : null; });
+            const blank = answers.filter(a => a === null).length;
+            if (!confirm((blank ? `${blank} question(s) unanswered. ` : '') + 'Submit now? You only have one attempt.')) return;
+            const marks = quiz.questions.map((q, i) => answers[i] !== null && answers[i] === q.answer);
+            const correct = marks.filter(Boolean).length, total = marks.length;
+            const w = qWeight(week), points = Math.round(correct * w * 10) / 10, maxPoints = Math.round(total * w * 10) / 10;
+            const result = { score: points, points, maxPoints, correct, total, answers, marks, at: Date.now() };
+            const u = usersDB.find(x => x.email === currentUser.email);
+            if (!u) return;
+            u.quizResults = u.quizResults || {};
+            u.quizResults[subj.id + ':' + week] = result;
+            currentUser.quizResults = u.quizResults;
+            saveState();
+            renderQuizResult(result); renderTableOfContents(); renderGradesSidebar(); renderRankBox(); renderCalendar('student');
+            if (activeSubject && document.getElementById('detail-subject-score')) document.getElementById('detail-subject-score').innerText = getScore(currentUser, activeSubject) ?? '—';
+        }
+        function renderQuizResult(r) {
+            const wk = quizCtx.week, maxP = r.maxPoints || r.total * qWeight(wk), got = resultPoints(r, wk), pass = maxP ? got / maxP * 100 >= PASSING_SCORE : false;
+            document.getElementById('quiz-body').innerHTML = `<div class="text-center p-4 rounded-2xl border ${pass ? 'bg-emerald-50 dark:bg-emerald-950/30 border-emerald-300 dark:border-emerald-900' : 'bg-rose-50 dark:bg-rose-950/30 border-rose-300 dark:border-rose-900'}"><div class="text-4xl font-black ${pass ? 'text-emerald-700 dark:text-emerald-300' : 'text-rose-700 dark:text-rose-300'}">${pt(got)}/${pt(maxP)}</div><div class="text-xs font-semibold text-stone-600 dark:text-stone-300 mt-1">${r.correct} of ${r.total} correct · ${pt(got)} points added to your score</div></div>` +
+                quizCtx.quiz.questions.map((q, i) => `<div class="flex items-start gap-2.5 text-xs"><i class="fa-solid ${r.marks[i] ? 'fa-circle-check text-emerald-600' : 'fa-circle-xmark text-rose-600'} mt-0.5"></i><div class="min-w-0"><p class="font-semibold text-aesthetic-brownDark dark:text-darkAesthetic-text">${i + 1}. ${esc(q.text)}</p><p class="text-stone-500 dark:text-stone-400">Your answer: ${esc(choiceLabel(q, r.answers[i]))}</p></div></div>`).join('') +
+                '<button onclick="closeQuiz()" class="w-full py-3 brown-btn-gradient text-white font-bold text-xs rounded-xl shadow-md button-active">Close</button>';
+        }
+
+        // Lecture weeks are Weeks 1-3 of each month; Week 4 is the exam. Lecture N of each subject's table of contents lands on the Nth lecture week.
+        function lectureIndexForWeek(i) { return i % 4 === 3 ? -1 : i - Math.floor(i / 4); }
+        function openCalLecture(semKey, subjId, lecId) {
+            if (!currentUser) return;
+            openStudentSemester(semKey);
+            openSubjectDetail(subjId);
+            selectLecture(lecId);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        function renderCalendar(prefix) {
+            const tabs = document.getElementById('cal-' + prefix + '-tabs');
+            const list = document.getElementById('cal-' + prefix + '-list');
+            if (!tabs || !list) return;
+            const isAdmin = prefix === 'admin';
+            const semKey = isAdmin ? ((document.getElementById('admin-semester-select') || {}).value || 'sem1') : activeSemesterKey;
+            const semLabels = { sem1: 'First Semester', sem2: 'Second Semester', sem3: 'Third Semester', sem4: 'Fourth Semester' };
+            const subjects = subjectsData[semKey] || [];
+            const quizChip = (sb, wk) => {
+                ensureSlots(sb);
+                const t = sb.toc[wk - 1], ok = t.published && t.questions.length;
+                const label = `<i class="fa-solid fa-circle-question text-[9px] mr-1.5"></i><b>${esc(sb.title)}</b> · ${esc(t.title)}${ok ? '' : ' (not posted yet)'}`;
+                return (isAdmin || !ok)
+                    ? `<div class="text-[11px] ${ok ? 'text-stone-700 dark:text-stone-300' : 'text-stone-400'} truncate">${label}</div>`
+                    : `<button data-quiz="${wk}" data-sem="${esc(semKey)}" data-subj="${esc(sb.id)}" class="block w-full text-left text-[11px] text-rose-700 dark:text-rose-300 hover:underline truncate">${label}</button>`;
+            };
+            const cur = currentCalWeek();
+            if (calMonth === null) calMonth = Math.min(3, Math.max(0, Math.floor(cur / 4)));
+            document.getElementById('cal-' + prefix + '-range').innerText = `${fmtD(calDate(0))} – ${fmtD(calDate(15, 6))} · linked to ${semLabels[semKey] || ''} lectures`;
+            if (isAdmin) document.getElementById('cal-start-input').value = calendarStart;
+            tabs.innerHTML = [0, 1, 2, 3].map(m => `<button onclick="selectCalMonth(${m})" class="px-3 py-1.5 rounded-xl text-xs font-bold button-active ${m === calMonth ? 'brown-btn-gradient text-white shadow-md' : 'bg-white/60 dark:bg-stone-800 text-stone-700 dark:text-stone-300 border border-aesthetic-border'}">Month ${m + 1}</button>`).join('');
+            list.innerHTML = [0, 1, 2, 3].map(w => {
+                const i = calMonth * 4 + w, exam = w === 3, now = i === cur, li = lectureIndexForWeek(i);
+                let detail = '';
+                if (exam) {
+                    detail = `<div class="text-[11px] text-stone-500 dark:text-stone-400">Covers Lectures ${lectureIndexForWeek(i - 3) + 1}–${lectureIndexForWeek(i - 1) + 1}</div>` + subjects.map(sb => quizChip(sb, i + 1)).join('');
+                } else if (subjects.length === 0) {
+                    detail = '<div class="text-[11px] text-stone-400">No subjects in this semester yet.</div>';
+                } else {
+                    detail = subjects.map(sb => {
+                        const lec = (sb.lectures || [])[li];
+                        if (!lec || lec.placeholder) return `<div class="text-[11px] text-stone-400 truncate">${esc(sb.title)}: coming soon</div>`;
+                        const label = `<i class="fa-solid fa-play text-[9px] mr-1.5"></i><b>${esc(sb.title)}</b> · ${esc(lec.title)}`;
+                        return isAdmin
+                            ? `<div class="text-[11px] text-stone-700 dark:text-stone-300 truncate">${label}</div>`
+                            : `<button data-sem="${esc(semKey)}" data-subj="${esc(sb.id)}" data-lec="${esc(lec.id)}" class="block w-full text-left text-[11px] text-aesthetic-brownDark dark:text-amber-200 hover:underline truncate">${label}</button>`;
+                    }).join('') + subjects.map(sb => quizChip(sb, i + 1)).join('');
+                }
+                return `<div class="flex items-start gap-3 p-3 rounded-2xl border text-xs ${now ? 'bg-amber-50 dark:bg-amber-900/20 border-aesthetic-accent' : 'bg-white/50 dark:bg-stone-800/50 border-aesthetic-border'} ${i < cur ? 'opacity-60' : ''}">
+                    <div class="w-11 h-11 rounded-xl flex flex-col items-center justify-center flex-shrink-0 ${exam ? 'bg-rose-100 dark:bg-rose-900/40 text-rose-700 dark:text-rose-300' : 'bg-stone-200 dark:bg-stone-700 text-aesthetic-brownDark dark:text-darkAesthetic-text'}"><span class="text-[9px] font-bold uppercase">Week</span><span class="text-base font-black leading-none">${i + 1}</span></div>
+                    <div class="flex-1 min-w-0 space-y-0.5">
+                        <div class="font-bold text-aesthetic-brownDark dark:text-darkAesthetic-text">${exam ? 'Monthly Exam' : `Lecture ${li + 1} + Quiz`}${now ? ' <span class="ml-1 px-1.5 py-0.5 rounded-md bg-amber-200 dark:bg-amber-700 text-[9px] text-amber-900 dark:text-amber-100">THIS WEEK</span>' : ''}</div>
+                        <div class="text-[11px] text-stone-500 dark:text-stone-400">${fmtD(calDate(i))} – ${fmtD(calDate(i, 6))}</div>
+                        ${detail}
+                    </div>
+                    <i class="fa-solid ${exam ? 'fa-file-pen text-rose-500' : 'fa-book-open-reader text-aesthetic-brownLight dark:text-amber-300'} text-base mt-1"></i>
+                </div>`;
+            }).join('');
+            list.onclick = isAdmin ? null : (e) => {
+                const qz = e.target.closest('[data-quiz]');
+                if (qz) { openQuiz(qz.dataset.sem, qz.dataset.subj, Number(qz.dataset.quiz)); return; }
+                const btn = e.target.closest('[data-lec]');
+                if (btn) openCalLecture(btn.dataset.sem, btn.dataset.subj, btn.dataset.lec);
+            };
+        }
+
+        // ---- PASSING RULE: semester average must be >= 70 (all subjects graded) to unlock the next semester ----
+        const PASSING_SCORE = 70;
+        const SEM_ORDER = ['sem1', 'sem2', 'sem3', 'sem4'];
+        function semesterResult(user, semKey) {
+            const subs = subjectsData[semKey] || [];
+            if (!subs.length) return { status: 'empty', avg: 0, pct: 0, earned: 0, possible: 100, graded: 0, total: 0 };
+            const avg = Math.round(subs.reduce((t, sb) => t + (getScore(user, sb) || 0), 0) / subs.length * 10) / 10;
+            const graded = subs.filter(sb => isSubjectComplete(user, sb)).length;
+            const status = graded < subs.length ? 'progress' : (avg >= PASSING_SCORE ? 'passed' : 'failed');
+            return { status, avg, pct: avg, earned: avg, possible: 100, graded, total: subs.length };
+        }
+        function isSemesterUnlocked(user, semKey) {
+            const i = SEM_ORDER.indexOf(semKey);
+            for (let j = 0; j < i; j++) {
+                const st = semesterResult(user, SEM_ORDER[j]).status;
+                if (st !== 'passed' && st !== 'empty') return false;
+            }
+            return true;
+        }
+        function lockedMessage() { return `Locked: pass the previous semester with a score of at least ${PASSING_SCORE}/100 to continue.`; }
+
+        function freshUser(u) { return (u && usersDB.find(x => x.email === u.email)) || u; }
+        function getAllSubjects() { return ['sem1','sem2','sem3','sem4'].flatMap(k => subjectsData[k] || []); }
+        function publishedQuizzes(subj) { ensureSlots(subj); return subj.toc.map((t, k) => ({ t, week: k + 1 })).filter(x => x.t.published && x.t.questions.length); }
+        // 100 points over 4 months: weekly quiz = 3 questions x 1 point; monthly exam (weeks 4, 8, 12, 16) = 5 questions x 3.2 points.
+        // One month = 3 + 3 + 3 + 16 = 25 points.
+        function qWeight(week) { return week % 4 === 0 ? 3.2 : 1; }
+        function pt(n) { return String(Math.round(n * 10) / 10); }
+        function resultPoints(res, week) { return typeof res.points === 'number' ? res.points : Math.round(res.correct * qWeight(week) * 10) / 10; }
+        function subjectPossible(subj) { return Math.round(publishedQuizzes(subj).reduce((t, x) => t + x.t.questions.length * qWeight(x.week), 0) * 10) / 10; }
+        function autoScore(user, subj) {
+            const u = freshUser(user), pubs = publishedQuizzes(subj);
+            if (!pubs.length) return null;
+            const res = (u && u.quizResults) || {};
+            return Math.round(pubs.reduce((t, x) => t + (res[subj.id + ':' + x.week] ? resultPoints(res[subj.id + ':' + x.week], x.week) : 0), 0) * 10) / 10;
+        }
+        function isSubjectComplete(user, subj) {
+            const u = freshUser(user);
+            if (u && u.scores && typeof u.scores[subj.id] === 'number') return true;
+            const pubs = publishedQuizzes(subj), res = (u && u.quizResults) || {};
+            return pubs.length > 0 && pubs.every(x => res[subj.id + ':' + x.week]);
+        }
+        function getScore(user, subj) {
+            const u = freshUser(user);
+            const v = u && u.scores ? u.scores[subj.id] : undefined;
+            return typeof v === 'number' ? v : autoScore(user, subj);
+        }
+
+        // Overall score is out of 100: the average of the student's subject scores (subjects that already have quizzes).
+        function getOverall(user) {
+            const u = freshUser(user);
+            const counted = getAllSubjects().filter(sb => publishedQuizzes(sb).length > 0 || (u && u.scores && typeof u.scores[sb.id] === 'number'));
+            if (!counted.length) return { total: 0, max: 100, possible: 0 };
+            const total = counted.reduce((t, sb) => t + (getScore(user, sb) || 0), 0) / counted.length;
+            const possible = counted.reduce((t, sb) => t + subjectPossible(sb), 0) / counted.length;
+            return { total: Math.round(total * 10) / 10, max: 100, possible: Math.round(possible * 10) / 10 };
+        }
+        function renderTopTen(listId = 'top10-list', me = (currentUser ? currentUser.email : '')) {
+            const list = document.getElementById(listId);
+            if (!list) return;
+            const rows = usersDB.map(u => ({ u, t: getOverall(u).total })).filter(x => x.t > 0)
+                .sort((a, b) => b.t - a.t || (a.u.registeredAt || 0) - (b.u.registeredAt || 0));
+            let rank = 0, prev = null;
+            rows.forEach((x, i) => { if (x.t !== prev) { rank = i + 1; prev = x.t; } x.rank = rank; });
+            if (rows.length === 0) {
+                list.innerHTML = '<div class="p-3 text-center text-stone-500 dark:text-stone-400 text-xs">No scores recorded yet.</div>';
+                return;
+            }
+            const medal = ['text-amber-500', 'text-stone-400', 'text-orange-600'];
+            list.innerHTML = rows.slice(0, 10).map(x => {
+                const mine = x.u.email === me;
+                const badge = x.rank <= 3
+                    ? `<i class="fa-solid fa-medal ${medal[x.rank - 1]} text-base"></i>`
+                    : `<span class="text-[11px] font-bold text-stone-500 dark:text-stone-400">${x.rank}</span>`;
+                const avatar = x.u.photoUrl
+                    ? `<img src="${esc(x.u.photoUrl)}" class="w-full h-full object-cover">`
+                    : '<i class="fa-solid fa-user text-[10px]"></i>';
+                return `<div class="flex items-center gap-2.5 p-2 rounded-2xl border text-xs ${mine ? 'bg-amber-50 dark:bg-amber-900/20 border-aesthetic-accent' : 'bg-white/50 dark:bg-stone-800/50 border-aesthetic-border'}">
+                    <div class="w-6 text-center flex-shrink-0">${badge}</div>
+                    <div class="w-7 h-7 rounded-full overflow-hidden bg-stone-200 dark:bg-stone-700 flex items-center justify-center flex-shrink-0">${avatar}</div>
+                    <span class="flex-1 min-w-0 truncate font-semibold text-stone-700 dark:text-stone-200">${esc(x.u.name)}</span>
+                    <span class="font-bold text-aesthetic-brownDark dark:text-darkAesthetic-text">${x.t} / 100</span>
+                </div>`;
+            }).join('');
+        }
+
+        function renderRankBox() {
+            if (!currentUser) return;
+            const mine = getOverall(currentUser);
+            const rank = usersDB.filter(u => getOverall(u).total > mine.total).length + 1;
+            document.getElementById('rank-top').innerText = 'Top ' + rank;
+            document.getElementById('rank-of').innerText = `out of ${usersDB.length} student${usersDB.length === 1 ? '' : 's'}`;
+            document.getElementById('rank-points').innerText = mine.total;
+            document.getElementById('rank-score').innerText = `${mine.possible} of 100 points available so far`;
+            renderTopTen();
+        }
+
+        function saveState() {
+            try { _saveStateRaw(); }
+            catch (e) { showToast('Storage is full. Try a smaller profile photo.', 'warning'); }
+        }
+
+        function _saveStateRaw() {
+            localStorage.setItem(STORAGE_KEY_SEMESTERS, JSON.stringify(semesterActivation));
+            localStorage.setItem(STORAGE_KEY_SUBJECTS, JSON.stringify(subjectsData));
+            localStorage.setItem(STORAGE_KEY_USERS, JSON.stringify(usersDB));
+            localStorage.setItem(STORAGE_KEY_ADMIN_PASS, adminPasscode);
+            localStorage.setItem(STORAGE_KEY_ADMIN_LOGGED, JSON.stringify(isAdminLoggedIn));
+            localStorage.setItem(STORAGE_KEY_DARKMODE, JSON.stringify(isDarkMode));
+            localStorage.setItem(STORAGE_KEY_CAL, calendarStart);
+            if (currentUser) {
+                localStorage.setItem(STORAGE_KEY_LOGGED, JSON.stringify(currentUser));
+            } else {
+                localStorage.removeItem(STORAGE_KEY_LOGGED);
+            }
+        }
+
+        function toggleDarkMode() {
+            isDarkMode = !isDarkMode;
+            applyDarkModeState();
+            saveState();
+        }
+
+        function applyDarkModeState() {
+            const htmlTag = document.documentElement;
+            const icon = document.getElementById('theme-toggle-icon');
+            if (isDarkMode) {
+                htmlTag.classList.add('dark');
+                if (icon) icon.className = 'fa-solid fa-sun text-sm text-amber-400';
+            } else {
+                htmlTag.classList.remove('dark');
+                if (icon) icon.className = 'fa-solid fa-moon text-sm';
+            }
+        }
+
+        function switchSystemView(mode) {
+            if (mode === 'frontend') {
+                if (currentUser) navigateTo('student-dashboard');
+                else navigateTo('home');
+            } else if (mode === 'backend') {
+                if (isAdminLoggedIn) {
+                    navigateTo('admin');
+                } else {
+                    openAdminPasscodeModal();
+                }
+            }
+        }
+
+        function navigateTo(viewName) {
+            document.getElementById('student-menu-dropdown').classList.add('hidden');
+            document.getElementById('view-home').classList.add('hidden');
+            document.getElementById('view-student-dashboard').classList.add('hidden');
+            document.getElementById('view-admin-dashboard').classList.add('hidden');
+
+            if (viewName === 'home') {
+                document.getElementById('view-home').classList.remove('hidden');
+            } else if (viewName === 'student-dashboard') {
+                if (!currentUser) { openAuthModal('login'); return; }
+                document.getElementById('view-student-dashboard').classList.remove('hidden');
+                renderStudentSemesterTabs();
+                openStudentSemester(activeSemesterKey);
+            } else if (viewName === 'admin') {
+                if (!isAdminLoggedIn) { openAdminPasscodeModal(); return; }
+                document.getElementById('view-admin-dashboard').classList.remove('hidden');
+                renderAdminPanel();
+                resetAdminInactivityTimer();
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function updateUIState() {
+            const loggedInBox = document.getElementById('logged-in-actions');
+
+            if (currentUser) {
+                loggedInBox.classList.remove('hidden');
+                const avatarContainer = document.getElementById('header-avatar-container');
+                const dropAvatar = document.getElementById('dropdown-avatar');
+                if (currentUser.photoUrl) {
+                    avatarContainer.innerHTML = `<img src="${esc(currentUser.photoUrl)}" class="w-full h-full object-cover">`;
+                    dropAvatar.innerHTML = `<img src="${esc(currentUser.photoUrl)}" class="w-full h-full object-cover">`;
+                } else {
+                    avatarContainer.innerHTML = `<i class="fa-solid fa-user"></i>`;
+                    dropAvatar.innerHTML = `<i class="fa-solid fa-user"></i>`;
+                }
+                document.getElementById('dropdown-student-name').innerText = currentUser.name;
+            } else {
+                loggedInBox.classList.add('hidden');
+            }
+        }
+
+        function toggleStudentMenu() {
+            document.getElementById('student-menu-dropdown').classList.toggle('hidden');
+        }
+
+        function renderStudentSemesterTabs() {
+            const tabsContainer = document.getElementById('student-semester-tabs');
+            tabsContainer.innerHTML = '';
+            const semTitles = { sem1: 'First Semester', sem2: 'Second Semester', sem3: 'Third Semester', sem4: 'Fourth Semester' };
+
+            ['sem1', 'sem2', 'sem3', 'sem4'].forEach(semKey => {
+                if (!semesterActivation[semKey]) return;
+                const isCurrent = activeSemesterKey === semKey;
+                const btn = document.createElement('button');
+                const locked = !isSemesterUnlocked(currentUser, semKey);
+                btn.onclick = locked ? () => showToast(lockedMessage(), 'warning') : () => openStudentSemester(semKey);
+                btn.className = `px-4 py-2 rounded-xl text-xs font-bold transition-all ${isCurrent ? 'brown-btn-gradient text-white shadow-md' : 'bg-white/60 dark:bg-stone-800 text-stone-700 dark:text-stone-300 border border-aesthetic-border'}`;
+                btn.innerHTML = (locked ? '<i class="fa-solid fa-lock mr-1.5"></i>' : '') + semTitles[semKey];
+                if (locked) btn.classList.add('opacity-60');
+                tabsContainer.appendChild(btn);
+            });
+        }
+
+        function openStudentSemester(semKey) {
+            if (!isSemesterUnlocked(currentUser, semKey)) { showToast(lockedMessage(), 'warning'); semKey = 'sem1'; }
+            activeSemesterKey = semKey;
+            document.getElementById('dash-student-name').innerText = currentUser ? currentUser.name : '';
+            renderRankBox();
+            renderCalendar('student');
+            renderStudentSemesterTabs();
+            document.getElementById('dashboard-main-overview').classList.remove('hidden');
+            document.getElementById('dashboard-subject-detail').classList.add('hidden');
+            renderSubjectTiles();
+            renderGradesSidebar();
+        }
+
+        function renderSubjectTiles() {
+            const grid = document.getElementById('subject-cards-grid');
+            grid.innerHTML = '';
+            const subjects = subjectsData[activeSemesterKey] || [];
+
+            if (subjects.length === 0) {
+                grid.innerHTML = `<div class="col-span-2 p-6 text-center text-stone-500 dark:text-stone-400 text-xs">No subjects available in this semester yet. Please add subjects via the Admin Panel.</div>`;
+                return;
+            }
+
+            subjects.forEach(subj => {
+                const card = document.createElement('div');
+                card.onclick = () => openSubjectDetail(subj.id);
+                card.className = "aesthetic-glass-card border border-aesthetic-border hover:border-aesthetic-brownLight rounded-3xl p-5 space-y-3 cursor-pointer transition-all shadow-aesthetic group";
+                card.innerHTML = `
+                    <div class="flex items-start justify-between">
+                        <div class="w-11 h-11 rounded-2xl bg-stone-200/80 dark:bg-stone-800 text-aesthetic-brownDark dark:text-darkAesthetic-text flex items-center justify-center text-xl group-hover:bg-aesthetic-brownDark group-hover:text-white transition-colors shadow-sm">
+                            <i class="fa-solid ${subj.icon || 'fa-book'}"></i>
+                        </div>
+                        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-stone-200 dark:bg-stone-800 text-aesthetic-brownDark dark:text-darkAesthetic-text">${realLectureCount(subj)} Lectures</span>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-base text-aesthetic-brownDark dark:text-darkAesthetic-text">${esc(subj.title)}</h4>
+                        <p class="text-xs text-stone-600 dark:text-stone-300 line-clamp-2 mt-1">${esc(subj.desc)}</p>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function renderGradesSidebar() {
+            const list = document.getElementById('semester-grades-list');
+            list.innerHTML = '';
+            const subjects = subjectsData[activeSemesterKey] || [];
+            subjects.forEach(subj => {
+                const row = document.createElement('div');
+                row.className = "p-3 rounded-2xl bg-white/50 dark:bg-stone-800/50 border border-aesthetic-border flex items-center justify-between text-xs";
+                row.innerHTML = `<span class="font-semibold text-stone-700 dark:text-stone-300">${esc(subj.title)}</span><span class="font-bold text-aesthetic-brownDark dark:text-darkAesthetic-text">${getScore(currentUser, subj) ?? '—'} / 100</span>`;
+                list.appendChild(row);
+            });
+            const res = semesterResult(currentUser, activeSemesterKey);
+            if (res.status !== 'empty') {
+                const tone = { passed: 'bg-emerald-50 dark:bg-emerald-950/30 border-emerald-300 dark:border-emerald-900 text-emerald-800 dark:text-emerald-300', failed: 'bg-rose-50 dark:bg-rose-950/30 border-rose-300 dark:border-rose-900 text-rose-800 dark:text-rose-300', progress: 'bg-amber-50 dark:bg-amber-900/20 border-aesthetic-accent text-amber-900 dark:text-amber-200' }[res.status];
+                const msg = { passed: 'PASSED - next semester unlocked.', failed: `FAILED - you need at least ${PASSING_SCORE}/100 to continue to the next semester.`, progress: `IN PROGRESS - ${res.graded}/${res.total} subjects done. ${PASSING_SCORE}/100 is needed to pass.` }[res.status];
+                list.insertAdjacentHTML('beforeend', `<div class="p-3 rounded-2xl border text-xs ${tone}"><div class="font-extrabold">Semester score: ${res.earned} / 100</div><div class="mt-0.5">${msg}</div></div>`);
+            }
+        }
+
+        function openSubjectDetail(subjectId) {
+            const subjects = subjectsData[activeSemesterKey] || [];
+            activeSubject = subjects.find(s => s.id === subjectId) || subjects[0];
+            if (!activeSubject) return;
+
+            activeLecture = activeSubject.lectures && activeSubject.lectures.length > 0 ? (activeSubject.lectures.find(l => !l.placeholder) || activeSubject.lectures[0]) : { title: 'No Lecture Available', num: 'L1', youtubeUrl: '', notes: '' };
+
+            document.getElementById('dashboard-main-overview').classList.add('hidden');
+            document.getElementById('dashboard-subject-detail').classList.remove('hidden');
+
+            document.getElementById('detail-subject-title').innerText = activeSubject.title;
+            document.getElementById('detail-subject-desc').innerText = activeSubject.desc;
+            document.getElementById('detail-subject-score').innerText = getScore(currentUser, activeSubject) ?? '—';
+            document.getElementById('detail-lecture-count-badge').innerText = `${realLectureCount(activeSubject)} Lectures`;
+
+            renderLecturePlayer();
+            renderTableOfContents();
+        }
+
+        function backToMainDashboard() {
+            document.getElementById('detail-video-iframe').src = '';
+            document.getElementById('dashboard-main-overview').classList.remove('hidden');
+            document.getElementById('dashboard-subject-detail').classList.add('hidden');
+        }
+
+        function selectLecture(lectureId) {
+            if (!activeSubject || !activeSubject.lectures) return;
+            activeLecture = activeSubject.lectures.find(l => l.id === lectureId) || activeSubject.lectures[0];
+            renderLecturePlayer();
+            renderTableOfContents();
+        }
+
+        function renderLecturePlayer() {
+            if (!activeLecture) return;
+            document.getElementById('detail-lecture-num').innerText = activeLecture.num || 'LECTURE';
+            document.getElementById('detail-lecture-title').innerText = activeLecture.title;
+            document.getElementById('detail-lecture-notes').innerText = activeLecture.placeholder ? 'This lecture will be posted soon.' : (activeLecture.notes || '');
+            document.getElementById('detail-pdf-btn').href = activeLecture.pdfUrl || '#';
+
+            const pdfBtn = document.getElementById('detail-pdf-btn');
+            const hasPdf = activeLecture.pdfUrl && activeLecture.pdfUrl !== '#';
+            pdfBtn.classList.toggle('hidden', !hasPdf);
+            document.getElementById('detail-video-iframe').src = toEmbedUrl(activeLecture.youtubeUrl);
+        }
+
+        function renderTableOfContents() {
+            const toc = document.getElementById('detail-toc-list');
+            toc.innerHTML = '';
+            if (!activeSubject) return;
+            ensureSlots(activeSubject);
+            const res = (freshUser(currentUser) || {}).quizResults || {};
+            const live = publishedQuizzes(activeSubject).length;
+            document.getElementById('detail-lecture-count-badge').innerText = `${live} ${live === 1 ? 'Quiz' : 'Quizzes'}`;
+            activeSubject.toc.forEach((t, k) => {
+                const w = k + 1, ok = t.published && t.questions.length, r = res[activeSubject.id + ':' + w];
+                const btn = document.createElement('button');
+                if (ok) btn.onclick = () => openQuiz(activeSemesterKey, activeSubject.id, w); else btn.disabled = true;
+                const exam = w % 4 === 0;
+                btn.className = `w-full p-3 rounded-2xl border text-left flex items-center justify-between gap-2 text-xs transition-all ${exam ? 'bg-rose-50 dark:bg-rose-950/30 border-rose-200 dark:border-rose-900/50 text-rose-800 dark:text-rose-300' : 'bg-white/40 dark:bg-stone-900/40 border-aesthetic-border text-stone-700 dark:text-stone-300'} ${ok ? '' : 'opacity-50 cursor-not-allowed'}`;
+                const status = r ? `<span class="px-2 py-0.5 rounded-md text-[10px] font-extrabold ${resultPoints(r, w) / (r.maxPoints || r.total * qWeight(w)) * 100 >= PASSING_SCORE ? 'bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300' : 'bg-rose-100 dark:bg-rose-900/50 text-rose-700 dark:text-rose-300'}">${pt(resultPoints(r, w))}/${pt(r.maxPoints || r.total * qWeight(w))} pts</span>` : (ok ? '<span class="text-[10px] font-extrabold text-aesthetic-brownLight dark:text-amber-300">START</span>' : '<i class="fa-solid fa-lock text-[10px] text-stone-400"></i>');
+                btn.innerHTML = `<div class="flex items-center space-x-2.5 min-w-0"><span class="px-1.5 py-0.5 rounded-md ${exam ? 'bg-rose-200 dark:bg-rose-900/60' : 'bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-300'} text-[9px] font-bold flex-shrink-0">WEEK ${w}</span><span class="truncate font-semibold">${esc(t.title)}</span></div>${status}`;
+                toc.appendChild(btn);
+            });
+            renderLectureList();
+        }
+
+        // Separate table of contents for lectures: connected to the video player and the PDF download.
+        function renderLectureList() {
+            const box = document.getElementById('detail-lectures-list');
+            if (!box) return;
+            box.innerHTML = '';
+            const real = ((activeSubject && activeSubject.lectures) || []).filter(l => !l.placeholder);
+            document.getElementById('detail-lectures-badge').innerText = `${real.length} ${real.length === 1 ? 'Lecture' : 'Lectures'}`;
+            if (!real.length) { box.innerHTML = '<div class="p-3 text-center text-xs text-stone-500 dark:text-stone-400">No lectures posted yet.</div>'; return; }
+            real.forEach((lec, k) => {
+                const sel = activeLecture && activeLecture.id === lec.id;
+                const hasPdf = lec.pdfUrl && lec.pdfUrl !== '#';
+                const b = document.createElement('button');
+                b.onclick = () => { selectLecture(lec.id); const v = document.getElementById('detail-video-iframe'); if (v) v.scrollIntoView({ behavior: 'smooth', block: 'center' }); };
+                b.className = `w-full p-3 rounded-2xl border text-left flex items-center justify-between gap-2 text-xs transition-all ${sel ? 'bg-stone-200 dark:bg-stone-800 border-aesthetic-brownLight text-aesthetic-brownDark dark:text-darkAesthetic-text font-bold' : 'bg-white/40 dark:bg-stone-900/40 border-aesthetic-border text-stone-700 dark:text-stone-300'}`;
+                b.innerHTML = `<div class="flex items-center space-x-2.5 min-w-0"><span class="px-1.5 py-0.5 rounded-md bg-stone-200 dark:bg-stone-700 text-[9px] font-bold flex-shrink-0">${esc(lec.num || 'LECTURE ' + (k + 1))}</span><span class="truncate">${esc(lec.title)}</span></div><div class="flex items-center gap-2 flex-shrink-0 text-[10px] text-stone-400">${hasPdf ? '<i class="fa-solid fa-file-arrow-down" title="PDF available"></i>' : ''}<i class="fa-solid ${sel ? 'fa-circle-play text-aesthetic-brownLight dark:text-amber-300' : 'fa-play'}"></i></div>`;
+                box.appendChild(b);
+            });
+        }
+
+        let isChangingAdminPass = false;
+
+        function openAdminPasscodeModal() {
+            isChangingAdminPass = false;
+            document.getElementById('admin-modal-subtitle').innerText = "Enter Admin Passcode (Default: admin123)";
+            document.getElementById('admin-modal-btn').innerText = "Unlock Backend System";
+            document.getElementById('admin-passcode-modal').classList.remove('hidden');
+        }
+
+        function openChangeAdminPassModal() {
+            isChangingAdminPass = true;
+            document.getElementById('admin-modal-subtitle').innerText = "Enter New Admin Passcode";
+            document.getElementById('admin-modal-btn').innerText = "Update Admin Passcode";
+            document.getElementById('admin-passcode-modal').classList.remove('hidden');
+        }
+
+        function closeAdminPasscodeModal() { 
+            document.getElementById('admin-passcode-modal').classList.add('hidden'); 
+            isChangingAdminPass = false;
+        }
+
+        function handleAdminAuthSubmit(e) {
+            e.preventDefault();
+            const val = document.getElementById('admin-passcode-input').value;
+            document.getElementById('admin-passcode-input').value = '';
+
+            if (isChangingAdminPass) {
+                adminPasscode = val;
+                saveState();
+                closeAdminPasscodeModal();
+                showToast('Admin password successfully updated!', 'success');
+            } else {
+                if (val === adminPasscode) {
+                    closeAdminPasscodeModal();
+                    isAdminLoggedIn = true;
+                    saveState();
+                    navigateTo('admin');
+                    setupAdminInactivityWatchers();
+                    showToast('Successfully logged in to Backend Admin Engine.', 'success');
+                } else {
+                    showToast('Incorrect Admin Passcode.', 'warning');
+                }
+            }
+        }
+
+        function adminLogout() {
+            isAdminLoggedIn = false;
+            saveState();
+            clearAdminInactivityWatchers();
+            navigateTo('home');
+            showToast('Admin successfully logged out.', 'info');
+        }
+
+        function setupAdminInactivityWatchers() {
+            window.addEventListener('mousemove', resetAdminInactivityTimer);
+            window.addEventListener('keypress', resetAdminInactivityTimer);
+            window.addEventListener('touchstart', resetAdminInactivityTimer, { passive: true });
+            window.addEventListener('click', resetAdminInactivityTimer);
+            window.addEventListener('scroll', resetAdminInactivityTimer);
+            resetAdminInactivityTimer();
+        }
+
+        function clearAdminInactivityWatchers() {
+            if (adminInactivityTimer) clearTimeout(adminInactivityTimer);
+            window.removeEventListener('mousemove', resetAdminInactivityTimer);
+            window.removeEventListener('keypress', resetAdminInactivityTimer);
+            window.removeEventListener('touchstart', resetAdminInactivityTimer, { passive: true });
+            window.removeEventListener('click', resetAdminInactivityTimer);
+            window.removeEventListener('scroll', resetAdminInactivityTimer);
+        }
+
+        function resetAdminInactivityTimer() {
+            if (!isAdminLoggedIn) return;
+            if (adminInactivityTimer) clearTimeout(adminInactivityTimer);
+            adminInactivityTimer = setTimeout(() => {
+                if (isAdminLoggedIn) {
+                    isAdminLoggedIn = false;
+                    saveState();
+                    clearAdminInactivityWatchers();
+                    document.getElementById('view-admin-dashboard').classList.add('hidden');
+                    navigateTo('home');
+                    showToast('Admin session expired due to 1 minute of inactivity.', 'warning');
+                }
+            }, ADMIN_INACTIVITY_LIMIT);
+        }
+
+        function renderAdminPanel() {
+            renderTopTen('admin-top10-list', '');
+            renderCalendar('admin');
+            const toggleBox = document.getElementById('admin-semester-toggles');
+            toggleBox.innerHTML = '';
+            const semLabels = { sem1: 'First Semester', sem2: 'Second Semester', sem3: 'Third Semester', sem4: 'Fourth Semester' };
+
+            ['sem1', 'sem2', 'sem3', 'sem4'].forEach(semKey => {
+                const isActive = semesterActivation[semKey];
+                const card = document.createElement('div');
+                card.className = `p-4 rounded-2xl border flex items-center justify-between ${isActive ? 'bg-stone-200/50 dark:bg-stone-800/50 border-aesthetic-border' : 'bg-white/40 dark:bg-stone-900/40 border-aesthetic-border'}`;
+                card.innerHTML = `
+                    <div><div class="text-sm font-bold text-aesthetic-brownDark dark:text-darkAesthetic-text">${semLabels[semKey]}</div><span class="text-[11px] ${isActive ? 'text-aesthetic-brownLight dark:text-amber-300 font-bold' : 'text-stone-400'}">${isActive ? 'Active' : 'Locked'}</span></div>
+                    <label class="aesthetic-switch"><input type="checkbox" ${isActive ? 'checked' : ''} onchange="toggleSemesterActivation('${semKey}')"><span class="aesthetic-slider"></span></label>
+                `;
+                toggleBox.appendChild(card);
+            });
+
+            populateAdminSubjectDropdown();
+            
+            const studentsContainer = document.getElementById('admin-students-list-container');
+            studentsContainer.innerHTML = usersDB.length === 0 ? `<div class="col-span-full p-4 text-center text-stone-500 dark:text-stone-400 text-xs">No registered students found.</div>` : '';
+            
+            usersDB.forEach((user, index) => {
+                const btn = document.createElement('button');
+                btn.onclick = () => openAdminStudentDetailModal(index);
+                btn.className = "p-4 bg-white/70 dark:bg-stone-900/60 border border-aesthetic-border hover:border-aesthetic-brownLight rounded-3xl text-left flex items-center space-x-4 group transition-all shadow-sm hover:shadow-md";
+                
+                let avatarHtml = `<div class="w-16 h-16 rounded-full bg-stone-200 dark:bg-stone-800 text-aesthetic-brownDark dark:text-darkAesthetic-text border-2 border-aesthetic-accent flex items-center justify-center font-bold text-xl flex-shrink-0 shadow-sm"><i class="fa-solid fa-user-graduate"></i></div>`;
+                if (user.photoUrl) {
+                    avatarHtml = `<div class="w-16 h-16 rounded-full overflow-hidden border-2 border-aesthetic-accent flex-shrink-0 shadow-sm"><img src="${esc(user.photoUrl)}" class="w-full h-full object-cover"></div>`;
+                }
+
+                btn.innerHTML = `
+                    ${avatarHtml}
+                    <div class="min-w-0 flex-1">
+                        <h4 class="font-bold text-base text-aesthetic-brownDark dark:text-darkAesthetic-text group-hover:text-aesthetic-brownLight truncate">${esc(user.name)}</h4>
+                        <p class="text-xs text-stone-500 dark:text-stone-400 truncate mt-0.5"><i class="fa-solid fa-at mr-1"></i> ${esc(user.email)}</p>
+                        <span class="inline-block mt-1 px-2 py-0.5 bg-stone-200 dark:bg-stone-800 text-stone-700 dark:text-stone-300 text-[10px] font-bold rounded-md">${esc(user.gender)}</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-sm text-stone-400 group-hover:text-aesthetic-brownDark dark:group-hover:text-darkAesthetic-text"></i>
+                `;
+                const av = btn.firstElementChild;
+                av.classList.add('cursor-zoom-in');
+                av.title = 'Tap to view photo';
+                av.onclick = (ev) => { ev.stopPropagation(); openPhotoViewer(user.photoUrl, user.name); };
+                studentsContainer.appendChild(btn);
+            });
+        }
+
+        function openPhotoViewer(url, name) {
+            if (!url) { showToast('This student has not uploaded a profile picture yet.', 'info'); return; }
+            const v = document.getElementById('photo-viewer');
+            const img = document.getElementById('photo-viewer-img');
+            const flash = document.getElementById('photo-flash-layer');
+            img.classList.remove('photo-pop'); flash.classList.remove('photo-flash-layer');
+            void img.offsetWidth;
+            img.src = url;
+            document.getElementById('photo-viewer-name').innerText = name || '';
+            v.classList.remove('hidden');
+            flash.classList.add('photo-flash-layer');
+            img.classList.add('photo-pop');
+        }
+        function closePhotoViewer() { document.getElementById('photo-viewer').classList.add('hidden'); }
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closePhotoViewer(); });
+
+        let adminModalStudentIndex = -1;
+        function saveStudentScores() {
+            const user = usersDB[adminModalStudentIndex];
+            if (!user) return;
+            user.scores = {};
+            document.querySelectorAll('#admin-modal-student-scores-list input[data-subj]').forEach(inp => {
+                if (inp.value === '') return;
+                user.scores[inp.dataset.subj] = Math.max(0, Math.min(100, Number(inp.value) || 0));
+            });
+            saveState();
+            renderTopTen('admin-top10-list', '');
+            openAdminStudentDetailModal(adminModalStudentIndex);
+            showToast('Student scores saved.', 'success');
+        }
+
+        function openAdminStudentDetailModal(index) {
+            const user = usersDB[index];
+            if (!user) return;
+            adminModalStudentIndex = index;
+
+            document.getElementById('admin-modal-student-name').innerText = user.name;
+            document.getElementById('admin-modal-student-email').innerText = user.email;
+            document.getElementById('admin-modal-student-pass').innerText = user.password;
+            document.getElementById('admin-modal-student-gender').innerText = user.gender;
+            document.getElementById('admin-modal-student-contact').innerText = user.contact || 'N/A';
+            document.getElementById('admin-modal-student-address').innerText = user.address || 'N/A';
+            document.getElementById('admin-modal-student-date').innerText = new Date(user.registeredAt).toLocaleDateString();
+
+            const avatarModal = document.getElementById('admin-modal-student-avatar');
+            if (user.photoUrl) {
+                avatarModal.innerHTML = `<img src="${esc(user.photoUrl)}" class="w-full h-full object-cover">`;
+            } else {
+                avatarModal.innerHTML = `<i class="fa-solid fa-user-graduate"></i>`;
+            }
+            avatarModal.classList.add('cursor-zoom-in');
+            avatarModal.onclick = () => openPhotoViewer(user.photoUrl, user.name);
+
+            const scoresList = document.getElementById('admin-modal-student-scores-list');
+            scoresList.innerHTML = '';
+
+            let hasScores = false;
+            ['sem1', 'sem2', 'sem3', 'sem4'].forEach(semKey => {
+                const subjects = subjectsData[semKey] || [];
+                if (subjects.length) {
+                    const res = semesterResult(user, semKey);
+                    const lbl = { passed: 'PASSED', failed: 'FAILED', progress: 'IN PROGRESS' }[res.status];
+                    const col = { passed: 'text-emerald-700 dark:text-emerald-400', failed: 'text-rose-700 dark:text-rose-400', progress: 'text-amber-700 dark:text-amber-300' }[res.status];
+                    const head = document.createElement('div');
+                    head.className = 'flex items-center justify-between pt-2 text-[10px] font-extrabold uppercase tracking-wider text-stone-500 dark:text-stone-400';
+                    head.innerHTML = `<span>${semKey.toUpperCase()} · ${res.earned}/100</span><span class="${col}">${lbl}</span>`;
+                    scoresList.appendChild(head);
+                }
+                subjects.forEach(subj => {
+                    hasScores = true;
+                    const row = document.createElement('div');
+                    row.className = "flex items-center justify-between p-2.5 bg-white/80 dark:bg-stone-900 border border-aesthetic-border rounded-xl";
+                    const sc = (user.scores || {})[subj.id], autoV = autoScore(user, subj);
+                    row.innerHTML = `<span class="font-medium text-stone-700 dark:text-stone-300">${esc(subj.title)} <span class="text-[10px] text-aesthetic-brownLight dark:text-amber-300">(${semKey.toUpperCase()})</span></span><input type="number" min="0" max="100" data-subj="${esc(subj.id)}" value="${sc ?? ''}" placeholder="${autoV ?? '—'}" title="Leave blank to use the quiz points" class="w-16 text-center bg-white dark:bg-stone-800 border border-aesthetic-border rounded-lg p-1 text-xs font-bold">`;
+                    scoresList.appendChild(row);
+                });
+            });
+
+            if (!hasScores) {
+                scoresList.innerHTML = `<div class="p-3 text-center text-stone-500 dark:text-stone-400 text-xs">No subjects recorded yet.</div>`;
+            }
+
+            document.getElementById('admin-student-detail-modal').classList.remove('hidden');
+        }
+
+        function closeAdminStudentDetailModal() {
+            document.getElementById('admin-student-detail-modal').classList.add('hidden');
+        }
+
+        function populateAdminSubjectDropdown() {
+            const semKey = document.getElementById('admin-semester-select').value;
+            const subjectSelect = document.getElementById('admin-subject-select');
+            subjectSelect.innerHTML = '';
+            const list = subjectsData[semKey] || [];
+
+            if (list.length === 0) {
+                const opt = document.createElement('option');
+                opt.value = "";
+                opt.innerText = "-- No Subjects Found (Add Below) --";
+                subjectSelect.appendChild(opt);
+                document.getElementById('admin-lecture-select').innerHTML = "";
+                return;
+            }
+
+            list.forEach(subj => {
+                const opt = document.createElement('option');
+                opt.value = subj.id;
+                opt.innerText = subj.title;
+                subjectSelect.appendChild(opt);
+            });
+            handleAdminSubjectChange();
+        }
+
+        function handleAdminSemesterChange() {
+            renderCalendar('admin');
+            populateAdminSubjectDropdown();
+        }
+
+        function handleAdminSubjectChange() {
+            renderCalendar('admin');
+            tocLoad();
+            const semKey = document.getElementById('admin-semester-select').value;
+            const subjectId = document.getElementById('admin-subject-select').value;
+            const list = subjectsData[semKey] || [];
+            const subj = list.find(s => s.id === subjectId);
+
+            const lectureSelect = document.getElementById('admin-lecture-select');
+            lectureSelect.innerHTML = '';
+
+            if (subj && subj.lectures && subj.lectures.length > 0) {
+                subj.lectures.forEach(lec => {
+                    const opt = document.createElement('option');
+                    opt.value = lec.id;
+                    opt.innerText = `${lec.num}: ${lec.title}`;
+                    lectureSelect.appendChild(opt);
+                });
+                handleAdminLectureChange();
+            } else {
+                document.getElementById('admin-edit-lec-num').value = '';
+                document.getElementById('admin-edit-lec-title').value = '';
+                document.getElementById('admin-edit-lec-video').value = '';
+                document.getElementById('admin-edit-lec-pdf').value = '';
+                document.getElementById('admin-edit-lec-notes').value = '';
+            }
+        }
+
+        function handleAdminLectureChange() {
+            const semKey = document.getElementById('admin-semester-select').value;
+            const subjectId = document.getElementById('admin-subject-select').value;
+            const lectureId = document.getElementById('admin-lecture-select').value;
+
+            const list = subjectsData[semKey] || [];
+            const subj = list.find(s => s.id === subjectId);
+            if (!subj) return;
+
+            const lec = (subj.lectures || []).find(l => l.id === lectureId);
+            if (!lec) return;
+
+            document.getElementById('admin-edit-lec-num').value = lec.num || '';
+            document.getElementById('admin-edit-lec-title').value = lec.title || '';
+            document.getElementById('admin-edit-lec-video').value = lec.youtubeUrl || '';
+            document.getElementById('admin-edit-lec-pdf').value = lec.pdfUrl || '';
+            document.getElementById('admin-edit-lec-notes').value = lec.notes || '';
+        }
+
+        function addNewCustomSubject() {
+            const semKey = document.getElementById('admin-semester-select').value;
+            const titleInput = document.getElementById('new-subject-title-input');
+            const descInput = document.getElementById('new-subject-desc-input');
+
+            const title = titleInput.value.trim();
+            const desc = descInput.value.trim() || 'Custom subject curriculum study.';
+
+            if (!title) {
+                showToast('Please enter a valid subject title.', 'warning');
+                return;
+            }
+
+            if (!subjectsData[semKey]) subjectsData[semKey] = [];
+
+            const newSubjectId = 'subj_' + Date.now();
+            const newSubject = {
+                id: newSubjectId,
+                title: title,
+                icon: 'fa-book-bookmark',
+                desc: desc,
+                grade: 100,
+                lectures: [
+                    {
+                        id: 'lec_' + Date.now(),
+                        num: 'LECTURE 1',
+                        title: 'Introduction to ' + title,
+                        youtubeUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+                        pdfUrl: '#',
+                        notes: 'Initial introductory lesson overview.',
+                        completed: false
+                    }
+                ]
+            };
+
+            ensureSlots(newSubject);
+            subjectsData[semKey].push(newSubject);
+            saveState();
+            
+            titleInput.value = '';
+            descInput.value = '';
+
+            populateAdminSubjectDropdown();
+            document.getElementById('admin-subject-select').value = newSubjectId;
+            handleAdminSubjectChange();
+
+            showToast(`Successfully added new subject "${title}"!`, 'success');
+        }
+
+        function deleteSelectedSubject() {
+            const semKey = document.getElementById('admin-semester-select').value;
+            const subjectId = document.getElementById('admin-subject-select').value;
+
+            if (!subjectId) {
+                showToast('No subject selected.', 'warning');
+                return;
+            }
+
+            if (!confirm('Are you sure you want to delete this entire subject and its lectures?')) return;
+
+            subjectsData[semKey] = subjectsData[semKey].filter(s => s.id !== subjectId);
+            saveState();
+            populateAdminSubjectDropdown();
+            showToast('Subject deleted successfully.', 'info');
+        }
+
+        let isCreatingNewLecture = false;
+
+        function addNewLectureFromForm() {
+            const semKey = document.getElementById('admin-semester-select').value;
+            const subjectId = document.getElementById('admin-subject-select').value;
+            const list = subjectsData[semKey] || [];
+            const subj = list.find(s => s.id === subjectId);
+            if (!subj) { showToast('Please select a subject first.', 'warning'); return; }
+
+            const newNum = (realLectureCount(subj)) + 1;
+            
+            document.getElementById('admin-edit-lec-num').value = `LECTURE ${newNum}`;
+            document.getElementById('admin-edit-lec-title').value = `New Lecture Topic ${newNum}`;
+            document.getElementById('admin-edit-lec-video').value = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
+            document.getElementById('admin-edit-lec-pdf').value = '#';
+            document.getElementById('admin-edit-lec-notes').value = 'New lecture notes and overview...';
+
+            isCreatingNewLecture = true;
+            showToast('Fill in the details above and click Save to add this new lecture!', 'info');
+        }
+
+        function deleteSelectedLectureTab() {
+            const semKey = document.getElementById('admin-semester-select').value;
+            const subjectId = document.getElementById('admin-subject-select').value;
+            const lectureId = document.getElementById('admin-lecture-select').value;
+
+            const list = subjectsData[semKey] || [];
+            const subj = list.find(s => s.id === subjectId);
+            if (!subj || !subj.lectures || subj.lectures.length <= 1) {
+                showToast('Cannot delete the last remaining lecture.', 'warning');
+                return;
+            }
+
+            subj.lectures = subj.lectures.filter(l => l.id !== lectureId);
+            saveState();
+            handleAdminSubjectChange();
+            showToast('Selected lecture deleted successfully.', 'info');
+        }
+
+        function handleSaveLectureContent(e) {
+            e.preventDefault();
+            const semKey = document.getElementById('admin-semester-select').value;
+            const subjectId = document.getElementById('admin-subject-select').value;
+
+            const list = subjectsData[semKey] || [];
+            const subj = list.find(s => s.id === subjectId);
+            if (!subj) return;
+
+            const num = document.getElementById('admin-edit-lec-num').value.trim();
+            const title = document.getElementById('admin-edit-lec-title').value.trim();
+            const youtubeUrl = document.getElementById('admin-edit-lec-video').value.trim();
+            const pdfUrl = document.getElementById('admin-edit-lec-pdf').value.trim();
+            const notes = document.getElementById('admin-edit-lec-notes').value.trim();
+
+            if (isCreatingNewLecture) {
+                const newLec = {
+                    id: 'lec_' + Date.now(),
+                    num,
+                    title,
+                    youtubeUrl,
+                    pdfUrl,
+                    notes,
+                    completed: false
+                };
+                if (!subj.lectures) subj.lectures = [];
+                const freeSlot = subj.lectures.findIndex(l => l.placeholder);
+                if (freeSlot !== -1) subj.lectures[freeSlot] = newLec; else subj.lectures.push(newLec);
+                isCreatingNewLecture = false;
+                showToast('New lecture successfully created and saved!', 'success');
+            } else {
+                const lectureId = document.getElementById('admin-lecture-select').value;
+                const lec = (subj.lectures || []).find(l => l.id === lectureId);
+                if (!lec) return;
+
+                lec.num = num;
+                lec.title = title;
+                lec.youtubeUrl = youtubeUrl;
+                lec.pdfUrl = pdfUrl;
+                lec.notes = notes;
+                lec.placeholder = false;
+                showToast('Lecture saved and published to student portal successfully!', 'success');
+            }
+
+            saveState();
+            handleAdminSubjectChange();
+        }
+
+        function toggleSemesterActivation(semKey) {
+            semesterActivation[semKey] = !semesterActivation[semKey];
+            saveState();
+            renderAdminPanel();
+            showToast(`Updated status for ${semKey.toUpperCase()}.`, 'info');
+        }
+
+        function openAuthModal(tab) { switchAuthTab(tab); document.getElementById('auth-modal').classList.remove('hidden'); }
+        function closeAuthModal() { document.getElementById('auth-modal').classList.add('hidden'); }
+        function switchAuthTab(tab) {
+            const loginBtn = document.getElementById('tab-login');
+            const regBtn = document.getElementById('tab-register');
+            const loginForm = document.getElementById('form-login');
+            const regForm = document.getElementById('form-register');
+            if (tab === 'login') {
+                loginBtn.className = 'flex-1 pb-3 font-bold text-center border-b-2 border-aesthetic-brownDark dark:border-amber-400 text-aesthetic-brownDark dark:text-darkAesthetic-text';
+                regBtn.className = 'flex-1 pb-3 font-bold text-center border-b-2 border-transparent text-stone-500 dark:text-stone-400';
+                loginForm.classList.remove('hidden'); regForm.classList.add('hidden');
+            } else {
+                regBtn.className = 'flex-1 pb-3 font-bold text-center border-b-2 border-aesthetic-brownDark dark:border-amber-400 text-aesthetic-brownDark dark:text-darkAesthetic-text';
+                loginBtn.className = 'flex-1 pb-3 font-bold text-center border-b-2 border-transparent text-stone-500 dark:text-stone-400';
+                regForm.classList.remove('hidden'); loginForm.classList.add('hidden');
+            }
+        }
+
+        function handleRegisterSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('reg-name').value.trim();
+            const email = document.getElementById('reg-email').value.trim().toLowerCase();
+            if (!/^[a-z0-9._-]{3,20}$/.test(email)) { showToast('Username must be 3-20 characters: letters, numbers, dot, dash or underscore. No spaces.', 'warning'); return; }
+            const gender = document.getElementById('reg-gender').value;
+            const password = document.getElementById('reg-password').value;
+
+            if (usersDB.some(u => u.email === email)) { showToast('This username is already taken.', 'warning'); return; }
+
+            const newUser = { name, email, gender, password, photoUrl: '', contact: '', address: '', registeredAt: Date.now() };
+            usersDB.push(newUser);
+            currentUser = newUser;
+            saveState();
+            closeAuthModal();
+            updateUIState();
+            navigateTo('student-dashboard');
+            showToast('Welcome to the Madrasa Student Portal!', 'success');
+        }
+
+        function handleLoginSubmit(e) {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value.trim().toLowerCase().replace(/\s+/g, '');
+            const password = document.getElementById('login-password').value;
+            const user = usersDB.find(u => u.email === email && u.password === password);
+            if (!user) { showToast('Invalid username or password.', 'warning'); return; }
+
+            currentUser = user;
+            saveState();
+            closeAuthModal();
+            updateUIState();
+            navigateTo('student-dashboard');
+            showToast(`Welcome back, ${user.name}!`, 'success');
+        }
+
+        function logoutStudent() {
+            currentUser = null;
+            saveState();
+            updateUIState();
+            navigateTo('home');
+            showToast('Successfully logged out from portal.', 'info');
+        }
+
+        function openDetailedProfileModal() {
+            document.getElementById('student-menu-dropdown').classList.add('hidden');
+            if (!currentUser) { openAuthModal('login'); return; }
+            document.getElementById('prof-fullname').value = currentUser.name || '';
+            document.getElementById('prof-email').value = currentUser.email || '';
+            document.getElementById('prof-gender').value = currentUser.gender || 'Male';
+            document.getElementById('prof-contact').value = currentUser.contact || '';
+            document.getElementById('prof-address').value = currentUser.address || '';
+            document.getElementById('prof-photo-url').value = currentUser.photoUrl || '';
+            document.getElementById('detailed-profile-modal').classList.remove('hidden');
+        }
+
+        function closeDetailedProfileModal() { document.getElementById('detailed-profile-modal').classList.add('hidden'); }
+
+        function handleFileUploadPreview(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = new Image();
+                    img.onload = function() {
+                        const k = Math.min(1, 256 / Math.max(img.width, img.height));
+                        const c = document.createElement('canvas');
+                        c.width = Math.round(img.width * k); c.height = Math.round(img.height * k);
+                        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+                        const dataUrl = c.toDataURL('image/jpeg', 0.8);
+                        document.getElementById('prof-photo-url').value = dataUrl;
+                        document.getElementById('modal-avatar-preview').innerHTML = `<img src="${dataUrl}" class="w-full h-full object-cover">`;
+                    };
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function handleSaveDetailedProfile(event) {
+            event.preventDefault();
+            if (!currentUser) return;
+            currentUser.name = document.getElementById('prof-fullname').value.trim();
+            currentUser.gender = document.getElementById('prof-gender').value;
+            currentUser.contact = document.getElementById('prof-contact').value.trim();
+            currentUser.address = document.getElementById('prof-address').value.trim();
+            currentUser.photoUrl = document.getElementById('prof-photo-url').value.trim();
+
+            const index = usersDB.findIndex(u => u.email === currentUser.email);
+            if (index !== -1) usersDB[index] = { ...currentUser, scores: usersDB[index].scores, quizResults: usersDB[index].quizResults };
+
+            saveState();
+            updateUIState();
+            closeDetailedProfileModal();
+            showToast('Student profile details saved successfully!', 'success');
+        }
+
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast-message');
+            const icon = document.getElementById('toast-icon');
+            const text = document.getElementById('toast-text');
+            text.innerText = message;
+            icon.className = type === 'warning' ? 'fa-solid fa-triangle-exclamation text-amber-600 text-lg' : type === 'info' ? 'fa-solid fa-circle-info text-sky-600 text-lg' : 'fa-solid fa-circle-check text-aesthetic-brownLight dark:text-amber-300 text-lg';
+            toast.classList.remove('hidden');
+            setTimeout(() => { toast.classList.add('hidden'); }, 3500);
+        }
+    </script>
+</body>
+</html>
